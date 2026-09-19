@@ -2,7 +2,7 @@
 
 **Repository:** `smart01-bot/FRONTEND-TOURE-DE-ROTARY`  
 **Branch:** `main`  
-**Baseline reviewed:** Phase 1 implementation (see latest handoff)
+**Baseline reviewed:** `5221cc867fbbbdf6a2a5995db3a0f048062c705b`
 **Reviewed:** 19 September 2026
 
 This file describes the committed implementation. Source code remains authoritative for exact behaviour.
