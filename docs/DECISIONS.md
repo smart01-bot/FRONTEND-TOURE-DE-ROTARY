@@ -20,6 +20,8 @@ Only settled, project-wide choices belong here. Newer entries replace older entr
 
 | 2026-09-19 | Active | Race information lives at public `/race-info`, with content in `src/config/race-info.ts` and native expandable sections. | Keeps all topics within two taps from the homepage, reuses existing visual tokens, and requires no new backend. |
 | 2026-09-19 | Active | Existing registration configuration is labelled as such; it does not verify official operational information. Unknown facts render `TBD`, and confirmed fact records require a source and review date. | Avoids inventing event details from unsourced legacy copy. Official guide remains disabled until a reviewed PDF exists. |
+| 2026-09-20 | Active | Course maps live at public `/course-map`, with operational geometry and markers centralised in `src/config/course-map.ts`. | Keeps SWIM, BIKE, RUN and EVENT separate, makes future route publication configurable, and gives `/race-info` one additive entry point without restructuring its established sections. |
+| 2026-09-20 | Active | Course polylines and operational markers stay absent until reviewed organiser data supplies coordinates, a source and a review date. | A complete honest unavailable map experience is preferable to estimated routes, venues, transitions or logistics. Location permission is optional and never requested on page load. |
 
 ## Entry format
 

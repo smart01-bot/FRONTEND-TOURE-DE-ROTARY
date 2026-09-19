@@ -12,13 +12,14 @@ This register tracks current confirmed frontend problems and major limitations. 
 | TD-006 | Medium | Training | Some resource/map controls do not open real content or explain unavailability. | Resolved `5221cc867fbbbdf6a2a5995db3a0f048062c705b` | Phase 1 |
 | TD-007 | Medium | Product copy | `Tour de Dar` / `Tour de Rotary` and story terminology are inconsistent. | Resolved `5221cc867fbbbdf6a2a5995db3a0f048062c705b` | Phase 1 |
 | TD-008 | Medium | Participant identity | Profile photo, public profile, and connected identity presentation are incomplete. | Partially resolved; public profiles and upload storage remain Phase 4 | Phase 4 |
-| TD-009 | High | Product scope | Teams, challenges, maps, results, photos, lifecycle modes, and archives are absent. | Planned | Phases 2–6 |
+| TD-009 | High | Product scope | Teams, challenges, results, photos, lifecycle modes, and archives are absent. The map frontend now exists; its official operational data is tracked separately below. | Partially resolved by Phases 2–3 | Phases 4–6 |
 | TD-010 | Medium | Repository | `tsconfig.tsbuildinfo` is currently tracked although it is generated build state. | Resolved `5221cc867fbbbdf6a2a5995db3a0f048062c705b` | Phase 1 |
 | TD-011 | Medium | Moderation | Reported-post UI is local-only until a moderation table/API and enforcement workflow are available. | Blocked by backend contract | Phase 4 |
 | TD-012 | Medium | Media | Profile-photo upload and feed media attachment require approved Supabase Storage buckets and policies. | Blocked by backend contract | Phase 4 |
 | TD-013 | High | Race content | `/race-info` has all required topic homes, but official dates, venues, waves, course instructions, requirements, safety/medical details, logistics and guide are not verified. Expand any affected section to see `TBD`. | Awaiting organiser sources | Content publication / Phase 3 |
 | TD-014 | Medium | Event consistency | Homepage/registration already display a date and course descriptions without recorded official provenance; `/race-info` deliberately keeps their operational confirmation TBD. Verify the originals before changing protected existing copy. | Awaiting organiser verification | Content publication |
-| TD-015 | Medium | Visual QA | Browser engine download timed out in this environment. Phase 2 has a responsive source audit but no browser screenshot or real-device pass. | Environment limitation | Next browser-enabled review |
+| TD-015 | Medium | Visual QA | The browser automation package is available, but its Chromium binary is not installed in this environment. Phases 2–3 have responsive source audits but no browser screenshot or real-device pass. | Environment limitation | Next browser-enabled review |
+| TD-016 | High | Course map | `/course-map` has complete configurable SWIM, BIKE, RUN and EVENT homes, but organiser-confirmed route lines, start/finish/T1/T2 coordinates, aid/hydration/safety/medical points and logistics locations are unavailable. Each view therefore displays its explicit unavailable state. | Awaiting organiser geometry and location sources | Content publication |
 
 ## Issue lifecycle
 

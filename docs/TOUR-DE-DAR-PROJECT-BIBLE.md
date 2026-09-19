@@ -8,7 +8,7 @@
 
 **Working repository:** `smart01-bot/FRONTEND-TOURE-DE-ROTARY`
 
-**Current implementation estimate after Phase 2:** Approximately 50% of the complete frontend vision and approximately 85% of the pre-race MVP. These are scope estimates, not launch-readiness measures; official race content is still awaiting confirmation.
+**Current implementation estimate after Phase 3:** Approximately 60% of the complete frontend vision and approximately 90% of the pre-race MVP. These are scope estimates, not launch-readiness measures; official race and course content is still awaiting confirmation.
 
 ---
 
@@ -583,6 +583,8 @@ Use short mobile sections, sticky local navigation or accordions. Avoid one extr
 ---
 
 ## 7. Phase 3 — Course and Dar map experience
+
+**Frontend status:** Implemented at `/course-map`. SWIM, BIKE, RUN and EVENT have separate configurable views, mobile-first controls, route/marker rendering contracts, a legend, route details, transition sequence and honest loading/offline/unavailable states. No organiser-confirmed geometry or logistics locations were available, so no operational line or marker is displayed. See `docs/handoffs/PHASE-03-COURSE-DAR-MAP-HANDOFF.md` for verification and delivery status.
 
 ### Objective
 

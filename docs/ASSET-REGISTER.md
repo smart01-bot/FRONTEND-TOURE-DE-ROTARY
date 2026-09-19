@@ -37,3 +37,7 @@ The source of truth for exact asset files is `public/assets/` on the latest `dev
 ## Phase 2 race-guide asset
 
 No new assets were added or renamed. The official race-guide PDF is **TBD**. `RACE_GUIDE.file` in `src/config/race-info.ts` remains `null`, and the download is visibly disabled with an explanation. When the organiser supplies a verified PDF, register its exact path, source, review date and rights before enabling the download. Do not generate a document of placeholders and present it as the official race guide.
+
+## Phase 3 course-map assets
+
+No new image, route or map-tile asset was added or renamed. Route lines and markers are configured data in `src/config/course-map.ts`, and their verified datasets remain empty. If the organiser supplies GPX, GeoJSON, KML, a PDF map or another route asset, record its exact path, source, review date, rights and relationship to the published coordinate data before use. No unverified screenshot or traced route may become operational map geometry.

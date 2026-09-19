@@ -28,6 +28,13 @@ This register prevents phrases such as “the last design” from becoming perma
 - No global styles, design tokens, assets or participant pages changed. New sections use native expandable controls, wrapping content and single-column phone layouts; cards become three columns at `sm`.
 - Phone/tablet/desktop source comparison completed. Browser screenshot comparison remains unavailable because Chromium installation timed out; do not interpret this as a visual browser pass.
 
+## Phase 3 preservation record
+
+- `/course-map` reuses `HomeNav`, `HomeFooter`, the existing navy/sand/bronze and discipline colours, serif/sans/numeric fonts, card radii, shadows, buttons and focus treatment.
+- `/race-info` retains all 17 sections and their markup; its only Phase 3 addition is one existing-style header link to the map. No homepage, global style, design token, existing asset or participant screen changed.
+- The four-view control uses 48px-high mobile targets. The base layout is single-column with the details surface following the canvas as a mobile sheet; it becomes a contained two-column composition at `lg`. Controls wrap, legend columns respond and the page uses width containment at 360–390px.
+- Source comparison and rendered-route checks completed for the phone/tablet/desktop rules. Browser screenshot comparison remains unavailable because the installed browser package has no Chromium binary; do not interpret this as a visual browser pass.
+
 ## Adding a reference
 
 Record:

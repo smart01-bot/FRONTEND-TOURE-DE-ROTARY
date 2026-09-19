@@ -4,8 +4,8 @@
 **Active branch:** `development`
 
 **Protected stable branch:** `main` at pre-Phase-1 state
-**Phase 2 starting baseline:** `bed15e19d69c9b1a413fbdd9f55636e38108842e`
-**Reviewed:** 19 September 2026
+**Phase 3 starting baseline:** `addadbf5f47925c8bfae22c46907857616a5f8ad`
+**Reviewed:** 20 September 2026
 
 This file describes the committed implementation. Source code remains authoritative for exact behaviour.
 
@@ -26,6 +26,7 @@ This file describes the committed implementation. Source code remains authoritat
 | `/` | Public | Event landing page |
 | `/stories` | Public | Participant stories |
 | `/race-info` | Public | Configurable race information with native expandable sections and explicit TBD states |
+| `/course-map` | Public | SWIM, BIKE, RUN and EVENT map views with configurable verified geometry and honest unavailable states |
 | `/fundraise/[slug]` | Public | Public fundraising campaign |
 | `/login` | Guest | Participant sign-in |
 | `/register` | Guest | Multi-step registration |
@@ -52,7 +53,9 @@ This file describes the committed implementation. Source code remains authoritat
 - `src/config/site.ts` holds general event metadata.
 - `src/config/categories.ts` holds categories, disciplines, prices, and distances.
 - `src/config/race-info.ts` holds race-information sections, sourced facts, pending operational fields, FAQs, and guide availability. It imports registration options and fees from the existing category configuration.
+- `src/config/course-map.ts` is the only operational course-map data contract. It defines separate view metadata, route polylines, marker/location types, transition relationships, legend entries, required source/review metadata, and the currently empty verified datasets.
 - `src/app/race-info/page.tsx` renders static public content using existing homepage components and design tokens. Native `details`/`summary` controls work without client-side data fetching. The route is explicitly public in middleware.
+- `src/app/course-map/page.tsx` renders the public map page. `src/components/course-map/CourseMapExperience.tsx` owns its client-side switcher, connectivity state, optional user-location request, SVG geometry renderer, zoom/fit controls, mobile detail sheet, legend and accessible text alternative. The route is explicitly public in middleware.
 - `src/context/UserContext.tsx` supplies authenticated-user context.
 - `src/context/ParticipantThemeContext.tsx` supplies participant theme state.
 - `src/hooks/` connects screens to participant, story, feed, fundraising, and admin data.
@@ -79,7 +82,8 @@ This file describes the committed implementation. Source code remains authoritat
 - Profile-photo uploads and feed media attachments await an approved storage and RLS contract.
 - Participant profiles do not yet function as public digital homes.
 - Race-information frontend is implemented; official dates/venues, courses, waves, policies, logistics and guide publication remain unverified/TBD. Existing homepage/registration date and course copy have no recorded organiser provenance; do not treat them as operational confirmation.
-- Teams, challenges, discipline maps, leaderboards, results, photo discovery, lifecycle modes, and archival experience are not implemented.
+- Teams, challenges, leaderboards, results, photo discovery, lifecycle modes, and archival experience are not implemented.
+- The course-map frontend is implemented, but all route polylines and operational markers remain unpublished because no reviewed organiser geometry or logistics source exists. Do not convert legacy homepage, registration, README or ticket copy into map records.
 - Naming and story prompt were settled in Phase 1: `Tour de Dar` and `Why are you doing this?`.
 
 ## Expected Supabase entities
@@ -132,6 +136,8 @@ If a command is unavailable or blocked by missing external configuration, record
 - Ticket QR payloads contain only a site/profile URL and registration identifier; do not encode private participant fields.
 - Preserve server-side authentication verification and HQ role checks while editing layouts.
 - Run `npm run build` after the final intended change and require it to pass before committing. If any file changes afterward, rerun the build.
+- Populate `COURSE_ROUTES` and `COURSE_MAP_MARKERS` only from reviewed organiser sources. Every record must retain its source and review date; coordinates, venues and operational points must never be estimated.
+- `/course-map` must not request location permission on load. The user-location action stays optional and is disabled while no verified map data exists.
 
 ## Documentation update trigger
 
@@ -144,3 +150,12 @@ Update this file whenever a phase changes routes, providers, shared layouts, dat
 - Replace `RACE_GUIDE.file: null` only with a real approved PDF path, its official source, and review date. Add the file to the asset register and verify the download.
 - The homepage race CTA plus one section expansion reaches every topic in at most two taps (scrolling may be needed). Interactive maps remain Phase 3.
 - No new Supabase entities, environment variables, dependencies, global styles or participant UI changes were introduced by Phase 2.
+
+## Publishing course-map data
+
+- Keep unverified route and marker arrays empty in `src/config/course-map.ts`; the page renders a per-view unavailable explanation.
+- A route needs a stable ID, applicable view(s), description, coordinate sequence, official source and review date.
+- A location needs a stable ID, marker kind, applicable view(s), description, coordinate, official source and review date.
+- Supported marker kinds cover start, finish, transitions, safety, aid, hydration, medical, parking, transport, spectators, check-in and landmarks.
+- The current renderer is dependency-free and bundles any future verified data with the page. No map-tile provider or organiser geometry has been assumed.
+- No new Supabase entities, environment variables, packages, global styles or assets were introduced by Phase 3.

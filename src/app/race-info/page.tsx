@@ -26,6 +26,9 @@ export default function RaceInfoPage() {
             Find your category, prepare for each discipline and check race-day arrangements.
             Open a section below. Unconfirmed details are marked TBD.
           </p>
+          <Link href="/course-map" className="mt-5 inline-flex min-h-11 items-center justify-center rounded-button border border-white/25 px-5 py-3 font-sans text-body-sm font-semibold text-white hover:border-white/50">
+            Explore course map
+          </Link>
         </div>
       </section>
 
