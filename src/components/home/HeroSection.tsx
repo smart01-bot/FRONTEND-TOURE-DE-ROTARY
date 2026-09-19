@@ -120,7 +120,7 @@ export default function HeroSection() {
             Register for TdDar 2026
           </Link>
           <a
-            href="#race"
+            href="/race-info"
             className="w-full py-3.5 bg-transparent text-white/75 rounded-button
                        font-sans text-body-sm font-semibold
                        border border-white/25 backdrop-blur-[2px]

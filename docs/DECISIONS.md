@@ -18,6 +18,9 @@ Only settled, project-wide choices belong here. Newer entries replace older entr
 | 2026-09-19 | Active | Existing UI must be preserved on `development`, with `main` retained as the pre-Phase-1 visual reference. | Every agent must build additively and may not redesign, restyle, restructure, or replace the UI without explicit user approval for the exact visual scope. |
 | 2026-09-19 | Active | A successful final `npm run build` is mandatory before every commit. | The build must run after all intended changes; work cannot be committed, pushed, or declared complete if it fails. |
 
+| 2026-09-19 | Active | Race information lives at public `/race-info`, with content in `src/config/race-info.ts` and native expandable sections. | Keeps all topics within two taps from the homepage, reuses existing visual tokens, and requires no new backend. |
+| 2026-09-19 | Active | Existing registration configuration is labelled as such; it does not verify official operational information. Unknown facts render `TBD`, and confirmed fact records require a source and review date. | Avoids inventing event details from unsourced legacy copy. Official guide remains disabled until a reviewed PDF exists. |
+
 ## Entry format
 
 When adding a decision, include the date, status (`Active`, `Pending`, `Superseded`), exact decision, reason, affected areas, and the decision it replaces when applicable.

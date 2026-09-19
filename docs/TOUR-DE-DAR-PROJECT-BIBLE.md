@@ -8,7 +8,7 @@
 
 **Working repository:** `smart01-bot/FRONTEND-TOURE-DE-ROTARY`
 
-**Current estimate after Phase 1:** Approximately 45% of the complete frontend vision and approximately 75% of the pre-race MVP.
+**Current implementation estimate after Phase 2:** Approximately 50% of the complete frontend vision and approximately 85% of the pre-race MVP. These are scope estimates, not launch-readiness measures; official race content is still awaiting confirmation.
 
 ---
 
@@ -109,7 +109,7 @@ A phase is **not complete** when:
 - Changes have not passed the required checks
 - Documentation claims work is complete before the code is committed
 - The final commit has not been pushed successfully
-- Remote `main` has not been verified
+- Remote `development` has not been verified
 
 Only code confirmed on GitHub `development` can become the baseline for the next phase.
 
@@ -141,7 +141,7 @@ Update this file only when the overall product direction, phase structure or per
 
 ### Layer 2 — Current repository context
 
-Maintain a separate current repository-context file. It should describe what is true in the latest `main` branch:
+Maintain a separate current repository-context file. It should describe what is true in the latest `development` branch:
 
 - Framework and dependency versions
 - Important folders and routes
@@ -540,6 +540,8 @@ Turn the existing frontend into an honest, fully connected and polished pre-race
 ---
 
 ## 6. Phase 2 — Race information system
+
+**Frontend status:** Implemented at `/race-info`. All required topics have configurable homes; the homepage race CTA opens this public route. Existing UI is preserved. Official operational content and the downloadable guide remain `TBD` pending verified organiser sources. See `docs/handoffs/PHASE-02-RACE-INFORMATION-HANDOFF.md` for verification and delivery status.
 
 ### Objective
 

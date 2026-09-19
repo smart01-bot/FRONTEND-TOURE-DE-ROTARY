@@ -27,4 +27,4 @@ The highest numbered applicable handoff is the one future work must read. Correc
 - Known issues
 - Exact recommended next action
 
-No phase is marked complete until its final commit is confirmed on GitHub `main`.
+No phase is marked complete until its final commit is confirmed on GitHub `development`.

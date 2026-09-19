@@ -1,6 +1,6 @@
 # Tour de Dar — Known Issues
 
-This register tracks current confirmed frontend problems and major limitations. Validate each item against the latest `main` before acting.
+This register tracks current confirmed frontend problems and major limitations. Validate each item against the latest `development` before acting.
 
 | ID | Severity | Area | Issue | Status | Target |
 | --- | --- | --- | --- | --- | --- |
@@ -16,6 +16,9 @@ This register tracks current confirmed frontend problems and major limitations. 
 | TD-010 | Medium | Repository | `tsconfig.tsbuildinfo` is currently tracked although it is generated build state. | Resolved `5221cc867fbbbdf6a2a5995db3a0f048062c705b` | Phase 1 |
 | TD-011 | Medium | Moderation | Reported-post UI is local-only until a moderation table/API and enforcement workflow are available. | Blocked by backend contract | Phase 4 |
 | TD-012 | Medium | Media | Profile-photo upload and feed media attachment require approved Supabase Storage buckets and policies. | Blocked by backend contract | Phase 4 |
+| TD-013 | High | Race content | `/race-info` has all required topic homes, but official dates, venues, waves, course instructions, requirements, safety/medical details, logistics and guide are not verified. Expand any affected section to see `TBD`. | Awaiting organiser sources | Content publication / Phase 3 |
+| TD-014 | Medium | Event consistency | Homepage/registration already display a date and course descriptions without recorded official provenance; `/race-info` deliberately keeps their operational confirmation TBD. Verify the originals before changing protected existing copy. | Awaiting organiser verification | Content publication |
+| TD-015 | Medium | Visual QA | Browser engine download timed out in this environment. Phase 2 has a responsive source audit but no browser screenshot or real-device pass. | Environment limitation | Next browser-enabled review |
 
 ## Issue lifecycle
 

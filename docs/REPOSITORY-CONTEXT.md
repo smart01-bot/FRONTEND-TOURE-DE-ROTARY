@@ -4,7 +4,7 @@
 **Active branch:** `development`
 
 **Protected stable branch:** `main` at pre-Phase-1 state
-**Baseline reviewed:** `5221cc867fbbbdf6a2a5995db3a0f048062c705b`
+**Phase 2 starting baseline:** `bed15e19d69c9b1a413fbdd9f55636e38108842e`
 **Reviewed:** 19 September 2026
 
 This file describes the committed implementation. Source code remains authoritative for exact behaviour.
@@ -25,6 +25,7 @@ This file describes the committed implementation. Source code remains authoritat
 | --- | --- | --- |
 | `/` | Public | Event landing page |
 | `/stories` | Public | Participant stories |
+| `/race-info` | Public | Configurable race information with native expandable sections and explicit TBD states |
 | `/fundraise/[slug]` | Public | Public fundraising campaign |
 | `/login` | Guest | Participant sign-in |
 | `/register` | Guest | Multi-step registration |
@@ -50,6 +51,8 @@ This file describes the committed implementation. Source code remains authoritat
 - `src/components/admin/` contains shared administration UI.
 - `src/config/site.ts` holds general event metadata.
 - `src/config/categories.ts` holds categories, disciplines, prices, and distances.
+- `src/config/race-info.ts` holds race-information sections, sourced facts, pending operational fields, FAQs, and guide availability. It imports registration options and fees from the existing category configuration.
+- `src/app/race-info/page.tsx` renders static public content using existing homepage components and design tokens. Native `details`/`summary` controls work without client-side data fetching. The route is explicitly public in middleware.
 - `src/context/UserContext.tsx` supplies authenticated-user context.
 - `src/context/ParticipantThemeContext.tsx` supplies participant theme state.
 - `src/hooks/` connects screens to participant, story, feed, fundraising, and admin data.
@@ -75,8 +78,9 @@ This file describes the committed implementation. Source code remains authoritat
 - Digital-ticket identity links currently lead to the authenticated profile; public participant profiles remain future work.
 - Profile-photo uploads and feed media attachments await an approved storage and RLS contract.
 - Participant profiles do not yet function as public digital homes.
-- Teams, challenges, complete race information, discipline maps, leaderboards, results, photo discovery, lifecycle modes, and archival experience are not implemented.
-- Product naming and the primary participant-story prompt require a final project-wide decision.
+- Race-information frontend is implemented; official dates/venues, courses, waves, policies, logistics and guide publication remain unverified/TBD. Existing homepage/registration date and course copy have no recorded organiser provenance; do not treat them as operational confirmation.
+- Teams, challenges, discipline maps, leaderboards, results, photo discovery, lifecycle modes, and archival experience are not implemented.
+- Naming and story prompt were settled in Phase 1: `Tour de Dar` and `Why are you doing this?`.
 
 ## Expected Supabase entities
 
@@ -132,3 +136,11 @@ If a command is unavailable or blocked by missing external configuration, record
 ## Documentation update trigger
 
 Update this file whenever a phase changes routes, providers, shared layouts, data integrations, dependencies, environment requirements, or the status of a major product area.
+
+## Publishing race information
+
+- Keep unknown facts `null`; the page renders `TBD`. Every non-null operational fact requires a source and review date in its typed record.
+- Current registration options/fees are labelled as registration configuration, not official course approval. Update their canonical category config rather than copying numbers into the page.
+- Replace `RACE_GUIDE.file: null` only with a real approved PDF path, its official source, and review date. Add the file to the asset register and verify the download.
+- The homepage race CTA plus one section expansion reaches every topic in at most two taps (scrolling may be needed). Interactive maps remain Phase 3.
+- No new Supabase entities, environment variables, dependencies, global styles or participant UI changes were introduced by Phase 2.

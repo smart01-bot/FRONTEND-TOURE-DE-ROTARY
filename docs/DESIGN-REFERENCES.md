@@ -21,6 +21,13 @@ This register prevents phrases such as “the last design” from becoming perma
 | DR-003 | Current committed participant portal | Participant routes | Baseline | Shared navigation, responsive cards, light/dark system | Do not break providers or let fixed navigation cover content |
 | DR-004 | Old Dar × Modern Dar product brief | Future storytelling | Approved direction | Archival imagery transitioning into present-day city and athletes | Do not make the UI look antique or reduce legibility |
 
+## Phase 2 preservation record
+
+- `/race-info` reuses `HomeNav`, `HomeFooter`, existing serif/sans/numeric fonts, navy/sand/bronze/coral tokens, card radii and shadows.
+- The homepage change is only the existing race CTA destination: `#race` → `/race-info`; its markup, classes, spacing and imagery are otherwise identical.
+- No global styles, design tokens, assets or participant pages changed. New sections use native expandable controls, wrapping content and single-column phone layouts; cards become three columns at `sm`.
+- Phone/tablet/desktop source comparison completed. Browser screenshot comparison remains unavailable because Chromium installation timed out; do not interpret this as a visual browser pass.
+
 ## Adding a reference
 
 Record:

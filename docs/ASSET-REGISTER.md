@@ -1,6 +1,6 @@
 # Tour de Dar — Asset Register
 
-The source of truth for exact asset files is `public/assets/` on the latest `main`. This register documents important usage conventions without duplicating binary files.
+The source of truth for exact asset files is `public/assets/` on the latest `development`. This register documents important usage conventions without duplicating binary files.
 
 ## Asset groups
 
@@ -33,3 +33,7 @@ The source of truth for exact asset files is `public/assets/` on the latest `mai
 | Status | Exploratory / Approved / Superseded |
 | Rights/credit | Owner, licence, photographer, or `TBD` |
 | Replacement | New stable ID if superseded |
+
+## Phase 2 race-guide asset
+
+No new assets were added or renamed. The official race-guide PDF is **TBD**. `RACE_GUIDE.file` in `src/config/race-info.ts` remains `null`, and the download is visibly disabled with an explanation. When the organiser supplies a verified PDF, register its exact path, source, review date and rights before enabling the download. Do not generate a document of placeholders and present it as the official race guide.
