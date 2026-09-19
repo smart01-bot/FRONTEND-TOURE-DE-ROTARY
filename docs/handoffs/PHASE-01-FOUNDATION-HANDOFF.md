@@ -10,6 +10,14 @@
 
 **Next phase:** Phase 2 — Race information system
 
+## Post-phase governance amendment
+
+The current UI on GitHub `main` is now a protected visual baseline. All future work must build on the existing pages without unsolicited redesign, restyling, restructuring, or replacement. Feature permission is not redesign permission. Any visual change beyond the smallest additive interface required by a feature needs explicit user approval for its exact scope.
+
+Before every future commit, `npm run build` must be run successfully after the final intended file change. If files change after the build, the build must be run again. Failed or blocked builds must not be committed, pushed, or described as complete.
+
+Phase 1's handoff recorded that browser-based multi-viewport verification was blocked. Therefore, this handoff does not prove that Phase 1 caused no visual regression. A separate comparison against the pre-Phase-1 baseline is required if visual fidelity is in doubt.
+
 ## Objective
 
 Finish the existing frontend foundation before adding major product systems: make activity honest, connect controls, complete core feed and ticket states, standardise language, and make unavailable functionality explicit.

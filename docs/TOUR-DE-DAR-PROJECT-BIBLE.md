@@ -82,21 +82,23 @@ This law is strict and applies to every phase without exception.
 
 1. Make all phase changes against the fetched source.
 2. Preserve unrelated existing functionality.
-3. Keep environment files and secrets out of Git.
-4. Test related routes and shared systems after changes.
-5. Keep incomplete experimental work separate from the final phase delivery.
+3. Treat the existing committed UI as a protected baseline and make additive changes only.
+4. Keep environment files and secrets out of Git.
+5. Test related routes and shared systems after changes.
+6. Keep incomplete experimental work separate from the final phase delivery.
 
 #### At the end of every phase
 
 1. Complete the phase checklist.
-2. Run required type checking, linting and production build verification.
-3. Resolve known phase-blocking errors.
-4. Update the roadmap, repository context and phase handoff when applicable.
-5. Review the exact files that will be committed.
-6. Commit with a clear phase-specific message.
-7. Push the verified commit to GitHub `main`.
-8. Confirm that remote `main` contains the new commit.
-9. Record the final commit SHA and link in the phase handoff.
+2. Run required type checking and linting.
+3. Run `npm run build` successfully after the final change and before committing.
+4. Resolve known phase-blocking errors.
+5. Update the roadmap, repository context and phase handoff when applicable.
+6. Review the exact files that will be committed.
+7. Commit with a clear phase-specific message.
+8. Push the verified commit to GitHub `main`.
+9. Confirm that remote `main` contains the new commit.
+10. Record the final commit SHA and link in the phase handoff.
 
 #### Completion rule
 
@@ -376,6 +378,22 @@ People, places, movement and memories should carry the experience.
 ---
 
 ## 4. Design direction
+
+### Protected UI baseline
+
+The UI already committed on GitHub `main` must be followed religiously. It is the baseline for all future work.
+
+- Build on the existing pages; do not replace or redesign them.
+- Preserve their layout, visual hierarchy, spacing, typography, palette, imagery, navigation, component language, and responsive behaviour.
+- Reuse existing components and tokens before creating new visual patterns.
+- Add the smallest visual surface required by a new feature.
+- Do not treat feature implementation, refactoring, accessibility work, or responsiveness work as permission to restyle the product.
+- Do not alter an existing screen merely because another design might appear cleaner or more modern.
+- Compare every affected screen against the committed baseline after implementation.
+- A redesign is allowed only when the user explicitly approves its exact page/component scope.
+- If a feature cannot fit without restructuring the UI, pause and request a decision.
+
+The rule is: **preserve first, extend second, redesign only with explicit approval.**
 
 ### Brand palette
 
@@ -855,8 +873,9 @@ Every feature must include:
 - Accessible labels
 - Working navigation
 - Real data or an honest unavailable state
+- Preservation of the existing UI outside explicitly approved visual changes
 - Type checking
-- Production build verification
+- A successful final `npm run build` executed after all changes and before commit
 
 ---
 

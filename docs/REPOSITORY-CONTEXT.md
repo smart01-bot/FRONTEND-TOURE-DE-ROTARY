@@ -114,6 +114,10 @@ If a command is unavailable or blocked by missing external configuration, record
 
 ## Preservation warnings
 
+- The UI on the latest GitHub `main` is the protected visual baseline. Future work must extend it without unsolicited redesign, restyling, restructuring, or visual-system replacement.
+- Preserve existing layouts, spacing, typography, colours, imagery, navigation patterns, component shapes, and responsive behaviour unless the user explicitly approves a precisely scoped visual change.
+- Inspect affected screens before editing and compare them with the baseline afterward at phone, tablet, and desktop sizes.
+- Feature requests grant permission to add the feature, not permission to redesign the page containing it.
 - Keep `UserProvider` mounted above every consumer of `useUser`; otherwise the application throws `useUser must be used within a UserProvider`.
 - Keep the participant theme provider available to participant-theme consumers.
 - Do not commit `.env.local` or expose Supabase/service credentials.
@@ -121,6 +125,7 @@ If a command is unavailable or blocked by missing external configuration, record
 - Keep generated `*.tsbuildinfo` out of Git.
 - Ticket QR payloads contain only a site/profile URL and registration identifier; do not encode private participant fields.
 - Preserve server-side authentication verification and HQ role checks while editing layouts.
+- Run `npm run build` after the final intended change and require it to pass before committing. If any file changes afterward, rerun the build.
 
 ## Documentation update trigger
 

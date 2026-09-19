@@ -14,6 +14,8 @@ Only settled, project-wide choices belong here. Newer entries replace older entr
 | 2026-09-19 | Active | The final public product name is `Tour de Dar`. | Matches the Project Bible, site configuration, metadata, and concise public identity; supersedes mixed `Tour de Rotary` UI copy. |
 | 2026-09-19 | Active | The primary participant-story prompt is `Why are you doing this?`. | Uses one direct, human prompt across registration and profile editing; supersedes mixed `Why I race` / `Why I participate` prompts. |
 | 2026-09-19 | Active | Unpublished training resources and event schedule details remain visibly unavailable or `TBD`. | Prevents dead controls and invented operational information. |
+| 2026-09-19 | Active | The UI committed on GitHub `main` is the protected visual baseline. | Every agent must build additively on the existing design and may not redesign, restyle, restructure, or replace it without explicit user approval for the exact visual scope. |
+| 2026-09-19 | Active | A successful final `npm run build` is mandatory before every commit. | The build must run after all intended changes; work cannot be committed, pushed, or declared complete if it fails. |
 
 ## Entry format
 
