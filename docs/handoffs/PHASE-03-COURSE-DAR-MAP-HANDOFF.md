@@ -6,9 +6,9 @@
 
 **Starting development commit:** `addadbf5f47925c8bfae22c46907857616a5f8ad`
 
-**Final phase content commit:** `PENDING_CONTENT_COMMIT`
+**Final phase content commit:** `780ba492c43996afe2434375e38cd496f404e278`
 
-**Commit link:** `PENDING_CONTENT_LINK`
+**Commit link:** https://github.com/smart01-bot/FRONTEND-TOURE-DE-ROTARY/commit/780ba492c43996afe2434375e38cd496f404e278
 
 **Active branch:** `development` only.
 
@@ -69,5 +69,6 @@ Obtain organiser-approved route geometry and the operational location schedule, 
 
 ## Commit receipt
 
-- The final phase content SHA and link will be inserted after the verified content commit is created.
-- The documentation receipt commit will explain the unavoidable self-reference: a commit cannot contain its own hash.
+- Phase-content SHA: `780ba492c43996afe2434375e38cd496f404e278`.
+- Verified phase-content tree: `03aad385c89448baae1712df39d947b912fa98a1`; this is the tree produced by the successful mandatory build.
+- This receipt update records the full content commit. Its own documentation commit is available from this file's history and the final delivery report; a commit cannot contain its own final hash.
