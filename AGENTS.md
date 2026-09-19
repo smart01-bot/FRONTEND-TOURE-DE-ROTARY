@@ -6,8 +6,8 @@ These instructions apply to every human or coding agent working in this reposito
 
 Before planning, editing, generating code, or beginning any project phase:
 
-1. Fetch the latest `main` branch from `smart01-bot/FRONTEND-TOURE-DE-ROTARY`.
-2. Confirm the current remote `main` commit SHA.
+1. Fetch the latest `development` branch from `smart01-bot/FRONTEND-TOURE-DE-ROTARY`.
+2. Confirm the current remote `development` commit SHA.
 3. Read this file completely.
 4. Read `docs/TOUR-DE-DAR-PROJECT-BIBLE.md` completely.
 5. Read `docs/REPOSITORY-CONTEXT.md` completely.
@@ -19,7 +19,8 @@ No implementation may begin before this review is complete.
 
 ## Source-of-truth law
 
-- GitHub `main` is the code source of truth.
+- GitHub `development` is the active code and phase-work source of truth.
+- GitHub `main` is the protected stable pre-Phase-1 baseline and must not receive phase work unless the user explicitly authorises a release or merge.
 - `docs/TOUR-DE-DAR-PROJECT-BIBLE.md` is the product, design, phase, and workflow source of truth.
 - The latest phase handoff is the source of truth for current progress and the next task.
 - `docs/REPOSITORY-CONTEXT.md` describes architecture and must match the committed code.
@@ -31,7 +32,7 @@ If sources conflict, stop and report the conflict before editing. Do not silentl
 
 Every phase must:
 
-1. Start from a fresh fetch of the latest GitHub `main`.
+1. Start from a fresh fetch of the latest GitHub `development`.
 2. Use the verified remote commit as its only baseline.
 3. Preserve unrelated working functionality.
 4. Keep `.env*`, credentials, tokens, participant records, and private data out of Git.
@@ -41,15 +42,15 @@ Every phase must:
 8. Run `npm run build` successfully after all intended changes and before creating any commit.
 9. Update context documents affected by the work.
 10. Create or update the numbered phase handoff.
-11. Commit and push the complete verified result to `main`.
-12. Confirm the new commit is visible on remote `main`.
+11. Commit and push the complete verified result to `development`.
+12. Confirm the new commit is visible on remote `development`.
 13. Record the full final commit SHA in the handoff.
 
-A phase is not complete if its work exists only locally, only in a ZIP, in an unpushed commit, or in documentation that does not match GitHub `main`.
+A phase is not complete if its work exists only locally, only in a ZIP, in an unpushed commit, or in documentation that does not match GitHub `development`.
 
 ## UI preservation law
 
-> **The UI committed on GitHub `main` is the protected visual baseline. Follow it religiously. Build on it; never destroy, replace, or redesign it without the user's explicit approval for that exact visual change.**
+> **The UI committed on the active GitHub `development` branch must be preserved during feature work, while `main` remains the protected pre-Phase-1 reference. Follow the existing UI religiously. Build on it; never destroy, replace, or redesign it without the user's explicit approval for that exact visual change.**
 
 - Preserve the existing layout, composition, spacing system, typography, colours, imagery, navigation patterns, component shapes, responsive behaviour, and overall visual identity.
 - New features must reuse existing components, design tokens, and interaction patterns wherever possible.

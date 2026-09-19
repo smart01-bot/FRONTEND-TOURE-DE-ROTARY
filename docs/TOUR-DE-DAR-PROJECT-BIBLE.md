@@ -65,14 +65,14 @@ This is more efficient than sending separate messages for every file.
 
 ### Mandatory phase repository law
 
-> **Every phase must begin by fetching the latest `main` branch from GitHub, and every phase must end by pushing its complete, verified work back to `main`. A phase is not complete until the push succeeds.**
+> **Every phase must begin by fetching the latest `development` branch from GitHub, and every phase must end by pushing its complete, verified work back to `development`. A phase is not complete until the push succeeds. The `main` branch is the protected stable pre-Phase-1 baseline until the user explicitly authorises a release or merge.**
 
 This law is strict and applies to every phase without exception.
 
 #### At the beginning of every phase
 
 1. Fetch `smart01-bot/FRONTEND-TOURE-DE-ROTARY` from GitHub.
-2. Use the latest `main` branch as the only code baseline.
+2. Use the latest `development` branch as the active code baseline.
 3. Read this roadmap, current repository context and latest phase handoff.
 4. Inspect the fetched code before proposing or applying changes.
 5. Confirm the current HEAD commit.
@@ -96,8 +96,8 @@ This law is strict and applies to every phase without exception.
 5. Update the roadmap, repository context and phase handoff when applicable.
 6. Review the exact files that will be committed.
 7. Commit with a clear phase-specific message.
-8. Push the verified commit to GitHub `main`.
-9. Confirm that remote `main` contains the new commit.
+8. Push the verified commit to GitHub `development`.
+9. Confirm that remote `development` contains the new commit.
 10. Record the final commit SHA and link in the phase handoff.
 
 #### Completion rule
@@ -111,7 +111,7 @@ A phase is **not complete** when:
 - The final commit has not been pushed successfully
 - Remote `main` has not been verified
 
-Only code confirmed on GitHub `main` can become the baseline for the next phase.
+Only code confirmed on GitHub `development` can become the baseline for the next phase.
 
 #### Next-phase rule
 
@@ -185,7 +185,7 @@ The handoff should normally be one to three pages, not a transcript.
 
 When sources disagree, use this order:
 
-1. Latest committed code on GitHub `main`
+1. Latest committed code on GitHub `development`
 2. Latest phase handoff
 3. Current repository-context file
 4. This roadmap
@@ -381,7 +381,7 @@ People, places, movement and memories should carry the experience.
 
 ### Protected UI baseline
 
-The UI already committed on GitHub `main` must be followed religiously. It is the baseline for all future work.
+The UI committed on the active GitHub `development` branch must be preserved during feature work, and `main` remains the protected pre-Phase-1 visual reference. The existing design must be followed religiously.
 
 - Build on the existing pages; do not replace or redesign them.
 - Preserve their layout, visual hierarchy, spacing, typography, palette, imagery, navigation, component language, and responsive behaviour.
@@ -905,7 +905,7 @@ Copy this into a new phase chat:
 ```text
 PROJECT: Tour de Dar frontend
 REPOSITORY: smart01-bot/FRONTEND-TOURE-DE-ROTARY
-BRANCH: main
+BRANCH: development
 CURRENT PHASE: [phase name]
 
 PRODUCT DEFINITION:

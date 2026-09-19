@@ -1,7 +1,9 @@
 # Tour de Dar — Repository Context
 
 **Repository:** `smart01-bot/FRONTEND-TOURE-DE-ROTARY`  
-**Branch:** `main`  
+**Active branch:** `development`
+
+**Protected stable branch:** `main` at pre-Phase-1 state
 **Baseline reviewed:** `5221cc867fbbbdf6a2a5995db3a0f048062c705b`
 **Reviewed:** 19 September 2026
 
@@ -114,7 +116,7 @@ If a command is unavailable or blocked by missing external configuration, record
 
 ## Preservation warnings
 
-- The UI on the latest GitHub `main` is the protected visual baseline. Future work must extend it without unsolicited redesign, restyling, restructuring, or visual-system replacement.
+- The UI on active GitHub `development` must be preserved during feature work; GitHub `main` remains the protected pre-Phase-1 visual reference. Future work must extend the existing design without unsolicited redesign, restyling, restructuring, or visual-system replacement.
 - Preserve existing layouts, spacing, typography, colours, imagery, navigation patterns, component shapes, and responsive behaviour unless the user explicitly approves a precisely scoped visual change.
 - Inspect affected screens before editing and compare them with the baseline afterward at phone, tablet, and desktop sizes.
 - Feature requests grant permission to add the feature, not permission to redesign the page containing it.

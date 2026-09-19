@@ -10,9 +10,13 @@
 
 **Next phase:** Phase 2 — Race information system
 
+**Active continuation branch:** `development`
+
+**Protected stable branch:** `main` restored to pre-Phase-1 commit `83907b713a963ec520da6e90b887a252831ed85b`
+
 ## Post-phase governance amendment
 
-The current UI on GitHub `main` is now a protected visual baseline. All future work must build on the existing pages without unsolicited redesign, restyling, restructuring, or replacement. Feature permission is not redesign permission. Any visual change beyond the smallest additive interface required by a feature needs explicit user approval for its exact scope.
+The existing UI is protected. Active work continues on `development`, while `main` is retained as the recoverable pre-Phase-1 visual reference. All future work must build on the existing pages without unsolicited redesign, restyling, restructuring, or replacement. Feature permission is not redesign permission. Any visual change beyond the smallest additive interface required by a feature needs explicit user approval for its exact scope.
 
 Before every future commit, `npm run build` must be run successfully after the final intended file change. If files change after the build, the build must be run again. Failed or blocked builds must not be committed, pushed, or described as complete.
 
@@ -66,4 +70,4 @@ Finish the existing frontend foundation before adding major product systems: mak
 
 ## Exact recommended next task
 
-Begin Phase 2 from a fresh fetch of GitHub `main`: build the mobile-first race-information system using verified event content, mark unknown operational facts `TBD`, connect the homepage race CTA to the new information route, and preserve all Phase 1 truth-state and provider behaviour.
+Begin Phase 2 from a fresh fetch of GitHub `development`: build the mobile-first race-information system using verified event content, mark unknown operational facts `TBD`, connect the homepage race CTA to the new information route, and preserve all Phase 1 truth-state, provider behaviour, and existing UI. Do not push phase work to `main`.
