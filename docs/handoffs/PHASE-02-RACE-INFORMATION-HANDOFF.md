@@ -2,11 +2,13 @@
 
 **Objective:** Give athletes a public, mobile-first home for race information while preserving the existing UI.
 
-**Status:** Frontend implemented; official content publication and browser visual QA remain outstanding. Delivery is complete only when the commit receipt below is populated and remote `development` is verified.
+**Status:** Frontend delivered to `development` with documented content and browser-QA deferrals. The phase-content commit below has been fetched from GitHub and its tree matches the successfully built local tree.
 
 **Starting development commit:** `bed15e19d69c9b1a413fbdd9f55636e38108842e`
 
-**Final phase content commit:** Pending delivery receipt.
+**Final phase content commit:** `f8eac497352f714124433668999c4e3efc795ed1`
+
+**Commit link:** https://github.com/smart01-bot/FRONTEND-TOURE-DE-ROTARY/commit/f8eac497352f714124433668999c4e3efc795ed1
 
 **Active branch:** `development` only.
 
@@ -44,8 +46,8 @@
 - `npm run lint`: passed with the six existing `@next/next/no-img-element` warnings; no new warnings.
 - Local HTTP/rendered HTML checks: `/`, `/race-info` and `/register` returned HTTP 200 without a login. Verified homepage destination, all 17 topics/summary controls, unique IDs, registration/ticket links, configured distance values, `TBD` states and the disabled guide explanation.
 - Existing UI source comparison and responsive/accessibility audit: passed within the limits above.
-- `git diff --check`: required to pass before commit.
-- Final production build gate: `npm run build` must exit 0 after this document and every other intended change; neither commit nor push is permitted otherwise. The delivery receipt records the completed gate.
+- `git diff --check`: passed.
+- `npm run build`: passed, exit 0, after all phase-content changes and before commit; all 19 static-generation steps completed, including `/race-info`. Real ignored local configuration was used; no placeholder credentials. The same command must pass again after this receipt update before its documentation commit is created.
 - Local configuration is ignored by Git. No environment values, credentials, private records or backend responses belong in this handoff or commit.
 
 ## Files and architecture
@@ -62,4 +64,8 @@ Start Phase 3 — Course and Dar Map Experience from a fresh fetch of `developme
 
 ## Commit receipt
 
-Pending successful final build and verified delivery. A follow-up documentation commit records the full phase-content SHA, avoiding a self-referential commit hash. The receipt commit itself is identified by Git history and the final delivery report.
+- Remote phase-content SHA: `f8eac497352f714124433668999c4e3efc795ed1`, confirmed by a fresh fetch of `development`.
+- Verified tree SHA: `d83284e9749446d2e349f1426a7f5dbc576a34db`; exact match to the successfully built local tree.
+- Shell Git push lacked authentication. The connected GitHub integration published the identical tree and advanced only `development` with a non-forced update. Local history was aligned only after verifying equal trees.
+- Secret scan passed: no environment file is tracked, and no supplied configuration values appeared in staged additions.
+- This documentation receipt records the full final phase-content SHA. Its own commit is available from this file’s Git history and the final delivery report; a commit cannot contain its own final hash. No product code changed after the verified content commit.
