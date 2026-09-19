@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { Bell, Heart, Home, LogOut, Ticket, User, Bike, Moon, Sun, Check } from 'lucide-react'
+import { Bell, Heart, Home, LogOut, MessageSquare, Ticket, User, Bike, Moon, Sun, Check } from 'lucide-react'
 import { useParticipant } from '@/hooks/useParticipant'
 import { useUser } from '@/hooks/useUser'
 import { cn } from '@/lib/utils'
@@ -13,6 +13,7 @@ const ITEMS = [
   { href: '/dashboard', label: 'Dashboard', icon: Home },
   { href: '/ticket', label: 'My Ticket', icon: Ticket },
   { href: '/training', label: 'Training', icon: Bike },
+  { href: '/feed', label: 'The Run-Up', icon: MessageSquare },
   { href: '/fundraise', label: 'Fundraise', icon: Heart },
   { href: '/profile', label: 'My Profile', icon: User },
 ]

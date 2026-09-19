@@ -1,130 +1,120 @@
 'use client'
 
-import { useRouter }              from 'next/navigation'
-import { useAdminRegistrations }  from '@/hooks/useAdmin'
-import { formatTSh }              from '@/lib/utils'
-import type { RegistrationRow }   from '@/lib/supabase/admin'
+import { useRouter } from 'next/navigation'
+import { ArrowUpRight, Banknote, CheckCircle2, Hash, Users } from 'lucide-react'
+import { useAdminRegistrations } from '@/hooks/useAdmin'
+import { formatTSh } from '@/lib/utils'
+import type { RegistrationRow } from '@/lib/supabase/admin'
+import { Avatar, CARD, CategoryChip, EYEBROW, PageBody, PageHeader, Spinner, StatusChip } from '@/components/admin/ui'
 
 export default function OverviewPage() {
   const { rows, stats, loading } = useAdminRegistrations()
   const router = useRouter()
 
-  if (loading) return <Spinner />
+  if (loading || !stats) return <Spinner />
 
-  const recent = rows.slice(0, 5)
-  const maxCat = Math.max(stats!.byCategory.olympic, stats!.byCategory.sprint, stats!.byCategory.relay, 1)
+  const recent = rows.slice(0, 6)
+  const maxCat = Math.max(stats.byCategory.olympic, stats.byCategory.sprint, stats.byCategory.relay, 1)
 
   return (
-    <div className="px-[22px] pb-6">
-      <div className="pt-4 mb-4">
-        <SLabel>Race overview · 1 Nov 2026</SLabel>
-      </div>
+    <PageBody>
+      <PageHeader
+        eyebrow="Race overview"
+        title="HQ overview."
+        subtitle="Registrations, revenue and bib progress for Tour de Rotary · 1 November 2026."
+        pill={{ icon: <Users size={14} strokeWidth={2.5} />, label: 'Registrations', value: String(stats.total) }}
+      />
 
-      {/* ── Stats grid ────────────────────────────────────────────────── */}
-      <div className="grid grid-cols-2 gap-2 mb-4">
-        <StatCard label="Registrations" value={String(stats!.total)}        colour="text-bronze"         />
-        <StatCard label="Paid"          value={String(stats!.paid)}          colour="text-[#48c788]"      />
-        <StatCard label="Revenue"       value={formatTSh(stats!.revenue)}    colour="text-bronze" small   />
-        <StatCard label="Unbibed"       value={String(stats!.unbibed)}       colour="text-[#F59E0B]"      />
-      </div>
+      {/* Stats */}
+      <section className="mt-7 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <StatCard icon={<Users size={16} />}        label="Registrations" value={String(stats.total)} />
+        <StatCard icon={<CheckCircle2 size={16} />} label="Paid"          value={String(stats.paid)} />
+        <StatCard icon={<Banknote size={16} />}     label="Revenue"       value={formatTSh(stats.revenue)} small />
+        <StatCard icon={<Hash size={16} />}         label="Need a bib"    value={String(stats.unbibed)} />
+      </section>
 
-      {/* ── By category ───────────────────────────────────────────────── */}
-      <SLabel>By category</SLabel>
-      <div className="bg-white/[.04] border-[1.5px] border-white/[.07] rounded-[16px] p-[15px] mb-4">
-        {(['olympic', 'sprint', 'relay'] as const).map(cat => (
-          <div key={cat} className="mb-[10px] last:mb-0">
-            <div className="flex justify-between mb-[5px]">
-              <span className="font-sans text-[12px] text-white/38 capitalize">{cat}</span>
-              <span className="font-num text-[12px] font-extrabold text-white">
-                {stats!.byCategory[cat]}
-              </span>
-            </div>
-            <div className="h-[6px] bg-white/[.08] rounded-full overflow-hidden">
-              <div className="h-full bg-bronze rounded-full"
-                   style={{ width: `${(stats!.byCategory[cat] / maxCat) * 100}%` }} />
-            </div>
+      <section className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)]">
+        {/* By category */}
+        <div className={`${CARD} p-5 sm:p-6`}>
+          <p className={EYEBROW}>Breakdown</p>
+          <h2 className="mt-1 text-[16px] font-extrabold text-[#10233f]">By category</h2>
+
+          <div className="mt-6 space-y-5">
+            {(['olympic', 'sprint', 'relay'] as const).map(cat => (
+              <div key={cat}>
+                <div className="mb-2 flex items-baseline justify-between">
+                  <span className="text-[12px] font-semibold capitalize text-[#64748b]">{cat}</span>
+                  <span className="font-num text-[13px] font-extrabold text-[#10233f]">{stats.byCategory[cat]}</span>
+                </div>
+                <div className="h-3 overflow-hidden rounded-full bg-[#eaf0f6]">
+                  <div
+                    className="h-full rounded-full bg-[#2563eb] transition-all duration-700"
+                    style={{ width: `${(stats.byCategory[cat] / maxCat) * 100}%` }}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
 
-      {/* ── Recent ────────────────────────────────────────────────────── */}
-      <SLabel>Recent registrations</SLabel>
-      <div className="bg-white/[.06] border-[1.5px] border-white/10 rounded-[16px] px-[15px]">
-        {recent.map((row, i) => (
-          <RegRow key={row.id} row={row} last={i === recent.length - 1}
-                  onClick={() => router.push(`/admin/athletes/${row.id}`)} />
-        ))}
-        {recent.length === 0 && (
-          <p className="font-sans text-[13px] text-white/30 py-4 text-center">No registrations yet.</p>
-        )}
-      </div>
-    </div>
+        {/* Recent */}
+        <div className={CARD}>
+          <div className="flex items-center justify-between border-b border-[#edf1f5] px-5 py-5 sm:px-6">
+            <div>
+              <p className={EYEBROW}>Latest</p>
+              <h2 className="mt-1 text-[16px] font-extrabold text-[#10233f]">Recent registrations</h2>
+            </div>
+            <a href="/admin/athletes" className="flex items-center gap-1 text-[12px] font-extrabold text-[#2563eb]">
+              View all <ArrowUpRight size={14} />
+            </a>
+          </div>
+
+          {recent.length === 0 ? (
+            <p className="px-6 py-12 text-center text-[13px] font-semibold text-[#475569]">No registrations yet.</p>
+          ) : (
+            <div className="px-2 py-1 sm:px-3">
+              {recent.map(row => (
+                <RegRow key={row.id} row={row} onClick={() => router.push(`/admin/athletes/${row.id}`)} />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </PageBody>
   )
 }
 
-// ── Sub-components ────────────────────────────────────────────────────────────
-
-function SLabel({ children }: { children: React.ReactNode }) {
+function StatCard({ icon, label, value, small }: { icon: React.ReactNode; label: string; value: string; small?: boolean }) {
   return (
-    <p className="font-num text-[10px] font-extrabold text-white/35 uppercase tracking-[.08em] mb-[9px]">
-      {children}
-    </p>
-  )
-}
-
-function StatCard({ label, value, colour, small }: {
-  label: string; value: string; colour: string; small?: boolean
-}) {
-  return (
-    <div className="bg-white/[.06] border-[1.5px] border-white/[.09] rounded-[14px] p-[13px]">
-      <div className="font-sans text-[11px] text-white/38 mb-1">{label}</div>
-      <div className={`font-num font-extrabold leading-none ${colour} ${small ? 'text-[18px]' : 'text-[26px]'}`}>
+    <div className={`${CARD} p-4 sm:p-5`}>
+      <div className="flex items-center justify-between">
+        <p className={EYEBROW}>{label}</p>
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#eff6ff] text-[#2563eb]">{icon}</span>
+      </div>
+      <p className={`mt-4 font-num font-extrabold leading-none tracking-[-0.03em] text-[#10233f] ${small ? 'text-[20px] sm:text-[24px]' : 'text-[30px] sm:text-[36px]'}`}>
         {value}
-      </div>
+      </p>
     </div>
   )
 }
 
-function RegRow({ row, last, onClick }: { row: RegistrationRow; last: boolean; onClick: () => void }) {
-  const name  = row.profiles?.full_name ?? 'Unknown'
-  const avi   = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
-  const paid  = row.payment_status === 'paid'
-
+function RegRow({ row, onClick }: { row: RegistrationRow; onClick: () => void }) {
+  const name = row.profiles?.full_name ?? 'Unknown'
   return (
-    <button type="button" onClick={onClick}
-            className="w-full flex items-center gap-[10px] py-[11px] text-left focus-visible:outline-none"
-            style={{ borderBottom: last ? 'none' : '1px solid rgba(255,255,255,.05)' }}>
-      <div className="w-8 h-8 rounded-full bg-bronze/[.15] border border-bronze/25 flex-shrink-0
-                      flex items-center justify-center font-serif text-[11px] italic font-bold text-bronze">
-        {avi}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="font-sans text-[13px] font-semibold text-white truncate mb-[2px]">{name}</div>
-        <div className="flex gap-[5px]">
-          <Chip bg="rgba(200,149,60,.12)" colour="#C8953C">{row.category}</Chip>
-          {paid
-            ? <Chip bg="rgba(72,199,136,.10)"  colour="#48c788">Paid</Chip>
-            : <Chip bg="rgba(245,158,11,.10)"  colour="#F59E0B">Pending</Chip>}
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex w-full items-center gap-3 rounded-[16px] px-3 py-3 text-left transition hover:bg-[rgba(37,99,235,.05)]"
+    >
+      <Avatar name={name} />
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-[13px] font-semibold text-[#334155]">{name}</p>
+        <div className="mt-1.5 flex flex-wrap gap-1.5">
+          <CategoryChip category={row.category} />
+          <StatusChip paid={row.payment_status === 'paid'} />
         </div>
       </div>
-      <span className="font-num text-[12px] font-extrabold text-white/20 flex-shrink-0">→</span>
+      <ArrowUpRight size={16} className="shrink-0 text-[#94a3b8]" />
     </button>
-  )
-}
-
-function Chip({ bg, colour, children }: { bg: string; colour: string; children: React.ReactNode }) {
-  return (
-    <span className="font-sans text-[10px] font-bold rounded-[6px] px-[7px] py-[2px] capitalize"
-          style={{ background: bg, color: colour }}>
-      {children}
-    </span>
-  )
-}
-
-function Spinner() {
-  return (
-    <div className="flex items-center justify-center min-h-[50vh]">
-      <div className="w-5 h-5 rounded-full border-2 border-bronze border-t-transparent animate-spin" />
-    </div>
   )
 }

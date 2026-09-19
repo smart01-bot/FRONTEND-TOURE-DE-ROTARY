@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { signIn } from '@/lib/supabase/auth'
+import { signIn, signOut } from '@/lib/supabase/auth'
+import { supabase } from '@/lib/supabase/client'
 
 type Role = 'participant' | 'admin'
 
@@ -42,6 +43,23 @@ export default function LoginForm() {
       setError('Incorrect email or password. Please try again.')
       setLoading(false)
       return
+    }
+    if (role === 'admin') {
+      const { data: { user } } = await supabase.auth.getUser()
+      const { data: prof, error: profError } = user
+        ? await supabase.from('profiles').select('role').eq('id', user.id).single()
+        : { data: null, error: null }
+      const actualRole = (prof as { role?: string } | null)?.role
+      if (profError || actualRole !== 'hq_admin') {
+        await signOut()
+        setError(
+          profError
+            ? `Couldn't check admin access: ${profError.message}`
+            : `This account's role is "${actualRole ?? 'not set'}", not "hq_admin". Use the Participant tab, or ask HQ to update your role.`,
+        )
+        setLoading(false)
+        return
+      }
     }
     const dest = role === 'admin' ? '/admin/overview' : nextPath
     router.push(dest)

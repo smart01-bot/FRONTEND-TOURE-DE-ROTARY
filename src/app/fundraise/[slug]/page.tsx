@@ -3,7 +3,7 @@
 // Route: /fundraise/[slug]  — no auth required
 // ─────────────────────────────────────────────────────────────────────────────
 import { notFound }     from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { getSupabaseServer } from '@/lib/supabase/server'
 import DonorClient      from './DonorClient'
 import type { Campaign, Donation } from '@/lib/supabase/fundraising'
 
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default async function FundraisePage({ params, searchParams }: Props) {
-  const sb = createClient()
+  const sb = await getSupabaseServer()
 
   const { data: c } = await sb
     .from('fundraising_campaigns')

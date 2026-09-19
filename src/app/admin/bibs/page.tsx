@@ -1,19 +1,21 @@
 'use client'
 
-import { useState }              from 'react'
-import { useRouter }             from 'next/navigation'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { CheckCircle2, Hash } from 'lucide-react'
 import { useAdminRegistrations } from '@/hooks/useAdmin'
-import { adminAssignBib }        from '@/lib/supabase/admin'
-import { cn }                    from '@/lib/utils'
+import { adminAssignBib } from '@/lib/supabase/admin'
+import { cn } from '@/lib/utils'
+import { Avatar, CARD, CategoryChip, EYEBROW, PageBody, PageHeader, Spinner } from '@/components/admin/ui'
 
 export default function BibsPage() {
   const { rows, loading, refresh } = useAdminRegistrations()
   const router = useRouter()
-  const [inputs,    setInputs]    = useState<Record<string, string>>({})
-  const [saving,    setSaving]    = useState<Record<string, boolean>>({})
+  const [inputs,     setInputs]     = useState<Record<string, string>>({})
+  const [saving,     setSaving]     = useState<Record<string, boolean>>({})
   const [autoSaving, setAutoSaving] = useState(false)
 
-  const queue = rows.filter(r => r.payment_status === 'paid' && !r.bib_number)
+  const queue    = rows.filter(r => r.payment_status === 'paid' && !r.bib_number)
   const assigned = rows.filter(r => r.bib_number)
 
   if (loading) return <Spinner />
@@ -30,9 +32,9 @@ export default function BibsPage() {
 
   async function handleAutoAssign() {
     setAutoSaving(true)
-    let next = (assigned.length > 0
+    let next = assigned.length > 0
       ? Math.max(...assigned.map(r => parseInt(r.bib_number ?? '0', 10))) + 1
-      : 1)
+      : 1
     for (const r of queue) {
       await adminAssignBib(r.id, String(next).padStart(3, '0'))
       next++
@@ -42,108 +44,133 @@ export default function BibsPage() {
   }
 
   return (
-    <div className="px-[22px] pb-6">
-      <div className="pt-4 mb-[10px]">
-        <p className="font-num text-[10px] font-extrabold text-white/35 uppercase tracking-[.08em] mb-[4px]">
-          Bib assignment queue
-        </p>
-        <p className="font-sans text-[12px] text-white/35 mb-[13px]">
-          {queue.length > 0
-            ? `${queue.length} confirmed athlete${queue.length !== 1 ? 's' : ''} need bibs`
-            : 'All paid athletes have bibs assigned.'}
-        </p>
-      </div>
+    <PageBody>
+      <PageHeader
+        eyebrow="Race numbers"
+        title="Bib queue."
+        subtitle={
+          queue.length > 0
+            ? `${queue.length} confirmed athlete${queue.length !== 1 ? 's' : ''} need a bib. Assign numbers one by one or auto-assign the rest.`
+            : 'All paid athletes have bibs assigned.'
+        }
+        pill={{ icon: <Hash size={14} strokeWidth={2.5} />, label: 'Assigned', value: String(assigned.length) }}
+      />
 
-      {queue.length > 0 && (
-        <>
-          <div className="bg-white/[.06] border-[1.5px] border-white/10 rounded-[16px] px-[15px] mb-4">
-            {queue.map((row, i) => {
-              const name = row.profiles?.full_name ?? 'Unknown'
-              const avi  = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
-              return (
-                <div key={row.id}
-                     className="flex items-center gap-[10px] py-[11px]"
-                     style={{ borderBottom: i < queue.length - 1 ? '1px solid rgba(255,255,255,.05)' : 'none' }}>
-                  <span className="font-num text-[15px] font-extrabold text-white/20 w-7 flex-shrink-0">
-                    #?
-                  </span>
-                  <button type="button" onClick={() => router.push(`/admin/athletes/${row.id}`)}
-                          className="flex-1 text-left min-w-0 focus-visible:outline-none">
-                    <div className="font-sans text-[12px] font-semibold text-white truncate mb-[2px]">{name}</div>
-                    <span className="font-sans text-[10px] font-bold rounded-[6px] px-[7px] py-[2px] capitalize"
-                          style={{ background: 'rgba(200,149,60,.12)', color: '#C8953C' }}>
-                      {row.category}
-                    </span>
-                  </button>
-                  <div className="flex gap-[6px] flex-shrink-0 items-center">
-                    <input type="number" min={1} max={999}
-                           value={inputs[row.id] ?? ''}
-                           onChange={e => setInputs(p => ({ ...p, [row.id]: e.target.value }))}
-                           placeholder="042"
-                           className="w-[56px] bg-white/[.07] border-[1.5px] border-white/[.11] rounded-[8px]
-                                      px-2 py-[7px] font-num text-[12px] font-bold text-white text-center
-                                      outline-none focus:border-bronze/50 [appearance:textfield]" />
-                    <button type="button" onClick={() => handleAssign(row.id)}
-                            disabled={saving[row.id] || !(inputs[row.id] ?? '').trim()}
-                            className={cn(
-                              'bg-bronze text-navy font-sans text-[11px] font-extrabold rounded-[8px] px-3 py-[7px]',
-                              'focus-visible:outline-none',
-                              (saving[row.id] || !(inputs[row.id] ?? '').trim()) && 'opacity-40 cursor-not-allowed',
-                            )}>
-                      {saving[row.id] ? '…' : 'Assign'}
-                    </button>
-                  </div>
-                </div>
-              )
-            })}
+      <section className="mt-7 grid gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(300px,.7fr)] lg:items-start">
+        {/* Queue */}
+        <div className={CARD}>
+          <div className="flex items-center justify-between border-b border-[#edf1f5] px-5 py-5 sm:px-6">
+            <div>
+              <p className={EYEBROW}>Waiting</p>
+              <h2 className="mt-1 text-[16px] font-extrabold text-[#10233f]">Needs a bib · {queue.length}</h2>
+            </div>
+            <Hash size={18} className="text-[#94a3b8]" />
           </div>
 
-          <button type="button" onClick={handleAutoAssign} disabled={autoSaving}
-                  className={cn(
-                    'w-full bg-bronze text-navy font-sans text-[13px] font-extrabold rounded-[12px] py-[14px]',
-                    'focus-visible:outline-none',
-                    autoSaving && 'opacity-50 cursor-not-allowed',
-                  )}>
-            {autoSaving ? 'Assigning…' : 'Auto-assign remaining bibs'}
-          </button>
-        </>
-      )}
-
-      {/* Already-assigned preview */}
-      {assigned.length > 0 && (
-        <div className="mt-5">
-          <p className="font-num text-[10px] font-extrabold text-white/35 uppercase tracking-[.08em] mb-[9px]">
-            Assigned · {assigned.length}
-          </p>
-          <div className="bg-white/[.04] border-[1.5px] border-white/[.07] rounded-[16px] px-[15px]">
-            {assigned.slice(0, 5).map((row, i) => {
-              const name = row.profiles?.full_name ?? 'Unknown'
-              return (
-                <div key={row.id} className="flex items-center justify-between py-[10px]"
-                     style={{ borderBottom: i < Math.min(assigned.length, 5) - 1 ? '1px solid rgba(255,255,255,.05)' : 'none' }}>
-                  <span className="font-sans text-[12px] font-semibold text-white/70 truncate">{name}</span>
-                  <span className="font-num text-[13px] font-extrabold text-bronze flex-shrink-0 ml-3">
-                    #{row.bib_number}
-                  </span>
-                </div>
-              )
-            })}
-            {assigned.length > 5 && (
-              <p className="font-sans text-[11px] text-white/30 py-[10px] text-center">
-                +{assigned.length - 5} more
+          {queue.length === 0 ? (
+            <div className="px-6 py-12 text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#eff6ff] text-[#2563eb]">
+                <CheckCircle2 size={19} />
+              </div>
+              <p className="mt-4 text-[13px] font-semibold text-[#475569]">The queue is clear.</p>
+              <p className="mx-auto mt-1 max-w-[300px] text-[11px] leading-5 text-[#94a3b8]">
+                New paid registrations will appear here until a bib is assigned.
               </p>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
+            </div>
+          ) : (
+            <>
+              <div className="px-5 sm:px-6">
+                {queue.map(row => {
+                  const name = row.profiles?.full_name ?? 'Unknown'
+                  const value = inputs[row.id] ?? ''
+                  const disabled = saving[row.id] || !value.trim()
+                  return (
+                    <div key={row.id} className="flex items-center gap-3 border-b border-[#edf1f5] py-4 last:border-0">
+                      <Avatar name={name} />
+                      <button
+                        type="button"
+                        onClick={() => router.push(`/admin/athletes/${row.id}`)}
+                        className="min-w-0 flex-1 text-left"
+                      >
+                        <p className="truncate text-[13px] font-semibold text-[#334155]">{name}</p>
+                        <div className="mt-1.5"><CategoryChip category={row.category} /></div>
+                      </button>
+                      <div className="flex shrink-0 items-center gap-2">
+                        <input
+                          type="number"
+                          min={1}
+                          max={999}
+                          value={value}
+                          onChange={e => setInputs(p => ({ ...p, [row.id]: e.target.value }))}
+                          placeholder="042"
+                          aria-label={`Bib number for ${name}`}
+                          className="w-[68px] rounded-[10px] border border-[#dbe7f4] bg-[#f7faff] px-2 py-2.5 text-center font-num text-[13px] font-extrabold text-[#10233f] outline-none transition [appearance:textfield] focus:border-[#2563eb]"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleAssign(row.id)}
+                          disabled={disabled}
+                          className={cn(
+                            'rounded-[10px] bg-[#2563eb] px-3.5 py-2.5 text-[11px] font-extrabold text-white transition hover:bg-[#1d4ed8]',
+                            disabled && 'cursor-not-allowed opacity-40',
+                          )}
+                        >
+                          {saving[row.id] ? '…' : 'Assign'}
+                        </button>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
 
-function Spinner() {
-  return (
-    <div className="flex items-center justify-center min-h-[50vh]">
-      <div className="w-5 h-5 rounded-full border-2 border-bronze border-t-transparent animate-spin" />
-    </div>
+              <div className="border-t border-[#edf1f5] p-5 sm:p-6">
+                <button
+                  type="button"
+                  onClick={handleAutoAssign}
+                  disabled={autoSaving}
+                  className={cn(
+                    'w-full rounded-[12px] bg-[#2563eb] py-3.5 text-[12px] font-extrabold text-white transition hover:bg-[#1d4ed8]',
+                    autoSaving && 'cursor-not-allowed opacity-50',
+                  )}
+                >
+                  {autoSaving ? 'Assigning…' : 'Auto-assign remaining bibs'}
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Assigned */}
+        <div className={CARD}>
+          <div className="flex items-center justify-between border-b border-[#edf1f5] px-5 py-5 sm:px-6">
+            <div>
+              <p className={EYEBROW}>Done</p>
+              <h2 className="mt-1 text-[16px] font-extrabold text-[#10233f]">Assigned · {assigned.length}</h2>
+            </div>
+            <CheckCircle2 size={18} className="text-[#94a3b8]" />
+          </div>
+
+          {assigned.length === 0 ? (
+            <p className="px-6 py-10 text-center text-[12px] text-[#94a3b8]">No bibs assigned yet.</p>
+          ) : (
+            <div className="px-5 sm:px-6">
+              {assigned.slice(0, 8).map(row => (
+                <div key={row.id} className="flex items-center justify-between gap-4 border-b border-[#edf1f5] py-3.5 last:border-0">
+                  <span className="truncate text-[13px] font-semibold text-[#334155]">
+                    {row.profiles?.full_name ?? 'Unknown'}
+                  </span>
+                  <span className="shrink-0 font-num text-[13px] font-extrabold text-[#2563eb]">#{row.bib_number}</span>
+                </div>
+              ))}
+              {assigned.length > 8 && (
+                <p className="py-3.5 text-center text-[11px] font-medium text-[#94a3b8]">
+                  +{assigned.length - 8} more
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      </section>
+    </PageBody>
   )
 }

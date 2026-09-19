@@ -36,12 +36,12 @@ export default function DisciplinesSection() {
           <div
             key={d.slug}
             className="bg-white shadow-card flex gap-3.5 items-start p-4"
-            style={{ borderLeft: `4px solid ${d.colour}`, borderRadius: '0 16px 16px 0' }}
+            style={{ borderLeft: `4px solid ${d.hex}`, borderRadius: '0 16px 16px 0' }}
           >
             {/* Discipline initial circle */}
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-              style={{ background: d.colour }}
+              style={{ background: d.hex }}
             >
               <span className={`font-num text-[15px] font-black ${INITIAL_TEXT[d.slug]}`}>
                 {INITIALS[d.slug]}
@@ -56,7 +56,7 @@ export default function DisciplinesSection() {
                 </span>
                 <span
                   className={`font-sans text-[10px] font-bold px-2 py-0.5 rounded-pill ${PILL_TEXT[d.slug]}`}
-                  style={{ background: d.colour }}
+                  style={{ background: d.hex }}
                 >
                   {d.distances.sprint} · {d.distances.olympic}
                 </span>

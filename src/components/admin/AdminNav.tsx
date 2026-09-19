@@ -1,65 +1,208 @@
 'use client'
 
-import Link            from 'next/link'
-import { usePathname } from 'next/navigation'
-import { cn }          from '@/lib/utils'
+// ─────────────────────────────────────────────────────────────────────────────
+// Tour de Rotary — HQ Admin shell (header, desktop sidebar, mobile tab bar)
+// Mirrors the participant portal shell (DesktopNav + BottomNav).
+// ─────────────────────────────────────────────────────────────────────────────
 
-const TABS = [
-  {
-    href: '/admin/overview',
-    label: 'Overview',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="M3 9.5L12 3L21 9.5V20C21 20.55 20.55 21 20 21H15V15H9V21H4C3.45 21 3 20.55 3 20V9.5Z"
-              stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-  {
-    href: '/admin/athletes',
-    label: 'Athletes',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <circle cx="9"  cy="7"  r="3" stroke="currentColor" strokeWidth="1.5"/>
-        <circle cx="17" cy="7"  r="2.5" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M2 21C2 17.1 5.1 14 9 14C12.9 14 16 17.1 16 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M19 14C21.2 14 23 15.8 23 18V21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
-  },
-  {
-    href: '/admin/bibs',
-    label: 'Bibs',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="M20 7L15 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V9L20 7Z"
-              stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-        <path d="M15 3V9H21" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-        <path d="M8 13H16M8 17H12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
-  },
+import Link from 'next/link'
+import { useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { Check, Hash, LayoutDashboard, LogOut, Moon, Sun, Users } from 'lucide-react'
+import { useUser } from '@/hooks/useUser'
+import { useParticipantTheme } from '@/context/ParticipantThemeContext'
+import { cn } from '@/lib/utils'
+import { initialsOf } from '@/components/admin/ui'
+
+const ITEMS = [
+  { href: '/admin/overview', label: 'Overview', icon: LayoutDashboard },
+  { href: '/admin/athletes', label: 'Athletes', icon: Users },
+  { href: '/admin/bibs',     label: 'Bibs',     icon: Hash },
 ]
 
-export function AdminNav() {
+export function AdminShell({ name, children }: { name: string; children: React.ReactNode }) {
   const pathname = usePathname()
+  const router = useRouter()
+  const { signOut } = useUser()
+  const { theme, setTheme } = useParticipantTheme()
+  const light = theme === 'light'
+  const [appearanceOpen, setAppearanceOpen] = useState(false)
+
+  async function handleSignOut() {
+    await signOut()
+    router.push('/login')
+    router.refresh()
+  }
+
   return (
-    <nav className="relative z-10 flex border-t border-white/[.06] bg-navy/[.98] pt-2 pb-[18px]"
-         aria-label="Admin navigation">
-      {TABS.map(({ href, label, icon }) => {
-        const active = pathname === href || pathname.startsWith(href + '/')
-        return (
-          <Link key={href} href={href}
-                className="flex-1 flex flex-col items-center gap-[3px]"
-                aria-current={active ? 'page' : undefined}>
-            <span className={cn(active ? 'text-bronze' : 'text-white/[.28]')}>{icon}</span>
-            <span className={cn('font-sans text-[9px] font-semibold',
-                                active ? 'text-bronze' : 'text-white/[.28]')}>
-              {label}
+    <div
+      className={cn(
+        'participant-shell min-h-dvh overflow-hidden transition-colors duration-200',
+        light ? 'bg-[#f6f8fb] text-navy' : 'bg-[#07152f] text-white',
+      )}
+    >
+      {/* ── Header ─────────────────────────────────────────────────────── */}
+      <header
+        className={cn(
+          'fixed inset-x-0 top-0 z-50 flex h-[72px] items-center justify-between border-b px-6 transition-colors lg:px-8',
+          light ? 'border-navy/10 bg-white' : 'border-white/[.07] bg-[#091631]/95',
+        )}
+      >
+        <Link href="/admin/overview" className="flex items-center gap-3">
+          <div className="relative h-12 w-[148px] shrink-0">
+            <img
+              src="/assets/auth/tour-de-rotary-mark.png"
+              alt="Tour de Rotary Dar es Salaam"
+              className="h-full w-full object-contain object-left"
+            />
+          </div>
+          <span
+            className={cn(
+              'hidden rounded-full px-2.5 py-1 font-num text-[9px] font-extrabold uppercase tracking-[0.12em] sm:inline-block',
+              light ? 'bg-[#E6F0FA] text-[#1769AA]' : 'bg-bronze/15 text-bronze',
+            )}
+          >
+            HQ Admin
+          </span>
+        </Link>
+
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setAppearanceOpen(open => !open)}
+              aria-label="Appearance settings"
+              aria-expanded={appearanceOpen}
+              title="Appearance"
+              className={cn(
+                'rounded-full p-2 transition',
+                light ? 'text-navy/55 hover:bg-navy/5 hover:text-navy' : 'text-white/65 hover:bg-white/5 hover:text-white',
+              )}
+            >
+              {light ? <Moon size={18} strokeWidth={1.8} /> : <Sun size={18} strokeWidth={1.8} />}
+            </button>
+            {appearanceOpen && (
+              <div
+                className={cn(
+                  'absolute right-0 top-11 w-44 rounded-[14px] border p-2 shadow-card-lg',
+                  light ? 'border-navy/10 bg-white' : 'border-white/10 bg-[#0d1b3d]',
+                )}
+              >
+                <p className={cn('px-2 py-1.5 font-num text-[9px] font-extrabold uppercase tracking-[.12em]', light ? 'text-navy/35' : 'text-white/35')}>
+                  Appearance
+                </p>
+                <button
+                  type="button"
+                  onClick={() => { setTheme('light'); setAppearanceOpen(false) }}
+                  className={cn('flex w-full items-center justify-between rounded-[9px] px-2.5 py-2 text-left font-sans text-[11px] font-semibold', light ? 'bg-navy/[.05] text-navy' : 'text-white/70 hover:bg-white/[.05]')}
+                >
+                  <span className="flex items-center gap-2"><Sun size={15} /> Light mode</span>
+                  {light && <Check size={14} className="text-[#1769AA]" />}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setTheme('dark'); setAppearanceOpen(false) }}
+                  className={cn('mt-1 flex w-full items-center justify-between rounded-[9px] px-2.5 py-2 text-left font-sans text-[11px] font-semibold', !light ? 'bg-white/[.06] text-white' : 'text-navy/65 hover:bg-navy/[.05]')}
+                >
+                  <span className="flex items-center gap-2"><Moon size={15} /> Dark mode</span>
+                  {!light && <Check size={14} className="text-bronze" />}
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className={cn('hidden h-7 w-px sm:block', light ? 'bg-navy/10' : 'bg-white/10')} />
+
+          <div className="flex items-center gap-2.5">
+            <div className={cn('flex h-9 w-9 items-center justify-center rounded-full border font-num text-[12px] font-extrabold', light ? 'border-navy/10 bg-[#EAF1F8] text-navy' : 'border-bronze/30 bg-bronze/10 text-bronze')}>
+              {initialsOf(name)}
+            </div>
+            <span className={cn('hidden font-sans text-[12px] font-semibold sm:block', light ? 'text-navy' : 'text-white/80')}>
+              {name.split(' ')[0]}
             </span>
-          </Link>
-        )
-      })}
-    </nav>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => void handleSignOut()}
+            aria-label="Sign out"
+            className={cn('rounded-full p-2 transition', light ? 'text-navy/50 hover:bg-navy/5 hover:text-navy' : 'text-white/35 hover:bg-white/5 hover:text-white')}
+          >
+            <LogOut size={17} strokeWidth={1.7} />
+          </button>
+        </div>
+      </header>
+
+      {/* ── Desktop sidebar ────────────────────────────────────────────── */}
+      <aside
+        className={cn(
+          'fixed bottom-0 left-0 top-[72px] z-40 hidden w-[228px] flex-col border-r px-5 py-7 lg:flex',
+          light ? 'border-navy/10 bg-white' : 'border-white/[.06] bg-[#091631]/95',
+        )}
+      >
+        <p className={cn('px-3 pb-3 font-num text-[9px] font-extrabold uppercase tracking-[.12em]', light ? 'text-navy/35' : 'text-white/25')}>
+          HQ portal
+        </p>
+        <nav className="space-y-1" aria-label="Admin navigation">
+          {ITEMS.map(({ href, label, icon: Icon }) => {
+            const active = pathname === href || pathname.startsWith(`${href}/`)
+            return (
+              <Link
+                key={href}
+                href={href}
+                aria-current={active ? 'page' : undefined}
+                className={cn(
+                  'flex h-11 items-center gap-3 rounded-[11px] px-3 transition-colors',
+                  light
+                    ? active ? 'bg-[#E6F0FA] text-[#1769AA]' : 'text-navy/55 hover:bg-navy/[.04] hover:text-navy'
+                    : active ? 'bg-bronze text-white shadow-[0_8px_24px_rgba(200,149,60,.16)]' : 'text-white/50 hover:bg-white/[.05] hover:text-white',
+                )}
+              >
+                <Icon size={19} strokeWidth={active ? 2 : 1.7} />
+                <span className="font-sans text-[12px] font-semibold">{label}</span>
+              </Link>
+            )
+          })}
+        </nav>
+
+        <div className="mt-auto px-3 pb-2">
+          <p className={cn('font-serif text-[18px] italic leading-tight', light ? 'text-navy/45' : 'text-white/45')}>Stronger<br />Together.</p>
+          <div className="mt-3 flex items-center gap-1">
+            <span className="h-1 w-6 bg-[#1769AA]" />
+            <span className="h-1 w-6 bg-[#B12A70]" />
+            <span className="h-1 w-6 bg-[#F8BE22]" />
+          </div>
+          <p className={cn('mt-3 font-num text-[9px] uppercase tracking-[.1em]', light ? 'text-navy/35' : 'text-bronze/50')}>1 November 2026</p>
+        </div>
+      </aside>
+
+      {/* ── Content ────────────────────────────────────────────────────── */}
+      <main className="relative min-h-dvh overflow-x-hidden overflow-y-auto pb-[82px] pt-[60px] lg:h-dvh lg:pb-0 lg:pl-[228px] lg:pt-[72px]">
+        <div className="participant-admin min-h-full bg-[#f6f8fb] text-[#10233f]">
+          <div className="mx-auto w-full max-w-[1480px]">{children}</div>
+        </div>
+      </main>
+
+      {/* ── Mobile tab bar ─────────────────────────────────────────────── */}
+      <nav
+        className={cn(
+          'fixed bottom-0 left-0 right-0 z-50 flex border-t pt-2 pb-[calc(env(safe-area-inset-bottom)+10px)] lg:hidden',
+          light ? 'border-navy/10 bg-white' : 'border-white/[.06] bg-navy',
+        )}
+        aria-label="Admin navigation"
+      >
+        {ITEMS.map(({ href, label, icon: Icon }) => {
+          const active = pathname === href || pathname.startsWith(`${href}/`)
+          return (
+            <Link key={href} href={href} className="flex flex-1 flex-col items-center gap-1" aria-current={active ? 'page' : undefined}>
+              <Icon size={19} strokeWidth={active ? 2 : 1.7} className={cn(active ? (light ? 'text-[#1769AA]' : 'text-bronze') : light ? 'text-navy/30' : 'text-white/30')} />
+              <span className={cn('font-sans text-[9px] font-semibold', active ? (light ? 'text-[#1769AA]' : 'text-bronze') : light ? 'text-navy/30' : 'text-white/30')}>
+                {label}
+              </span>
+            </Link>
+          )
+        })}
+      </nav>
+    </div>
   )
 }

@@ -1,10 +1,12 @@
 'use client'
 
-import { useState, useMemo }     from 'react'
-import { useRouter }             from 'next/navigation'
+import { useState, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
+import { ArrowUpRight, Search, Users } from 'lucide-react'
 import { useAdminRegistrations } from '@/hooks/useAdmin'
-import { cn }                    from '@/lib/utils'
-import type { RegistrationRow }  from '@/lib/supabase/admin'
+import { cn } from '@/lib/utils'
+import type { RegistrationRow } from '@/lib/supabase/admin'
+import { Avatar, CARD, CategoryChip, PageBody, PageHeader, Spinner, StatusChip } from '@/components/admin/ui'
 
 type StatusFilter   = 'all' | 'paid' | 'pending'
 type CategoryFilter = 'all' | 'sprint' | 'olympic' | 'relay'
@@ -32,114 +34,114 @@ export default function AthletesPage() {
   if (loading) return <Spinner />
 
   return (
-    <div className="px-[22px] pb-6">
-      <div className="pt-4 mb-[10px]">
-        <p className="font-num text-[10px] font-extrabold text-white/35 uppercase tracking-[.08em] mb-[10px]">
-          All registrations
-        </p>
+    <PageBody>
+      <PageHeader
+        eyebrow="Registrations"
+        title="Athletes."
+        subtitle="Search, filter and open any registration to confirm payment or assign a bib."
+        pill={{ icon: <Users size={14} strokeWidth={2.5} />, label: 'Showing', value: `${filtered.length} of ${rows.length}` }}
+      />
 
-        {/* Search */}
-        <div className="relative mb-[11px]">
-          <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" width="15" height="15"
-               viewBox="0 0 24 24" fill="none" aria-hidden>
-            <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.5"/>
-            <path d="M16.5 16.5L21 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
-          <input type="search" value={query} onChange={e => setQuery(e.target.value)}
-                 placeholder="Search by name or phone…"
-                 className="w-full bg-white/[.07] border-[1.5px] border-white/[.11] rounded-[10px]
-                            pl-9 pr-4 py-[11px] font-sans text-[13px] text-white placeholder:text-white/25
-                            outline-none focus:border-bronze/50 transition-colors" />
+      {/* Search + filters */}
+      <section className="mt-7">
+        <div className="relative">
+          <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#94a3b8]" />
+          <input
+            type="search"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder="Search by name or phone…"
+            aria-label="Search athletes"
+            className="w-full rounded-[16px] border border-[#dce5ef] bg-white py-3.5 pl-11 pr-4 text-[13px] text-[#10233f] shadow-[0_10px_30px_rgba(15,35,63,0.045)] outline-none transition placeholder:text-[#94a3b8] focus:border-[#2563eb]"
+          />
         </div>
 
-        {/* Filter chips */}
-        <div className="flex gap-[6px] flex-wrap mb-[13px]">
+        <div className="mt-3 flex flex-wrap gap-2">
           {(['all', 'pending', 'paid'] as StatusFilter[]).map(s => (
             <FilterChip key={s} active={status === s} onClick={() => setStatus(s)}>
-              {s === 'all' ? `All · ${stats?.total ?? 0}` : s === 'paid' ? `Paid · ${stats?.paid ?? 0}` : `Pending · ${stats?.pending ?? 0}`}
+              {s === 'all'
+                ? `All · ${stats?.total ?? 0}`
+                : s === 'paid'
+                  ? `Paid · ${stats?.paid ?? 0}`
+                  : `Pending · ${stats?.pending ?? 0}`}
             </FilterChip>
           ))}
+          <span className="mx-1 hidden h-7 w-px bg-[#dce5ef] sm:block" />
           {(['olympic', 'sprint', 'relay'] as CategoryFilter[]).map(c => (
             <FilterChip key={c} active={category === c} onClick={() => setCategory(c === category ? 'all' : c)}>
               {c}
             </FilterChip>
           ))}
         </div>
-      </div>
+      </section>
 
       {/* List */}
-      <div className="bg-white/[.06] border-[1.5px] border-white/10 rounded-[16px] px-[15px]">
+      <section className={`${CARD} mt-5`}>
         {filtered.length === 0 ? (
-          <p className="font-sans text-[13px] text-white/30 py-5 text-center">No results.</p>
+          <div className="px-6 py-12 text-center">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#eff6ff] text-[#2563eb]">
+              <Search size={19} />
+            </div>
+            <p className="mt-4 text-[13px] font-semibold text-[#475569]">No athletes match.</p>
+            <p className="mx-auto mt-1 max-w-[300px] text-[11px] leading-5 text-[#94a3b8]">
+              Try a different name or clear the filters.
+            </p>
+          </div>
         ) : (
-          filtered.map((row, i) => (
-            <AthletRow key={row.id} row={row} last={i === filtered.length - 1}
-                       onClick={() => router.push(`/admin/athletes/${row.id}`)} />
-          ))
+          <div className="px-2 py-2 sm:px-3">
+            {filtered.map(row => (
+              <AthleteRow key={row.id} row={row} onClick={() => router.push(`/admin/athletes/${row.id}`)} />
+            ))}
+          </div>
         )}
-      </div>
-    </div>
+      </section>
+    </PageBody>
   )
 }
 
-// ── Sub-components ────────────────────────────────────────────────────────────
-
-function FilterChip({ active, onClick, children }: {
-  active: boolean; onClick: () => void; children: React.ReactNode
-}) {
+function FilterChip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
-    <button type="button" onClick={onClick}
-            className={cn(
-              'rounded-full px-[10px] py-[4px] font-sans text-[10px] font-bold border-[1.5px] capitalize',
-              'focus-visible:outline-none',
-              active
-                ? 'bg-bronze/[.15] border-bronze/40 text-bronze'
-                : 'bg-white/[.05] border-white/[.12] text-white/45',
-            )}>
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={cn(
+        'rounded-full border px-3.5 py-2 font-num text-[10px] font-extrabold uppercase tracking-[0.08em] transition',
+        active
+          ? 'border-[#cfe0f7] bg-[#eff6ff] text-[#2563eb]'
+          : 'border-[#dce5ef] bg-white text-[#64748b] hover:border-[#cbd8e6]',
+      )}
+    >
       {children}
     </button>
   )
 }
 
-function AthletRow({ row, last, onClick }: { row: RegistrationRow; last: boolean; onClick: () => void }) {
+function AthleteRow({ row, onClick }: { row: RegistrationRow; onClick: () => void }) {
   const name = row.profiles?.full_name ?? 'Unknown'
-  const avi  = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
-  const paid = row.payment_status === 'paid'
-
   return (
-    <button type="button" onClick={onClick}
-            className="w-full flex items-center gap-[10px] py-[11px] text-left focus-visible:outline-none"
-            style={{ borderBottom: last ? 'none' : '1px solid rgba(255,255,255,.05)' }}>
-      <div className="w-[30px] h-[30px] rounded-full bg-bronze/[.15] border border-bronze/25 flex-shrink-0
-                      flex items-center justify-center font-serif text-[11px] italic font-bold text-bronze">
-        {avi}
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex w-full items-center gap-3 rounded-[16px] px-3 py-3 text-left transition hover:bg-[rgba(37,99,235,.05)]"
+    >
+      <Avatar name={name} />
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-[13px] font-semibold text-[#334155]">{name}</p>
+        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+          <CategoryChip category={row.category} />
+          {row.profiles?.phone && (
+            <span className="hidden text-[11px] text-[#94a3b8] sm:inline">{row.profiles.phone}</span>
+          )}
+        </div>
       </div>
-      <div className="flex-1 min-w-0">
-        <div className="font-sans text-[12px] font-semibold text-white truncate mb-[2px]">{name}</div>
-        <span className="font-sans text-[10px] font-bold rounded-[6px] px-[7px] py-[2px] capitalize"
-              style={{ background: 'rgba(200,149,60,.12)', color: '#C8953C' }}>
-          {row.category}
-        </span>
-      </div>
-      <div className="text-right flex-shrink-0 flex flex-col items-end gap-[3px]">
-        <span className="font-sans text-[10px] font-bold rounded-[6px] px-[7px] py-[2px]"
-              style={paid
-                ? { background: 'rgba(72,199,136,.10)',  color: '#48c788' }
-                : { background: 'rgba(245,158,11,.10)',  color: '#F59E0B' }}>
-          {paid ? 'Paid' : 'Pending'}
-        </span>
-        <span className="font-num text-[11px] font-extrabold text-white/[.35]">
+      <div className="flex shrink-0 flex-col items-end gap-1.5">
+        <StatusChip paid={row.payment_status === 'paid'} />
+        <span className="font-num text-[11px] font-extrabold text-[#94a3b8]">
           {row.bib_number ? `#${row.bib_number}` : '—'}
         </span>
       </div>
+      <ArrowUpRight size={16} className="hidden shrink-0 text-[#94a3b8] sm:block" />
     </button>
-  )
-}
-
-function Spinner() {
-  return (
-    <div className="flex items-center justify-center min-h-[50vh]">
-      <div className="w-5 h-5 rounded-full border-2 border-bronze border-t-transparent animate-spin" />
-    </div>
   )
 }

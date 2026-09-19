@@ -1,19 +1,47 @@
-// Placeholder quote — replaced by live Supabase data in Build 3 (Participant Profile)
-const FEATURED = {
-  text:          "I race for my mother. She was treated at Ocean Road. She's still here. So am I.",
-  author:        'Amina Rashid',
-  initial:       'A',
-  category:      'Sprint',
-  location:      'Dar es Salaam',
-  disciplineColor:     '#4FC3F7',
-  disciplineTextColor: '#0D1B3D',
+'use client'
+
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { getFeaturedStory } from '@/lib/supabase/stories'
+import { CATEGORY_MAP, DISCIPLINE_MAP } from '@/config/categories'
+import { initials, truncate } from '@/lib/utils'
+import { SITE } from '@/config/site'
+
+// Shown until a live public story loads — and if none exist yet.
+const PLACEHOLDER = {
+  text:     "I race for my mother. She was treated at Ocean Road. She's still here. So am I.",
+  author:   'Amina Rashid',
+  initial:  'A',
+  category: 'Sprint',
+  location: SITE.event.location,
+  badgeColor: '#4FC3F7',
 }
 
 // SVG noise data URI for archival grain — opacity controlled inline
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
 
 export default function WhyIRaceSection() {
-  const q = FEATURED
+  const [quote, setQuote] = useState(PLACEHOLDER)
+
+  useEffect(() => {
+    let active = true
+    getFeaturedStory().then(story => {
+      if (!active || !story) return
+      const category   = CATEGORY_MAP[story.category]
+      const discipline  = story.discipline ? DISCIPLINE_MAP[story.discipline] : null
+      setQuote({
+        text:       truncate(story.story, 180),
+        author:     story.full_name,
+        initial:    initials(story.full_name)[0] ?? '?',
+        category:   discipline ? `${category?.name ?? story.category} · ${discipline.name}` : category?.name ?? story.category,
+        location:   SITE.event.location,
+        badgeColor: discipline?.hex ?? '#C8953C',
+      })
+    })
+    return () => { active = false }
+  }, [])
+
+  const q = quote
   return (
     <section className="bg-parchment relative overflow-hidden px-5 py-11">
 
@@ -34,7 +62,7 @@ export default function WhyIRaceSection() {
       </blockquote>
 
       {/* Attribution */}
-      <div className="relative flex items-center gap-2.5">
+      <div className="relative flex items-center gap-2.5 mb-6">
         {/* Avatar — navy circle, serif initial in bronze */}
         <div className="w-9 h-9 rounded-full bg-navy flex items-center justify-center flex-shrink-0">
           <span className="font-serif text-[13px] font-bold text-bronze">{q.initial}</span>
@@ -46,7 +74,7 @@ export default function WhyIRaceSection() {
           <div className="flex items-center gap-1.5">
             <span
               className="font-sans text-[10px] font-bold px-1.5 py-0.5 rounded-pill"
-              style={{ background: q.disciplineColor, color: q.disciplineTextColor }}
+              style={{ background: q.badgeColor, color: '#0D1B3D' }}
             >
               {q.category}
             </span>
@@ -54,6 +82,13 @@ export default function WhyIRaceSection() {
           </div>
         </div>
       </div>
+
+      <Link
+        href="/stories"
+        className="relative font-sans text-[11px] font-bold text-bronze uppercase tracking-[.04em] hover:text-navy transition-colors duration-200"
+      >
+        Read more stories →
+      </Link>
 
     </section>
   )

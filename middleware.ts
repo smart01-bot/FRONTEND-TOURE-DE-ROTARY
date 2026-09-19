@@ -1,10 +1,10 @@
-import { createServerClient } from '@supabase/ssr'
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
-const PUBLIC_PREFIXES    = ['/', '/about', '/activities', '/contact', '/merch']
+const PUBLIC_PREFIXES    = ['/', '/about', '/activities', '/contact', '/merch', '/stories']
 const AUTH_PREFIXES      = ['/login', '/register', '/reset-password']
 const PROTECTED_PREFIXES = [
-  '/dashboard', '/ticket', '/training', '/fundraise', '/profile',
+  '/dashboard', '/ticket', '/training', '/feed', '/fundraise', '/profile',
   '/results', '/community', '/team',
   '/admin',   // role check is enforced in app/admin/layout.tsx
 ]
@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
     {
       cookies: {
         getAll:  ()             => request.cookies.getAll(),
-        setAll: (cookiesToSet) => {
+        setAll: (cookiesToSet: { name: string; value: string; options: CookieOptions }[]) => {
           cookiesToSet.forEach(({ name, value, options }) => {
             request.cookies.set(name, value)
             response.cookies.set(name, value, options)
@@ -40,13 +40,16 @@ export async function middleware(request: NextRequest) {
     },
   )
 
-  const { data: { session } } = await supabase.auth.getSession()
-  const isLoggedIn = !!session
-
   // Public donor pages bypass auth entirely
   if (PUBLIC_FUNDRAISE.test(pathname))          return response
 
   if (matchesAny(pathname, PUBLIC_PREFIXES))    return response
+
+  // getUser() verifies the token with Supabase Auth (getSession() only reads the
+  // cookie and can't be trusted server-side). Runs only for auth/protected routes.
+  const { data: { user } } = await supabase.auth.getUser()
+  const isLoggedIn = !!user
+
   if (matchesAny(pathname, AUTH_PREFIXES)) {
     if (isLoggedIn) return NextResponse.redirect(new URL('/dashboard', request.url))
     return response

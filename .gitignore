@@ -1,5 +1,7 @@
 
 .next/
 node_modules/
-.env.example
-.env.local
+
+# Never commit environment files or local secrets.
+.env
+.env.*

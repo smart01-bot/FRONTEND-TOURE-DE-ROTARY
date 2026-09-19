@@ -36,6 +36,7 @@ export interface Registration {
   category:       Category
   discipline:     DisciplineSlug | null   // relay only
   story:          string | null
+  story_public:   boolean                  // opt-in — surfaces on /stories + homepage
   bib_number:     string | null
   payment_status: PaymentStatus
   payment_ref:    string | null
