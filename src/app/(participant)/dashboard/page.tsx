@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { ArrowRight, Bike, CalendarDays, Check, ChevronRight, Clock3, Heart, MapPin, Ticket, UserRound, Users } from 'lucide-react'
+import { ArrowRight, Bike, CalendarDays, Check, ChevronRight, Clock3, Heart, MapPin, Ticket, UserRound } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useParticipant } from '@/hooks/useParticipant'
 import { useFundraising } from '@/hooks/useFundraising'
@@ -47,7 +47,7 @@ export default function DashboardPage() {
                 <div className={`max-w-[520px] rounded-[16px] p-5 shadow-card-md sm:p-6 ${dark ? 'bg-[#0C2748]/95' : 'bg-white/95'}`}>
                   <p className="font-num text-[9px] font-extrabold uppercase tracking-[.16em] text-[#B12A70]">Participant dashboard</p>
                   <h1 className={`mt-2 font-serif text-[34px] font-bold italic leading-none tracking-[-.03em] sm:text-[44px] ${dark ? 'text-white' : 'text-navy'}`}>Good morning, {firstName}</h1>
-                  <p className={`mt-3 font-sans text-[12px] sm:text-[13px] ${dark ? 'text-white/55' : 'text-navy/55'}`}>Your Tour de Rotary journey starts here.</p>
+                  <p className={`mt-3 font-sans text-[12px] sm:text-[13px] ${dark ? 'text-white/55' : 'text-navy/55'}`}>Your Tour de Dar journey starts here.</p>
                   <div className={`mt-4 flex flex-wrap gap-4 font-sans text-[10px] font-semibold ${dark ? 'text-white/55' : 'text-navy/55'}`}>
                     <span className="inline-flex items-center gap-1.5"><MapPin size={13} className="text-[#1769AA]" />Dar es Salaam</span>
                     <span className="inline-flex items-center gap-1.5"><CalendarDays size={13} className="text-[#1769AA]" />2026 Edition</span>
@@ -58,7 +58,7 @@ export default function DashboardPage() {
 
             <div className="flex flex-col justify-between bg-[#123C70] p-6 text-white sm:p-8">
               <div>
-                <p className="font-num text-[9px] font-extrabold uppercase tracking-[.16em] text-white/60">Tour de Rotary 2026</p>
+                <p className="font-num text-[9px] font-extrabold uppercase tracking-[.16em] text-white/60">Tour de Dar 2026</p>
                 <h2 className="mt-3 font-serif text-[27px] font-bold italic leading-tight">Race day is getting closer.</h2>
               </div>
               <div className="mt-8">
@@ -137,12 +137,8 @@ export default function DashboardPage() {
           </section>
 
           <section className={`rounded-[18px] border p-5 shadow-card sm:p-6 ${dark ? 'border-white/10 bg-[#0C2748]' : 'border-navy/10 bg-white'}`}>
-            <div className="flex items-center justify-between"><div className="flex items-center gap-2.5"><CalendarDays size={20} className="text-[#1769AA]" /><h2 className={`font-serif text-[23px] font-bold ${dark ? 'text-white' : 'text-navy'}`}>Upcoming</h2></div><span className="font-sans text-[10px] font-bold text-[#1769AA]">View all →</span></div>
-            <div className={`mt-4 divide-y ${dark ? 'divide-white/10' : 'divide-navy/10'}`}>
-              <Upcoming date="04 OCT" title="Race briefing" detail="Saturday · 4:00 PM" dark={dark} />
-              <Upcoming date="28 SEP" title="Registration closes" detail="Sunday" dark={dark} />
-              <Upcoming date="03 OCT" title="Kit collection" detail="Friday" dark={dark} />
-            </div>
+            <div className="flex items-center gap-2.5"><CalendarDays size={20} className="text-[#1769AA]" /><h2 className={`font-serif text-[23px] font-bold ${dark ? 'text-white' : 'text-navy'}`}>Upcoming</h2></div>
+            <div className={`mt-4 rounded-[12px] border border-dashed p-5 text-center ${dark ? 'border-white/15' : 'border-navy/15'}`}><p className={`font-sans text-[11px] font-semibold ${dark ? 'text-white/60' : 'text-navy/60'}`}>The official event schedule has not been published yet.</p><p className={`mt-1 font-sans text-[9px] ${dark ? 'text-white/35' : 'text-navy/35'}`}>Dates and times will appear here once verified.</p></div>
           </section>
         </div>
 
@@ -180,10 +176,6 @@ function ActionCard({ title, text, icon: Icon, tone, dark, onClick }: { title: s
     soft: dark ? 'bg-[#123C70] text-white' : 'bg-[#E6F0FA] text-navy',
   }[tone]
   return <button type="button" onClick={onClick} className={`group min-h-[128px] rounded-[13px] p-4 text-left transition hover:-translate-y-0.5 ${styles}`}><Icon size={22} strokeWidth={1.8} /><p className="mt-5 font-sans text-[12px] font-bold">{title}</p><p className="mt-1 pr-2 font-sans text-[9px] leading-relaxed opacity-75">{text}</p><ArrowRight size={14} className="mt-3 transition-transform group-hover:translate-x-1" /></button>
-}
-
-function Upcoming({ date, title, detail, dark }: { date: string; title: string; detail: string; dark: boolean }) {
-  return <div className="flex items-center gap-3 py-3"><div className={`w-11 shrink-0 rounded-[8px] px-1.5 py-2 text-center ${dark ? 'bg-[#123C70]' : 'bg-[#F4F7FA]'}`}><p className="font-num text-[8px] font-extrabold text-[#1769AA]">{date.split(' ')[0]}</p><p className={`font-num text-[7px] font-bold ${dark ? 'text-white/45' : 'text-navy/45'}`}>{date.split(' ')[1]}</p></div><div className="min-w-0 flex-1"><p className={`font-sans text-[11px] font-semibold ${dark ? 'text-white' : 'text-navy'}`}>{title}</p><p className={`mt-0.5 font-sans text-[9px] ${dark ? 'text-white/45' : 'text-navy/45'}`}>{detail}</p></div><ChevronRight size={15} className={dark ? 'text-white/25' : 'text-navy/25'} /></div>
 }
 
 function Spinner({ dark }: { dark: boolean }) {

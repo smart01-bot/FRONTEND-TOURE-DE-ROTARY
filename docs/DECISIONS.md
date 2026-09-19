@@ -11,8 +11,9 @@ Only settled, project-wide choices belong here. Newer entries replace older entr
 | 2026-09-19 | Active | Never present invented activity as live data. | Empty states are preferable to misleading registrations, posts, donations, or statistics. |
 | 2026-09-19 | Active | The visual system uses blue, magenta (`#9F2B68`), yellow, white, and deep navy. | Maintains the approved event identity while allowing disciplined emphasis. |
 | 2026-09-19 | Active | Preserve the clean modern UI while adding Old Dar × Modern Dar through storytelling layers. | Historical atmosphere must not harm usability. |
-| 2026-09-19 | Pending | Final public naming: `Tour de Dar` versus `Tour de Rotary Dar es Salaam`. | Must be settled during Phase 1 and applied consistently. |
-| 2026-09-19 | Pending | Final primary story label: `Why I Participate` versus `Why are you doing this?`. | Must be settled during Phase 1 before global copy changes. |
+| 2026-09-19 | Active | The final public product name is `Tour de Dar`. | Matches the Project Bible, site configuration, metadata, and concise public identity; supersedes mixed `Tour de Rotary` UI copy. |
+| 2026-09-19 | Active | The primary participant-story prompt is `Why are you doing this?`. | Uses one direct, human prompt across registration and profile editing; supersedes mixed `Why I race` / `Why I participate` prompts. |
+| 2026-09-19 | Active | Unpublished training resources and event schedule details remain visibly unavailable or `TBD`. | Prevents dead controls and invented operational information. |
 
 ## Entry format
 

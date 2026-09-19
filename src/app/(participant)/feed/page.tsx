@@ -14,7 +14,7 @@ import type { PostType, FeedDiscipline } from '@/types/feed'
 
 export default function FeedPage() {
   const { profile, daysUntil } = useParticipant()
-  const { posts, loading, currentUserId, createPost, toggleReaction } = useFeed()
+  const { posts, loading, error, currentUserId, reload, createPost, toggleReaction, updatePost, deletePost } = useFeed()
 
   const avatarInitials = profile?.full_name ? initials(profile.full_name) : '?'
 
@@ -59,6 +59,11 @@ export default function FeedPage() {
 
             {loading ? (
               <Spinner />
+            ) : error ? (
+              <div role="alert" className="rounded-[24px] border border-[#f0c9c5] bg-white px-6 py-10 text-center">
+                <p className="text-[13px] font-semibold text-[#b6453a]">The community feed could not be loaded.</p>
+                <button type="button" onClick={() => void reload()} className="mt-3 rounded-full bg-[#2563eb] px-4 py-2 text-[11px] font-bold text-white">Try again</button>
+              </div>
             ) : posts.length === 0 ? (
               <div className="rounded-[24px] border border-[#dce5ef] bg-white px-6 py-12 text-center shadow-[0_10px_30px_rgba(15,35,63,0.045)]">
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#eff6ff] text-[#2563eb]">
@@ -76,6 +81,8 @@ export default function FeedPage() {
                   post={post}
                   currentUserId={currentUserId}
                   onReact={toggleReaction}
+                  onUpdate={updatePost}
+                  onDelete={deletePost}
                 />
               ))
             )}

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { Bell, Heart, Home, LogOut, MessageSquare, Ticket, User, Bike, Moon, Sun, Check } from 'lucide-react'
+import { Heart, Home, LogOut, MessageSquare, Ticket, User, Bike, Moon, Sun, Check } from 'lucide-react'
 import { useParticipant } from '@/hooks/useParticipant'
 import { useUser } from '@/hooks/useUser'
 import { cn } from '@/lib/utils'
@@ -37,20 +37,11 @@ export function DesktopNav() {
       >
         <Link href="/dashboard" className="flex items-center gap-3">
           <div className="relative h-12 w-[148px] shrink-0">
-            <img src="/assets/auth/tour-de-rotary-mark.png" alt="Tour de Rotary Dar es Salaam" className="h-full w-full object-contain object-left" />
+            <img src="/assets/auth/tour-de-rotary-mark.png" alt="Tour de Dar" className="h-full w-full object-contain object-left" />
           </div>
         </Link>
 
         <div className="flex items-center gap-4">
-          <button
-            type="button"
-            aria-label="Notifications"
-            className={cn('relative rounded-full p-2 transition', light ? 'text-navy/65 hover:bg-navy/5 hover:text-navy' : 'text-white/65 hover:bg-white/5 hover:text-white')}
-          >
-            <Bell size={19} strokeWidth={1.7} />
-            <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#B12A70]" />
-          </button>
-          <div className={cn('hidden h-7 w-px sm:block', light ? 'bg-navy/10' : 'bg-white/10')} />
           <div className="relative">
             <button
               type="button"

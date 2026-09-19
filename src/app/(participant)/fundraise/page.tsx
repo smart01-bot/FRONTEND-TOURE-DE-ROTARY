@@ -186,7 +186,7 @@ export default function FundraisePage() {
 
             {paid.length > 0 ? (
               <div className="px-5 sm:px-6">
-                {paid.slice(0, 8).map((d, i) => (
+                {paid.slice(0, 8).map(d => (
                   <div key={d.id} className="flex items-center justify-between gap-4 border-b border-[#edf1f5] py-4 last:border-0">
                     <div className="flex min-w-0 items-center gap-3">
                       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#eff6ff] text-[#2563eb]">

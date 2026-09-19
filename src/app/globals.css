@@ -180,3 +180,10 @@ html[data-participant-theme='dark'] .participant-admin [class*='bg-[#dce5ef]'] {
 html[data-participant-theme='dark'] .participant-admin input { color: rgba(255,255,255,.92) !important; }
 html[data-participant-theme='dark'] .participant-admin input::placeholder { color: rgba(255,255,255,.32) !important; }
 html[data-participant-theme='dark'] .participant-admin input:focus { background: #13264b !important; border-color: #4f8fe8 !important; }
+
+@media print {
+  header, aside, nav, .print\:hidden { display: none !important; }
+  main { padding: 0 !important; }
+  body { background: #fff !important; }
+  .participant-shell { background: #fff !important; }
+}

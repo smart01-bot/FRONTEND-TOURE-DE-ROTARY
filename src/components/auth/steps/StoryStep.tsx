@@ -19,7 +19,7 @@ export default function StoryStep({ data, onChange, onNext, onBack }: Props) {
     <div className="animate-fade-up">
 
       <h2 className="font-serif text-[32px] font-bold italic text-white leading-[1.08] tracking-[-0.02em] mb-[6px]">
-        Why do you race?
+        Why are you doing this?
       </h2>
       <p className="font-sans text-[13px] text-white/40 mb-[26px] leading-relaxed">
         Share your reason. It becomes part of the race&apos;s memory.
@@ -53,7 +53,7 @@ export default function StoryStep({ data, onChange, onNext, onBack }: Props) {
                      font-serif text-[17px] font-bold italic leading-[1.55]
                      placeholder:opacity-25 focus:outline-none"
           style={{ color: '#1a1208' }}
-          aria-label="Why I race"
+          aria-label="Why are you doing this?"
         />
 
         {/* Char counter */}

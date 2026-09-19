@@ -1,8 +1,9 @@
-// Static for now — wired to Supabase in Build 9 (HQ Admin)
+import { CATEGORIES, DISCIPLINES } from '@/config/categories'
+
 const STATS = [
-  { value: '247', label: 'Registered' },
-  { value: '3',   label: 'Disciplines' },
-  { value: '43',  label: 'Teams' },
+  { value: String(CATEGORIES.length), label: 'Race options' },
+  { value: String(DISCIPLINES.length), label: 'Disciplines' },
+  { value: '1', label: 'City' },
 ]
 
 export default function StatsStrip() {

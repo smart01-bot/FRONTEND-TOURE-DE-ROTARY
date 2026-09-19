@@ -1,10 +1,5 @@
 import { SITE } from '@/config/site'
-import { formatTShCompact } from '@/lib/utils'
-
-const STATS = [
-  { value: formatTShCompact(18_000_000), label: 'Target' },
-  { value: '2,400+',                     label: 'Patients served' },
-]
+import Link from 'next/link'
 
 export default function ImpactSection() {
   return (
@@ -40,33 +35,20 @@ export default function ImpactSection() {
         in Tanzania. Your entry funds treatment for patients who cannot afford it.
       </p>
 
-      {/* Stats — Jakarta Sans */}
-      <div className="relative flex gap-2.5 mb-7">
-        {STATS.map(s => (
-          <div
-            key={s.label}
-            className="flex-1 bg-white/5 border border-bronze/15 rounded-card px-2.5 py-4 text-center"
-          >
-            <div className="font-num text-[22px] font-black text-bronze leading-none tracking-tight mb-1">
-              {s.value}
-            </div>
-            <div className="font-sans text-[9px] font-bold text-white/30 uppercase tracking-[.08em]">
-              {s.label}
-            </div>
-          </div>
-        ))}
-      </div>
+      <p className="relative mb-7 rounded-card border border-bronze/15 bg-white/5 px-4 py-3 font-sans text-[11px] leading-relaxed text-white/55">
+        Verified fundraising totals and impact figures will appear when they are published by the event team.
+      </p>
 
       {/* CTA */}
-      <button
-        type="button"
+      <Link
+        href="/register"
         className="relative w-full py-4 bg-coral text-white rounded-button
                    font-sans text-body-sm font-bold
                    hover:bg-coral-dark active:scale-[.98] transition-all duration-200
                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
       >
         Register & change lives
-      </button>
+      </Link>
 
     </section>
   )

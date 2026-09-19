@@ -2,7 +2,7 @@
 
 **Repository:** `smart01-bot/FRONTEND-TOURE-DE-ROTARY`  
 **Branch:** `main`  
-**Baseline reviewed:** `324a013c268027a3ded4364cb909193f1fccedd4`  
+**Baseline reviewed:** Phase 1 implementation (see latest handoff)
 **Reviewed:** 19 September 2026
 
 This file describes the committed implementation. Source code remains authoritative for exact behaviour.
@@ -61,15 +61,17 @@ This file describes the committed implementation. Source code remains authoritat
 - Participant record to dashboard, ticket, training, fundraising, story, profile, and feed
 - Public fundraising campaigns and supporter activity
 - Public participant stories
-- Community text posts, reactions, realtime updates, and comment counts
+- Community text posts, reactions, realtime updates, comment reading/writing, and owner edit/delete
+- Real homepage community previews with honest loading, empty, and error states
+- Digital-ticket QR generation with readiness gates, save, share, and print actions
 - HQ role checks, athlete records, payment confirmation, and bib assignment
 
 ## Current incomplete product areas
 
-- Homepage activity and statistics include static presentation that must be replaced with real data or honest empty states.
-- Several homepage and training controls require working destinations or honest disabled states.
-- Feed comments are counted but do not have a complete reading/writing interface.
-- Digital-ticket QR presentation is not yet a complete save/share/identity flow.
+- Post reporting is currently a local acknowledgement; backend moderation persistence and enforcement remain outstanding.
+- Training resources remain honestly disabled until verified content and course information are published.
+- Digital-ticket identity links currently lead to the authenticated profile; public participant profiles remain future work.
+- Profile-photo uploads and feed media attachments await an approved storage and RLS contract.
 - Participant profiles do not yet function as public digital homes.
 - Teams, challenges, complete race information, discipline maps, leaderboards, results, photo discovery, lifecycle modes, and archival experience are not implemented.
 - Product naming and the primary participant-story prompt require a final project-wide decision.
@@ -85,6 +87,8 @@ The current frontend expects or references:
 - `posts`
 - `post_reactions`
 - `post_comments`
+
+The frontend assumes `post_comments` contains `id`, `post_id`, `user_id`, `content`, and `created_at` and that authenticated participants have the required RLS permissions.
 
 Administration access expects the profile role `hq_admin`. Row Level Security and backend migrations are shared/backend responsibilities and must be verified separately.
 
@@ -114,6 +118,8 @@ If a command is unavailable or blocked by missing external configuration, record
 - Keep the participant theme provider available to participant-theme consumers.
 - Do not commit `.env.local` or expose Supabase/service credentials.
 - Update asset references in the same commit as any asset rename.
+- Keep generated `*.tsbuildinfo` out of Git.
+- Ticket QR payloads contain only a site/profile URL and registration identifier; do not encode private participant fields.
 - Preserve server-side authentication verification and HQ role checks while editing layouts.
 
 ## Documentation update trigger

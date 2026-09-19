@@ -8,7 +8,7 @@
 
 **Working repository:** `smart01-bot/FRONTEND-TOURE-DE-ROTARY`
 
-**Current estimate:** Approximately 40% of the complete frontend vision and approximately 65% of the pre-race MVP.
+**Current estimate after Phase 1:** Approximately 45% of the complete frontend vision and approximately 75% of the pre-race MVP.
 
 ---
 

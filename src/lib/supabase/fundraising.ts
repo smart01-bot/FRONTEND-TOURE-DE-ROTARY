@@ -86,6 +86,9 @@ export async function getMyFundraising(userId: string): Promise<{
   const paid         = donations.filter(d => d.payment_status === 'paid')
   const total_raised = paid.reduce((s, d) => s + d.amount, 0)
 
+  const profile = prof as { full_name?: string | null } | null
+  const registration = reg as { bib_number?: string | null; story?: string | null; category?: Campaign['participant_category'] } | null
+
   return {
     campaign: {
       id:                   c.id,
@@ -93,10 +96,10 @@ export async function getMyFundraising(userId: string): Promise<{
       slug:                 c.slug,
       goal:                 c.goal,
       created_at:           c.created_at,
-      participant_name:     (prof as any)?.full_name  ?? 'Athlete',
-      participant_bib:      (reg  as any)?.bib_number ?? null,
-      participant_story:    (reg  as any)?.story       ?? null,
-      participant_category: (reg  as any)?.category    ?? null,
+      participant_name:     profile?.full_name  ?? 'Athlete',
+      participant_bib:      registration?.bib_number ?? null,
+      participant_story:    registration?.story       ?? null,
+      participant_category: registration?.category    ?? null,
       total_raised,
       supporter_count: paid.length,
     },

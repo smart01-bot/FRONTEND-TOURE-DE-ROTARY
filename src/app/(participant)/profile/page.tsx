@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { User, Phone, Trophy, BookOpen, LogOut, Check, ChevronRight, Eye, EyeOff } from 'lucide-react'
+import { User, Phone, Trophy, BookOpen, LogOut, Check, ChevronRight, Eye, EyeOff, Camera } from 'lucide-react'
 import { useParticipant } from '@/hooks/useParticipant'
 import { useUser } from '@/hooks/useUser'
 import { updateMyProfile } from '@/lib/supabase/participant'
@@ -107,9 +107,10 @@ export default function ProfilePage() {
           <section className="overflow-hidden rounded-[24px] border border-[#e1e7f0] bg-white shadow-[0_12px_40px_rgba(16,29,53,.06)]">
             <div className="border-b border-[#edf0f5] px-5 py-5 sm:px-7">
               <div className="flex items-center gap-4">
-                <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-[20px] bg-[#eaf1fb] ring-1 ring-[#d8e5f6]">
-                  <span className="font-serif text-[23px] font-bold italic text-[#2456a6]">{avi}</span>
+                <div className="relative flex h-[64px] w-[64px] shrink-0 items-center justify-center overflow-hidden rounded-[20px] bg-[#eaf1fb] ring-1 ring-[#d8e5f6]">
+                  {profile?.avatar_url ? <img src={profile.avatar_url} alt={`${profile.full_name ?? 'Participant'} profile`} className="h-full w-full object-cover" /> : <span className="font-serif text-[23px] font-bold italic text-[#2456a6]">{avi}</span>}
                 </div>
+                <button type="button" disabled title="Photo uploads will be enabled after secure media storage is configured" className="flex cursor-not-allowed items-center gap-1.5 rounded-full border border-[#dfe6f0] px-3 py-2 text-[10px] font-bold text-[#8b98aa]"><Camera size={13} /> Photo upload coming soon</button>
                 <div className="min-w-0">
                   <h2 className="truncate font-sans text-[18px] font-extrabold text-[#101d35]">
                     {profile?.full_name || 'Participant'}
@@ -153,7 +154,7 @@ export default function ProfilePage() {
                 <div className="mb-4 flex items-center gap-2">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#edf3fb] text-[#2456a6]"><BookOpen size={15} /></div>
                   <div>
-                    <h3 className="font-sans text-[13px] font-extrabold text-[#101d35]">Why I participate</h3>
+                    <h3 className="font-sans text-[13px] font-extrabold text-[#101d35]">Why are you doing this?</h3>
                     <p className="font-sans text-[10px] text-[#8a96a7]">Your reason for racing — shown to donors and, if public, on tourdedar.co.tz/stories.</p>
                   </div>
                 </div>
@@ -163,7 +164,7 @@ export default function ProfilePage() {
                   value={storyText}
                   onChange={e => { setStoryText(e.target.value); setStoryStatus('idle') }}
                   placeholder="I race for my mother. She was treated at Ocean Road. She's still here. So am I."
-                  aria-label="Why I participate"
+                  aria-label="Why are you doing this?"
                   className="w-full resize-none rounded-[13px] border border-[#dfe5ed] bg-[#f9fafc] p-4 font-serif text-[14px] italic leading-[1.6] text-[#18263e] outline-none transition-colors placeholder:not-italic placeholder:text-[#aab3c0] focus:border-[#7da2d4] focus:bg-white focus:ring-2 focus:ring-[#2456a6]/10"
                 />
                 <div className="mt-1.5 flex justify-end">

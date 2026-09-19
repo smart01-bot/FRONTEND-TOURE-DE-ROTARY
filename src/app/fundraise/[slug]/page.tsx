@@ -42,16 +42,18 @@ export default async function FundraisePage({ params, searchParams }: Props) {
   const donations   = (donRaw ?? []) as Donation[]
   const totalRaised = donations.reduce((s, d) => s + d.amount, 0)
 
+  const profile = prof as { full_name?: string | null } | null
+  const registration = reg as { bib_number?: string | null; story?: string | null; category?: Campaign['participant_category'] } | null
   const campaign: Campaign = {
     id:                   c.id,
     participant_id:       c.participant_id,
     slug:                 c.slug,
     goal:                 c.goal,
     created_at:           c.created_at,
-    participant_name:     (prof as any)?.full_name  ?? 'Athlete',
-    participant_bib:      (reg  as any)?.bib_number ?? null,
-    participant_story:    (reg  as any)?.story       ?? null,
-    participant_category: (reg  as any)?.category    ?? null,
+    participant_name:     profile?.full_name  ?? 'Athlete',
+    participant_bib:      registration?.bib_number ?? null,
+    participant_story:    registration?.story       ?? null,
+    participant_category: registration?.category    ?? null,
     total_raised:         totalRaised,
     supporter_count:      donations.length,
   }

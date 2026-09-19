@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { SITE } from '@/config/site'
 import { formatEventDate } from '@/lib/utils'
 import CountdownTimer from './CountdownTimer'
@@ -109,17 +110,17 @@ export default function HeroSection() {
 
         {/* CTAs */}
         <div className="relative flex flex-col gap-2.5 mb-9 sm:flex-row sm:max-w-[520px]">
-          <button
-            type="button"
+          <Link
+            href="/register"
             className="w-full py-4 bg-coral text-white rounded-button
                        font-sans text-body-sm font-bold
                        hover:bg-coral-dark active:scale-[.98] transition-all duration-200
                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
           >
             Register for TdDar 2026
-          </button>
-          <button
-            type="button"
+          </Link>
+          <a
+            href="#race"
             className="w-full py-3.5 bg-transparent text-white/75 rounded-button
                        font-sans text-body-sm font-semibold
                        border border-white/25 backdrop-blur-[2px]
@@ -128,7 +129,7 @@ export default function HeroSection() {
                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-1 focus-visible:ring-offset-navy"
           >
             Learn about the race
-          </button>
+          </a>
         </div>
       </div>
 

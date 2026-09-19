@@ -5,6 +5,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState } from 'react'
+import { ImagePlus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { PostType, FeedDiscipline } from '@/types/feed'
 
@@ -135,6 +136,10 @@ export function ComposeCard({ avatarInitials, onPost }: ComposeCardProps) {
               </button>
             ))}
           </div>
+
+          <button type="button" disabled title="Photo uploads are not available yet" className="mt-3 flex cursor-not-allowed items-center gap-2 rounded-full border border-dashed border-[#dce5ef] px-3 py-2 text-[10px] font-bold text-[#94a3b8]">
+            <ImagePlus size={14} /> Photos coming soon
+          </button>
 
           {error && (
             <p role="alert" className="mt-3 text-[12px] font-semibold text-[#d85b4d]">

@@ -10,18 +10,28 @@ import {
   getFeedPosts,
   createPost as apiCreatePost,
   toggleReaction as apiToggleReaction,
+  updatePost as apiUpdatePost,
+  deletePost as apiDeletePost,
 } from '@/lib/supabase/feed'
 import type { FeedPost, CreatePostPayload, ReactionEmoji } from '@/types/feed'
 
 export function useFeed() {
   const [posts,         setPosts]         = useState<FeedPost[]>([])
   const [loading,       setLoading]       = useState(true)
+  const [error,         setError]         = useState<string | null>(null)
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
 
   const reload = useCallback(async () => {
-    const data = await getFeedPosts()
-    setPosts(data)
-    setLoading(false)
+    setLoading(true)
+    setError(null)
+    try {
+      const data = await getFeedPosts()
+      setPosts(data)
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : 'Unable to load the community feed.')
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
   useEffect(() => {
@@ -76,5 +86,8 @@ export function useFeed() {
     }
   }, [currentUserId, reload])
 
-  return { posts, loading, currentUserId, createPost, toggleReaction }
+  const updatePost = useCallback(async (postId: string, content: string) => { await apiUpdatePost(postId, content); await reload() }, [reload])
+  const deletePost = useCallback(async (postId: string) => { await apiDeletePost(postId); await reload() }, [reload])
+
+  return { posts, loading, error, currentUserId, reload, createPost, toggleReaction, updatePost, deletePost }
 }

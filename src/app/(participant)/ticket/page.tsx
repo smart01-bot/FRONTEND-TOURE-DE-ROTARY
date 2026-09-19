@@ -1,7 +1,12 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import QRCode from 'qrcode'
+import { Download, Printer, Share2 } from 'lucide-react'
 import { useParticipant } from '@/hooks/useParticipant'
 import { CATEGORY_MAP } from '@/config/categories'
+import { SITE } from '@/config/site'
 import { useParticipantTheme } from '@/context/ParticipantThemeContext'
 
 export default function TicketPage() {
@@ -16,12 +21,15 @@ export default function TicketPage() {
   const bib = registration?.bib_number
   const paid = registration?.payment_status === 'paid'
   const confirmed = registration?.status === 'confirmed'
+  const ticketReady = Boolean(registration && paid && confirmed && bib)
+  const profileUrl = `${SITE.url}/profile`
+  const qrValue = ticketReady ? `${profileUrl}?ticket=${registration?.id}` : ''
 
   const details = [
     { label: 'Race day', value: '1 November 2026' },
     { label: 'Venue', value: 'Coco Beach, Dar es Salaam' },
-    { label: 'Check-in', value: '5:30 AM' },
-    { label: 'Race start', value: '7:00 AM' },
+    { label: 'Check-in', value: 'TBD' },
+    { label: 'Race start', value: 'TBD' },
   ]
 
   return (
@@ -68,7 +76,7 @@ export default function TicketPage() {
                   <div className="mb-3 flex items-center gap-3">
                     <img
                       src="/assets/auth/tour-de-rotary-mark.png"
-                      alt="Tour de Rotary"
+                      alt="Tour de Dar"
                       className="h-12 w-auto object-contain object-left"
                     />
                     <div className={`hidden h-9 w-px sm:block ${dark ? 'bg-white/10' : 'bg-slate-200'}`} />
@@ -145,25 +153,23 @@ export default function TicketPage() {
                   <p className={`text-[11px] font-bold uppercase tracking-[0.15em] ${dark ? 'text-[#5EA7E8]' : 'text-[#246DB5]'}`}>Race-day check-in</p>
                   <h3 className={`mt-1 font-serif text-2xl font-bold ${dark ? 'text-white' : 'text-[#102E5C]'}`}>Your QR code</h3>
                   <p className={`mt-2 text-sm leading-6 ${dark ? 'text-white/55' : 'text-slate-500'}`}>
-                    Your scannable check-in code will appear here once payment and ticket processing are complete.
+                    {ticketReady ? 'Scan this code to open the participant identity linked to this ticket.' : ticketStatus(registration?.payment_status, registration?.status, bib)}
                   </p>
                 </div>
 
                 <div className={`my-7 flex aspect-square w-full items-center justify-center rounded-2xl border ${dark ? 'border-white/10 bg-[#102F52]' : 'border-slate-200 bg-white'}`}>
-                  <QRPlaceholder />
+                  {ticketReady ? <TicketQR value={qrValue} /> : <UnavailableQR />}
                 </div>
 
                 <div className={`rounded-xl border p-4 ${dark ? 'border-[#2A527D] bg-[#123C70]' : 'border-[#DCE8F4] bg-[#EAF3FB]'}`}>
-                  <p className={`text-xs font-bold ${dark ? 'text-white' : 'text-[#102E5C]'}`}>Check-in opens at 5:30 AM</p>
-                  <p className={`mt-1 text-xs leading-5 ${dark ? 'text-white/55' : 'text-slate-500'}`}>Bring this ticket and a valid form of identification.</p>
+                  <p className={`text-xs font-bold ${dark ? 'text-white' : 'text-[#102E5C]'}`}>Check-in schedule: TBD</p>
+                  <p className={`mt-1 text-xs leading-5 ${dark ? 'text-white/55' : 'text-slate-500'}`}>Final race-day instructions will be published by the event team.</p>
                 </div>
 
-                <button
-                  type="button"
-                  className="mt-auto pt-6 text-left text-sm font-bold text-[#5EA7E8] transition hover:text-[#F08AB8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5EA7E8]"
-                >
-                  Download PDF ticket <span aria-hidden="true">→</span>
-                </button>
+                <div className="mt-auto grid gap-2 pt-6">
+                  <TicketActions enabled={ticketReady} value={qrValue} name={name} />
+                  <Link href="/profile" className="text-sm font-bold text-[#5EA7E8]">View participant profile →</Link>
+                </div>
               </div>
             </aside>
           </div>
@@ -173,7 +179,7 @@ export default function TicketPage() {
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           <InfoCard dark={dark} title="What to bring" text="Ticket, identification, water and your race-day essentials." />
           <InfoCard dark={dark} title="Kit collection" text="Collection details will be added here when the schedule is published." />
-          <InfoCard dark={dark} title="Need help?" text="Contact the Tour de Rotary team if any registration details look incorrect." />
+          <InfoCard dark={dark} title="Need help?" text="Contact the Tour de Dar team if any registration details look incorrect." />
         </div>
       </div>
     </div>
@@ -189,29 +195,36 @@ function InfoCard({ dark, title, text }: { dark: boolean; title: string; text: s
   )
 }
 
-function QRPlaceholder() {
-  const S = '#C8D5E3'
-  const F = '#DCE6F0'
+function ticketStatus(payment?: string, status?: string, bib?: string | null) {
+  if (!payment) return 'Complete registration before a ticket can be issued.'
+  if (payment !== 'paid') return 'Your QR code will appear after payment is confirmed.'
+  if (status !== 'confirmed') return 'Your QR code will appear after registration is confirmed.'
+  if (!bib) return 'Your QR code will appear after a bib number is assigned.'
+  return 'Ticket processing is incomplete.'
+}
+
+function TicketQR({ value }: { value: string }) {
+  const [src, setSrc] = useState('')
+  useEffect(() => { void QRCode.toDataURL(value, { width: 360, margin: 2, errorCorrectionLevel: 'H' }).then(setSrc) }, [value])
+  return src ? <img src={src} alt="Scannable participant ticket QR code" className="h-full w-full max-w-[260px] object-contain" /> : <span className="text-xs text-slate-400">Generating secure QR…</span>
+}
+
+function TicketActions({ enabled, value, name }: { enabled: boolean; value: string; name: string }) {
+  async function download() {
+    const src = await QRCode.toDataURL(value, { width: 900, margin: 4, errorCorrectionLevel: 'H' })
+    const link = document.createElement('a'); link.href = src; link.download = `tour-de-dar-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-ticket.png`; link.click()
+  }
+  async function share() {
+    if (navigator.share) await navigator.share({ title: 'My Tour de Dar ticket', text: `${name}'s Tour de Dar participant ticket`, url: value })
+    else { await navigator.clipboard.writeText(value); window.alert('Ticket link copied to your clipboard.') }
+  }
+  const cls = 'flex items-center gap-2 rounded-xl border border-current px-3 py-2 text-left text-xs font-bold text-[#5EA7E8] disabled:cursor-not-allowed disabled:opacity-35'
+  return <div className="grid grid-cols-3 gap-2 print:hidden"><button type="button" disabled={!enabled} onClick={() => void download()} className={cls}><Download size={14} /> Save</button><button type="button" disabled={!enabled} onClick={() => void share()} className={cls}><Share2 size={14} /> Share</button><button type="button" disabled={!enabled} onClick={() => window.print()} className={cls}><Printer size={14} /> Print</button></div>
+}
+
+function UnavailableQR() {
   return (
-    <svg width="132" height="132" viewBox="0 0 132 132" fill="none" aria-label="QR code placeholder">
-      <rect x="2" y="2" width="128" height="128" rx="8" fill="#fff" stroke="#E2E8F0" />
-      <rect x="15" y="15" width="32" height="32" rx="3" stroke={S} strokeWidth="3" />
-      <rect x="23" y="23" width="16" height="16" rx="2" fill={F} />
-      <rect x="85" y="15" width="32" height="32" rx="3" stroke={S} strokeWidth="3" />
-      <rect x="93" y="23" width="16" height="16" rx="2" fill={F} />
-      <rect x="15" y="85" width="32" height="32" rx="3" stroke={S} strokeWidth="3" />
-      <rect x="23" y="93" width="16" height="16" rx="2" fill={F} />
-      <g fill={F}>
-        <rect x="58" y="17" width="7" height="7" /><rect x="70" y="29" width="7" height="7" />
-        <rect x="55" y="45" width="7" height="7" /><rect x="68" y="50" width="7" height="7" />
-        <rect x="82" y="58" width="7" height="7" /><rect x="96" y="54" width="7" height="7" />
-        <rect x="108" y="68" width="7" height="7" /><rect x="56" y="67" width="7" height="7" />
-        <rect x="68" y="72" width="7" height="7" /><rect x="81" y="78" width="7" height="7" />
-        <rect x="96" y="84" width="7" height="7" /><rect x="108" y="92" width="7" height="7" />
-        <rect x="56" y="91" width="7" height="7" /><rect x="69" y="103" width="7" height="7" />
-        <rect x="83" y="98" width="7" height="7" /><rect x="96" y="109" width="7" height="7" />
-      </g>
-    </svg>
+    <div role="status" className="flex h-32 w-32 items-center justify-center rounded-xl border border-dashed border-slate-300 bg-white p-4 text-center text-xs font-semibold text-slate-400">QR not available yet</div>
   )
 }
 

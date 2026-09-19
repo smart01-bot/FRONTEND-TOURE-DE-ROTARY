@@ -52,7 +52,7 @@ export function AdminShell({ name, children }: { name: string; children: React.R
           <div className="relative h-12 w-[148px] shrink-0">
             <img
               src="/assets/auth/tour-de-rotary-mark.png"
-              alt="Tour de Rotary Dar es Salaam"
+              alt="Tour de Dar"
               className="h-full w-full object-contain object-left"
             />
           </div>

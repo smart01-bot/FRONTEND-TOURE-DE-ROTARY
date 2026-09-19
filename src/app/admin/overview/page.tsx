@@ -21,7 +21,7 @@ export default function OverviewPage() {
       <PageHeader
         eyebrow="Race overview"
         title="HQ overview."
-        subtitle="Registrations, revenue and bib progress for Tour de Rotary · 1 November 2026."
+        subtitle="Registrations, revenue and bib progress for Tour de Dar · 1 November 2026."
         pill={{ icon: <Users size={14} strokeWidth={2.5} />, label: 'Registrations', value: String(stats.total) }}
       />
 

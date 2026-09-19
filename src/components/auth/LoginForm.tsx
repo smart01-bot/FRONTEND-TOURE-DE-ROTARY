@@ -140,7 +140,7 @@ export default function LoginForm() {
       <p className="mt-6 font-sans text-[13px] text-[#0D1B3D]/50 text-center leading-relaxed">
         Don&apos;t have an account?{' '}
         <Link href="/register" className="font-extrabold hover:opacity-75" style={{ color: MAGENTA }}>
-          Register for Tour de Rotary 2026 →
+          Register for Tour de Dar 2026 →
         </Link>
       </p>
     </div>

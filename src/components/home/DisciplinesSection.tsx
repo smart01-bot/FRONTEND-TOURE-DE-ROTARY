@@ -22,7 +22,7 @@ const PILL_TEXT: Record<DisciplineSlug, string> = {
 
 export default function DisciplinesSection() {
   return (
-    <section className="bg-sand px-5 pt-11 pb-9">
+    <section id="race" className="scroll-mt-16 bg-sand px-5 pt-11 pb-9">
 
       <h2 className="font-serif text-section font-bold text-navy leading-[1.15] tracking-tight mb-2">
         One race.<br />Three disciplines.

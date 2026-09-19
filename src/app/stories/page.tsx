@@ -18,7 +18,7 @@ const FILTERS: { value: Category | 'all'; label: string }[] = [
 ]
 
 export default function StoriesPage() {
-  const { stories, allCount, loading, filter, setFilter } = useStories()
+  const { stories, allCount, loading, error, reload, filter, setFilter } = useStories()
 
   return (
     <main>
@@ -57,6 +57,8 @@ export default function StoriesPage() {
           <div className="flex justify-center py-16">
             <div className="w-6 h-6 rounded-full border-2 border-bronze border-t-transparent animate-spin" />
           </div>
+        ) : error ? (
+          <div role="alert" className="py-16 text-center"><p className="font-serif text-[18px] text-navy">Stories could not be loaded.</p><button type="button" onClick={() => void reload()} className="mt-3 rounded-button bg-navy px-4 py-2 font-sans text-[11px] font-bold text-white">Try again</button></div>
         ) : stories.length === 0 ? (
           <div className="text-center py-16">
             <p className="font-serif text-[18px] italic text-navy mb-2">No stories yet.</p>
