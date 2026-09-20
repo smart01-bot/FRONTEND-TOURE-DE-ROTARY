@@ -8,7 +8,7 @@
 
 **Working repository:** `smart01-bot/FRONTEND-TOURE-DE-ROTARY`
 
-**Current implementation estimate after Phase 3:** Approximately 60% of the complete frontend vision and approximately 90% of the pre-race MVP. These are scope estimates, not launch-readiness measures; official race and course content is still awaiting confirmation.
+**Current implementation estimate after the Phase 4 frontend pass:** Approximately 68% of the complete frontend vision and approximately 92% of the pre-race MVP. These are scope estimates, not launch-readiness measures; official race/course content and multiple Phase 4 backend contracts are still awaiting approval.
 
 ---
 
@@ -626,6 +626,8 @@ Represent the triathlon as three connected disciplines and make the city part of
 
 ## 8. Phase 4 — Community, teams and challenges
 
+**Frontend status:** Implemented within the verified repository contracts. Existing comments now have complete loading/submission/retry/permission feedback, authenticated profiles show real personal post activity and connect to the digital bib, public community guidelines exist, and reporting no longer claims a local success. Protected Teams and Challenges homes plus typed challenge details are capability-gated and display honest unavailable states. Public participant profiles, media uploads, persistent reports, real teams and real challenge participation remain blocked by missing consent, storage, schema/API and RLS contracts. No database or storage change was made.
+
 ### Objective
 
 Deliver the temporary digital community promised by the product vision.
@@ -670,6 +672,16 @@ Deliver the temporary digital community promised by the product vision.
 - Team and challenge activity appears naturally across the product
 - Moderation controls exist before high-volume usage
 - No community feature relies on fake activity
+
+### Phase 4 verified frontend boundary
+
+- Real community posts, reactions and comment read/write remain connected to existing Supabase contracts.
+- Comment loading, empty, retry, error, submission and unauthenticated states are explicit; comment edit/delete remains unimplemented because its policy contract is unverified.
+- Participant activity shown on the authenticated profile is filtered to the signed-in user and is never reused as a public-profile query.
+- `story_public` governs the existing public story listing only; missing consent is treated as private.
+- Teams and challenges use protected routes, typed frontend domain contracts and visible backend/decision gates. No invented team, member, invitation, progress, completion, badge or count appears.
+- Public profiles require a public identifier plus separate consent for profile, photo, story, activity and bib presentation before publication.
+- Media uploads require approved buckets, file limits, consent rules and RLS. Persistent reporting requires approved reasons, states, moderator roles, enforcement and RLS.
 
 ---
 

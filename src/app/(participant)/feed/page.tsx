@@ -4,7 +4,8 @@
 // Tour de Rotary — The Run-Up · Community Feed
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { CalendarDays, MessageSquare, Users } from 'lucide-react'
+import Link from 'next/link'
+import { CalendarDays, MessageSquare, ShieldCheck, Target, Users } from 'lucide-react'
 import { useFeed } from '@/hooks/useFeed'
 import { useParticipant } from '@/hooks/useParticipant'
 import { initials } from '@/lib/utils'
@@ -51,6 +52,18 @@ export default function FeedPage() {
             </div>
           </div>
         </header>
+
+        <nav className="mt-5 flex flex-wrap gap-2" aria-label="Community sections">
+          <Link href="/teams" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#dbe4ef] bg-white px-4 text-[10px] font-extrabold text-[#2563eb] shadow-sm">
+            <Users size={14} /> Teams
+          </Link>
+          <Link href="/challenges" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#dbe4ef] bg-white px-4 text-[10px] font-extrabold text-[#2563eb] shadow-sm">
+            <Target size={14} /> Challenges
+          </Link>
+          <Link href="/community-guidelines" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#dbe4ef] bg-white px-4 text-[10px] font-extrabold text-[#64748b] shadow-sm">
+            <ShieldCheck size={14} /> Guidelines
+          </Link>
+        </nav>
 
         <section className="mt-7 grid gap-5 lg:grid-cols-[minmax(0,1.55fr)_minmax(300px,.75fr)] lg:items-start">
           {/* Compose + posts */}

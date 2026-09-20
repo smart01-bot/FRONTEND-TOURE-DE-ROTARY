@@ -41,3 +41,7 @@ No new assets were added or renamed. The official race-guide PDF is **TBD**. `RA
 ## Phase 3 course-map assets
 
 No new image, route or map-tile asset was added or renamed. Route lines and markers are configured data in `src/config/course-map.ts`, and their verified datasets remain empty. If the organiser supplies GPX, GeoJSON, KML, a PDF map or another route asset, record its exact path, source, review date, rights and relationship to the published coordinate data before use. No unverified screenshot or traced route may become operational map geometry.
+
+## Phase 4 community assets
+
+No asset was added, renamed or removed. Existing avatar URLs are presentation-only. Profile-photo and post-media uploads remain disabled until approved storage buckets, file restrictions, consent rules and RLS policies exist. Team marks and challenge badges must not be introduced as real participant achievements without approved source data and completion records.

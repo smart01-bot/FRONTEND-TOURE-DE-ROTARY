@@ -1,11 +1,13 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
-import { User, Phone, Trophy, BookOpen, LogOut, Check, ChevronRight, Eye, EyeOff, Camera } from 'lucide-react'
+import { User, Phone, Trophy, BookOpen, LogOut, Check, ChevronRight, Eye, EyeOff, Camera, Users, Target } from 'lucide-react'
 import { useParticipant } from '@/hooks/useParticipant'
 import { useUser } from '@/hooks/useUser'
 import { updateMyProfile } from '@/lib/supabase/participant'
 import { updateMyStory } from '@/lib/supabase/stories'
+import { ParticipantActivity } from '@/components/community/ParticipantActivity'
 import { CATEGORY_MAP } from '@/config/categories'
 import { initials, cn } from '@/lib/utils'
 
@@ -38,7 +40,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (registration && !storyInitialized.current) {
       setStoryText(registration.story ?? '')
-      setStoryPublic(registration.story_public ?? true)
+      setStoryPublic(registration.story_public ?? false)
       storyInitialized.current = true
     }
   }, [registration])
@@ -51,7 +53,7 @@ export default function ProfilePage() {
   const dirty = fullName !== (profile?.full_name ?? '') || phone !== (profile?.phone ?? '')
 
   const storyDirty =
-    storyText !== (registration?.story ?? '') || storyPublic !== (registration?.story_public ?? true)
+    storyText !== (registration?.story ?? '') || storyPublic !== (registration?.story_public ?? false)
   const storyOverLimit = storyText.length > STORY_MAX
 
   async function handleSave() {
@@ -199,6 +201,9 @@ export default function ProfilePage() {
                     />
                   </span>
                 </button>
+                <p className="mt-2 font-sans text-[10px] leading-5 text-[#8a96a7]">
+                  This setting controls the public story listing, including your name, category and story. A broader participant profile is not published because separate profile, photo, activity and bib consent controls are not yet available.
+                </p>
 
                 <button
                   type="button"
@@ -226,6 +231,9 @@ export default function ProfilePage() {
               <InfoRow label="Discipline" value={registration?.discipline ?? 'All three'} capitalize />
               <InfoRow label="Bib number" value={bib ? `#${bib}` : 'Not assigned'} />
               <InfoRow label="Registration" value={registration ? 'Registered' : 'Not registered'} last />
+              <Link href="/ticket" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-[13px] border border-[#dfe6f0] px-4 font-sans text-[10px] font-extrabold text-[#2456a6]">
+                View digital ticket and bib
+              </Link>
             </section>
 
             <section className="rounded-[24px] border border-[#e1e7f0] bg-white p-5 shadow-[0_12px_40px_rgba(16,29,53,.05)]">
@@ -243,11 +251,28 @@ export default function ProfilePage() {
               </div>
             </section>
 
+            <section className="rounded-[24px] border border-[#e1e7f0] bg-white p-5 shadow-[0_12px_40px_rgba(16,29,53,.05)]">
+              <h3 className="font-sans text-[12px] font-extrabold text-[#101d35]">Community spaces</h3>
+              <p className="mt-1 font-sans text-[10px] leading-5 text-[#8a96a7]">Team membership and challenge completion require approved backend contracts. No activity is assumed.</p>
+              <div className="mt-4 grid gap-2">
+                <Link href="/teams" className="flex min-h-11 items-center justify-between rounded-[13px] border border-[#dfe6f0] px-4 font-sans text-[11px] font-bold text-[#26354d]">
+                  <span className="flex items-center gap-2"><Users size={14} className="text-[#2456a6]" /> Teams</span>
+                  <ChevronRight size={14} className="text-[#9aa6b6]" />
+                </Link>
+                <Link href="/challenges" className="flex min-h-11 items-center justify-between rounded-[13px] border border-[#dfe6f0] px-4 font-sans text-[11px] font-bold text-[#26354d]">
+                  <span className="flex items-center gap-2"><Target size={14} className="text-[#2456a6]" /> Challenges</span>
+                  <ChevronRight size={14} className="text-[#9aa6b6]" />
+                </Link>
+              </div>
+            </section>
+
             <button type="button" onClick={() => signOut()} className="flex w-full items-center justify-center gap-2 rounded-[15px] border border-[#ead8d5] bg-white py-[13px] font-sans text-[11px] font-extrabold text-[#c45c51] transition-colors hover:bg-[#fff7f6]">
               <LogOut size={14} /> Sign out
             </button>
           </aside>
         </div>
+
+        {user && <ParticipantActivity userId={user.id} />}
       </div>
     </div>
   )

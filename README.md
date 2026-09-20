@@ -1,4 +1,4 @@
-# Tour de Rotary Dar es Salaam
+# Tour de Dar
 
 > A responsive event, registration, participant, fundraising, community, and administration platform for the Tour de Rotary charity triathlon in Dar es Salaam, Tanzania.
 
@@ -10,7 +10,7 @@
 
 ## Overview
 
-Tour de Rotary Dar es Salaam is a full-stack frontend application supporting the public event experience and the complete participant journey—from account creation and race registration to training, fundraising, community interaction, bib assignment, and race preparation.
+Tour de Dar is a full-stack frontend application supporting the public event experience and the participant journey—from account creation and race registration to training, fundraising, community interaction, bib assignment, and race preparation.
 
 The event is organised by **Rotaract 4 Compassion** and raises funds for the **Ocean Road Cancer Institute (ORCI)**. The platform is designed around the event message: **Swim. Bike. Run. For a reason.**
 
@@ -31,6 +31,7 @@ The event is organised by **Rotaract 4 Compassion** and raises funds for the **O
 - Responsive event landing page
 - Event countdown, impact messaging, disciplines, statistics, and community stories
 - Public participant stories page
+- Public race-information, course-map and community-guidelines pages
 - Public fundraising campaign pages with donor support flow
 - Search-engine and social-sharing metadata
 
@@ -49,7 +50,9 @@ The event is organised by **Rotaract 4 Compassion** and raises funds for the **O
 - Personalised race dashboard and countdown
 - Digital ticket and bib information
 - Training resources for swimming, cycling, and running
-- Community feed with posts and reactions
+- Community feed with posts, reactions and comments
+- Private participant activity history
+- Capability-gated Teams and Challenges homes with honest unavailable states until their backend contracts are approved
 - Fundraising campaign progress and donation activity
 - Editable participant profile and public/private race story
 - Responsive desktop navigation and mobile bottom navigation
@@ -82,6 +85,9 @@ The event is organised by **Rotaract 4 Compassion** and raises funds for the **O
 | --- | --- | --- |
 | `/` | Public | Event landing page |
 | `/stories` | Public | Participant race stories |
+| `/race-info` | Public | Configurable race information and explicit TBD states |
+| `/course-map` | Public | Discipline-specific course-map experience |
+| `/community-guidelines` | Public | Community conduct and reporting guidance |
 | `/fundraise/[slug]` | Public | Individual fundraising campaign |
 | `/login` | Guest | Participant sign-in |
 | `/register` | Guest | Multi-step registration |
@@ -90,6 +96,9 @@ The event is organised by **Rotaract 4 Compassion** and raises funds for the **O
 | `/ticket` | Participant | Digital ticket and bib |
 | `/training` | Participant | Training information |
 | `/feed` | Participant | Community feed |
+| `/teams` | Participant | Team capability and availability home |
+| `/challenges` | Participant | Challenge catalogue and availability home |
+| `/challenges/[slug]` | Participant | Typed challenge detail or unpublished state |
 | `/fundraise` | Participant | Fundraising dashboard |
 | `/profile` | Participant | Profile and race story |
 | `/admin/overview` | HQ admin | Administration summary |
@@ -199,6 +208,8 @@ The application expects a Supabase project containing these core tables:
 - `posts`
 - `post_reactions`
 - `post_comments`
+
+No approved repository contract currently exists for public participant profiles, reports/moderation, teams, memberships, invitations, challenges, progress or completion. The corresponding frontend states remain unavailable rather than guessing table or RLS behaviour.
 
 Authentication users should have a corresponding `profiles` record. Administration access is restricted to authenticated users whose profile has:
 

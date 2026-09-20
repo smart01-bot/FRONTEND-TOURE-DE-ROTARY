@@ -1,11 +1,11 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
-const PUBLIC_PREFIXES    = ['/', '/about', '/activities', '/contact', '/merch', '/stories', '/race-info', '/course-map']
+const PUBLIC_PREFIXES    = ['/', '/about', '/activities', '/contact', '/merch', '/stories', '/race-info', '/course-map', '/community-guidelines']
 const AUTH_PREFIXES      = ['/login', '/register', '/reset-password']
 const PROTECTED_PREFIXES = [
   '/dashboard', '/ticket', '/training', '/feed', '/fundraise', '/profile',
-  '/results', '/community', '/team',
+  '/results', '/community', '/team', '/teams', '/challenges',
   '/admin',   // role check is enforced in app/admin/layout.tsx
 ]
 

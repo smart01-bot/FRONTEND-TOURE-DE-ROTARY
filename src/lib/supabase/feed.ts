@@ -7,13 +7,17 @@ import type { FeedPost, CreatePostPayload, PostComment, ReactionEmoji } from '@/
 
 // ── Feed posts ─────────────────────────────────────────────────────────────
 
-export async function getFeedPosts(): Promise<FeedPost[]> {
+async function fetchFeedPosts(userId?: string): Promise<FeedPost[]> {
   // Step 1 — posts
-  const { data: posts, error } = await supabase
+  let query = supabase
     .from('posts')
     .select('id, user_id, content, post_type, discipline, created_at')
     .order('created_at', { ascending: false })
     .limit(50)
+
+  if (userId) query = query.eq('user_id', userId)
+
+  const { data: posts, error } = await query
 
   if (error) throw error
   if (!posts || posts.length === 0) return []
@@ -50,6 +54,15 @@ export async function getFeedPosts(): Promise<FeedPost[]> {
     reactions:     (reactions ?? []).filter(r => r.post_id === p.id),
     comment_count: (comments ?? []).filter(c => c.post_id === p.id).length,
   }))
+}
+
+export async function getFeedPosts(): Promise<FeedPost[]> {
+  return fetchFeedPosts()
+}
+
+/** Authenticated participant activity. Never use this as a public-profile query. */
+export async function getParticipantPosts(userId: string): Promise<FeedPost[]> {
+  return fetchFeedPosts(userId)
 }
 
 // ── Create post ────────────────────────────────────────────────────────────

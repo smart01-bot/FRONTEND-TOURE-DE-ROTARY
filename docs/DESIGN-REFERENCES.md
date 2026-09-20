@@ -35,6 +35,15 @@ This register prevents phrases such as “the last design” from becoming perma
 - The four-view control uses 48px-high mobile targets. The base layout is single-column with the details surface following the canvas as a mobile sheet; it becomes a contained two-column composition at `lg`. Controls wrap, legend columns respond and the page uses width containment at 360–390px.
 - Source comparison and rendered-route checks completed for the phone/tablet/desktop rules. Browser screenshot comparison remains unavailable because the installed browser package has no Chromium binary; do not interpret this as a visual browser pass.
 
+## Phase 4 preservation record
+
+- `/feed` keeps its existing heading, composer, post cards, two-column desktop structure and countdown card. The only navigation addition is a wrapping row of existing-style links to Teams, Challenges and Guidelines.
+- Comment/report additions stay inside the existing post card and reuse its colours, borders, radii, spacing and typography. The former local report acknowledgement was replaced with a truthful inline unavailable state.
+- `/profile` retains its established two-column composition and cards. Digital-bib, community-space and real personal-activity connections are additive and use the same component language.
+- `/teams` and `/challenges` reuse the participant portal shell, existing navy/blue light-first cards, dark-mode approach, type system, shadows and responsive grid patterns. `/community-guidelines` reuses the public navigation/footer and public race-information card language.
+- Phone bases are single-column with wrapping links and minimum 44px actions; capability grids become two columns at `sm` and three at `xl`. No participant navigation item, global token, asset or existing page structure was replaced.
+- The live cloud browser could not reach the local preview in this environment. Phase 4 therefore has successful compiled-route and source-level phone/tablet/desktop audits, not a screenshot or real-device visual pass.
+
 ## Adding a reference
 
 Record:
