@@ -6,7 +6,9 @@
 
 **Starting development commit:** `d0b15d2b035aa72318b3d78b978734ada3ca45ca`
 
-**Final phase content commit:** Pending commit creation after the mandatory final build.
+**Final phase content commit:** `6d9c988d133fd65aa0ab57b3355dfcdb18c498b6`
+
+**Commit link:** https://github.com/smart01-bot/FRONTEND-TOURE-DE-ROTARY/commit/6d9c988d133fd65aa0ab57b3355dfcdb18c498b6
 
 **Active branch:** `development` only. `main` was not changed or merged.
 
@@ -41,3 +43,9 @@
 ## Exact recommended next task
 
 Begin Phase 7 launch hardening from a fresh `development` fetch: approve final storytelling sources, complete accessibility and privacy UI, review performance/security dependencies, and run real browser/device QA. Separately, obtain organiser approval before changing the deployed lifecycle mode from `pre_event`.
+
+## Commit receipt
+
+- Phase-content SHA: `6d9c988d133fd65aa0ab57b3355dfcdb18c498b6`.
+- Verified phase-content tree: `bc91cc79e2a60ec9832e3766a177d23a655a4584`.
+- The receipt-only documentation commit follows the already verified content commit and changes no runtime source.
