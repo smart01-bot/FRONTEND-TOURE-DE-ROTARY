@@ -8,7 +8,7 @@
 
 **Working repository:** `smart01-bot/FRONTEND-TOURE-DE-ROTARY`
 
-**Current implementation estimate after the Phase 5 frontend pass:** Approximately 78% of the complete frontend vision and approximately 92% of the pre-race MVP. These are scope estimates, not launch-readiness measures; official race/course content plus timing, photography and multiple community backend contracts are still awaiting approval.
+**Current implementation estimate after the Phase 7 frontend pass:** The verified frontend phase roadmap is complete within approved contracts. Public launch remains blocked by organiser content, backend capability, real-device/browser QA, deployment configuration and a framework security upgrade that requires a separately verified major-version migration.
 
 ---
 
@@ -807,6 +807,8 @@ Make the temporary nature of the community an explicit product capability.
 
 ## 11. Phase 7 — Final storytelling, accessibility and launch hardening
 
+**Frontend status:** Implemented within verified repository contracts. Accessibility and privacy surfaces, metadata, route indexing controls, security headers, truth-state corrections and same-major dependency patches are complete. Licensed Old Dar material, automated privacy workflows, backend-dependent capabilities, real-device/browser QA, production deployment validation and a fully remediated Next.js major upgrade remain blockers. See `docs/handoffs/PHASE-07-FINAL-STORYTELLING-ACCESSIBILITY-LAUNCH-HARDENING-HANDOFF.md`.
+
 ### Objective
 
 Make the product unmistakably Tour de Dar and safe to launch publicly.
@@ -856,6 +858,15 @@ Make the product unmistakably Tour de Dar and safe to launch publicly.
 - Analytics and error monitoring
 - Final content review
 - Final build and deployment check
+
+### Phase 7 verified frontend boundary
+
+- The clean existing interface remains the visual baseline; Phase 7 adds only existing-style privacy, status and navigation surfaces.
+- `/privacy` explains operational data, public-story, photo, research and communication boundaries. Email links are request entry points only and never claim submission.
+- Browser zoom, skip navigation, reduced motion, form relationships/error announcements, expandable appearance controls and minimum navigation targets are hardened.
+- Historical storytelling remains an honest unavailable state until source, rights and attribution records are approved.
+- Next.js and its lint config are patched to the latest compatible 14.2 release. A clean audit requires a breaking framework major upgrade and remains a launch blocker.
+- No database, storage, policy, schema, backend or lifecycle-mode change was made. The active/default lifecycle remains `pre_event`.
 
 ---
 

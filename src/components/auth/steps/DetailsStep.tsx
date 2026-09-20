@@ -93,8 +93,9 @@ export default function DetailsStep({
 
       {/* Full name */}
       <div className="mb-5">
-        <label className={lbl}>Full name</label>
+        <label htmlFor="register-full-name" className={lbl}>Full name</label>
         <input
+          id="register-full-name"
           type="text"
           autoComplete="name"
           placeholder="Amina Rashid"
@@ -102,14 +103,17 @@ export default function DetailsStep({
           onChange={e => onChange({ fullName: e.target.value })}
           className={inp}
           disabled={loading}
+          aria-invalid={Boolean(errors.fullName)}
+          aria-describedby={errors.fullName ? 'register-full-name-error' : undefined}
         />
-        {errors.fullName && <p className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.fullName}</p>}
+        {errors.fullName && <p id="register-full-name-error" role="alert" className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.fullName}</p>}
       </div>
 
       {/* Email */}
       <div className="mb-5">
-        <label className={lbl}>Email</label>
+        <label htmlFor="register-email" className={lbl}>Email</label>
         <input
+          id="register-email"
           type="email"
           autoComplete="email"
           placeholder="you@example.com"
@@ -117,13 +121,15 @@ export default function DetailsStep({
           onChange={e => onChange({ email: e.target.value })}
           className={inp}
           disabled={loading}
+          aria-invalid={Boolean(errors.email)}
+          aria-describedby={errors.email ? 'register-email-error' : undefined}
         />
-        {errors.email && <p className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.email}</p>}
+        {errors.email && <p id="register-email-error" role="alert" className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.email}</p>}
       </div>
 
       {/* Phone */}
       <div className="mb-5">
-        <label className={lbl}>Phone number</label>
+        <label htmlFor="register-phone" className={lbl}>Phone number</label>
         <div className="flex gap-2">
           <div className={cn(
             'flex items-center px-[14px] rounded-[12px] flex-shrink-0',
@@ -133,6 +139,7 @@ export default function DetailsStep({
             +255
           </div>
           <input
+            id="register-phone"
             type="tel"
             inputMode="numeric"
             autoComplete="tel-local"
@@ -141,16 +148,19 @@ export default function DetailsStep({
             onChange={handlePhone}
             className={cn(inp, 'flex-1')}
             disabled={loading}
+            aria-invalid={Boolean(errors.phone)}
+            aria-describedby={errors.phone ? 'register-phone-error' : undefined}
           />
         </div>
-        {errors.phone && <p className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.phone}</p>}
+        {errors.phone && <p id="register-phone-error" role="alert" className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.phone}</p>}
       </div>
 
       {/* Password */}
       <div className="mb-0">
-        <label className={lbl}>Password</label>
+        <label htmlFor="register-password" className={lbl}>Password</label>
         <div className="relative">
           <input
+            id="register-password"
             type={showPass ? 'text' : 'password'}
             autoComplete="new-password"
             placeholder="Min. 8 characters"
@@ -158,10 +168,14 @@ export default function DetailsStep({
             onChange={e => onChange({ password: e.target.value })}
             className={cn(inp, 'pr-[54px]')}
             disabled={loading}
+            aria-invalid={Boolean(errors.password)}
+            aria-describedby={errors.password ? 'register-password-error' : undefined}
           />
           <button
             type="button"
             onClick={() => setShowPass(p => !p)}
+            aria-label={showPass ? 'Hide password' : 'Show password'}
+            aria-pressed={showPass}
             className="absolute right-4 top-1/2 -translate-y-1/2
                        font-num font-bold text-[11px] text-[#3F78B5]/70
                        hover:text-[#0D1B3D] transition-colors duration-200
@@ -170,12 +184,12 @@ export default function DetailsStep({
             {showPass ? 'HIDE' : 'SHOW'}
           </button>
         </div>
-        {errors.password && <p className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.password}</p>}
+        {errors.password && <p id="register-password-error" role="alert" className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.password}</p>}
       </div>
 
       {/* Server-side error (e.g. email already in use) */}
       {serverError && (
-        <p className="mt-4 font-sans text-[12px] text-coral leading-snug">
+        <p role="alert" className="mt-4 font-sans text-[12px] text-coral leading-snug">
           {serverError}
         </p>
       )}

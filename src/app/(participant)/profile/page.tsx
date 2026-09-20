@@ -134,13 +134,13 @@ export default function ProfilePage() {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Full name">
-                  <input type="text" value={fullName} onChange={e => { setFullName(e.target.value); setStatus('idle') }} placeholder="Your full name" className={inputClass} />
+                <Field label="Full name" htmlFor="profile-full-name">
+                  <input id="profile-full-name" type="text" autoComplete="name" value={fullName} onChange={e => { setFullName(e.target.value); setStatus('idle') }} placeholder="Your full name" className={inputClass} />
                 </Field>
-                <Field label="Phone">
+                <Field label="Phone" htmlFor="profile-phone">
                   <div className="relative">
                     <Phone size={15} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#9aa6b6]" />
-                    <input type="tel" value={phone} onChange={e => { setPhone(e.target.value); setStatus('idle') }} placeholder="+255 7XX XXX XXX" className={cn(inputClass, 'pl-11')} />
+                    <input id="profile-phone" type="tel" autoComplete="tel" value={phone} onChange={e => { setPhone(e.target.value); setStatus('idle') }} placeholder="+255 7XX XXX XXX" className={cn(inputClass, 'pl-11')} />
                   </div>
                 </Field>
               </div>
@@ -148,7 +148,10 @@ export default function ProfilePage() {
               <button type="button" onClick={handleSave} disabled={!dirty || saving} className={cn('mt-1 flex w-full items-center justify-center gap-2 rounded-[13px] bg-[#2456a6] py-[13px] font-sans text-[12px] font-extrabold text-white transition-all hover:bg-[#1e4b93] sm:w-auto sm:px-7', (!dirty || saving) && 'cursor-not-allowed opacity-40')}>
                 {status === 'saved' ? <><Check size={15} /> Saved</> : saving ? 'Saving…' : 'Save changes'}
               </button>
-              {status === 'error' && <p className="mt-3 font-sans text-[11px] font-semibold text-[#d85b4d]">Something went wrong. Try again.</p>}
+              <div aria-live="polite" aria-atomic="true">
+                {status === 'saved' && <p className="sr-only">Profile changes saved.</p>}
+                {status === 'error' && <p role="alert" className="mt-3 font-sans text-[11px] font-semibold text-[#d85b4d]">Something went wrong. Try again.</p>}
+              </div>
             </div>
 
             {registration && (
@@ -162,6 +165,7 @@ export default function ProfilePage() {
                 </div>
 
                 <textarea
+                  id="profile-story"
                   rows={4}
                   value={storyText}
                   onChange={e => { setStoryText(e.target.value); setStoryStatus('idle') }}
@@ -216,7 +220,10 @@ export default function ProfilePage() {
                 >
                   {storyStatus === 'saved' ? <><Check size={15} /> Saved</> : storySaving ? 'Saving…' : 'Save story'}
                 </button>
-                {storyStatus === 'error' && <p className="mt-3 font-sans text-[11px] font-semibold text-[#d85b4d]">Something went wrong. Try again.</p>}
+                <div aria-live="polite" aria-atomic="true">
+                  {storyStatus === 'saved' && <p className="sr-only">Story preference saved.</p>}
+                  {storyStatus === 'error' && <p role="alert" className="mt-3 font-sans text-[11px] font-semibold text-[#d85b4d]">Something went wrong. Try again.</p>}
+                </div>
               </div>
             )}
           </section>
@@ -236,6 +243,14 @@ export default function ProfilePage() {
               </Link>
               <Link href="/results" className="mt-2 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[13px] border border-[#dfe6f0] px-4 font-sans text-[10px] font-extrabold text-[#2456a6]">
                 <Medal size={14} /> Results and memories
+              </Link>
+            </section>
+
+            <section className="rounded-[24px] border border-[#e1e7f0] bg-white p-5 shadow-[0_12px_40px_rgba(16,29,53,.05)]">
+              <h3 className="font-sans text-[12px] font-extrabold text-[#101d35]">Privacy and data rights</h3>
+              <p className="mt-1 font-sans text-[10px] leading-5 text-[#8a96a7]">Review story and photo consent boundaries, communications, and access or deletion request entry points.</p>
+              <Link href="/privacy" className="mt-3 inline-flex min-h-11 items-center font-sans text-[10px] font-extrabold text-[#2456a6] underline underline-offset-4">
+                Open privacy notice
               </Link>
             </section>
 
@@ -283,8 +298,8 @@ export default function ProfilePage() {
 
 const inputClass = 'w-full rounded-[13px] border border-[#dfe5ed] bg-[#f9fafc] px-4 py-[13px] font-sans text-[13px] font-semibold text-[#18263e] outline-none transition-colors placeholder:text-[#aab3c0] focus:border-[#7da2d4] focus:bg-white focus:ring-2 focus:ring-[#2456a6]/10'
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><label className="mb-2 block font-sans text-[9px] font-extrabold uppercase tracking-[.12em] text-[#8995a6]">{label}</label>{children}</div>
+function Field({ label, htmlFor, children }: { label: string; htmlFor: string; children: React.ReactNode }) {
+  return <div><label htmlFor={htmlFor} className="mb-2 block font-sans text-[9px] font-extrabold uppercase tracking-[.12em] text-[#8995a6]">{label}</label>{children}</div>
 }
 
 function InfoRow({ label, value, capitalize, last }: { label: string; value: string; capitalize?: boolean; last?: boolean }) {
@@ -292,5 +307,5 @@ function InfoRow({ label, value, capitalize, last }: { label: string; value: str
 }
 
 function Spinner() {
-  return <div className="flex min-h-[50vh] items-center justify-center"><div className="h-5 w-5 animate-spin rounded-full border-2 border-[#2456a6] border-t-transparent" /></div>
+  return <div role="status" className="flex min-h-[50vh] items-center justify-center"><div className="h-5 w-5 animate-spin rounded-full border-2 border-[#2456a6] border-t-transparent" /><span className="sr-only">Loading profile</span></div>
 }

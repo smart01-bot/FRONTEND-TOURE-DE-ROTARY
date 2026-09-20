@@ -21,7 +21,7 @@ export default function StoriesPage() {
   const { stories, allCount, loading, error, reload, filter, setFilter } = useStories()
 
   return (
-    <main>
+    <main id="main-content" tabIndex={-1}>
       <HomeNav />
 
       <section className="bg-navy px-5 pt-10 pb-8">
@@ -54,8 +54,9 @@ export default function StoriesPage() {
 
       <section className="bg-sand px-5 py-6">
         {loading ? (
-          <div className="flex justify-center py-16">
+          <div role="status" className="flex justify-center py-16">
             <div className="w-6 h-6 rounded-full border-2 border-bronze border-t-transparent animate-spin" />
+            <span className="sr-only">Loading participant stories</span>
           </div>
         ) : error ? (
           <div role="alert" className="py-16 text-center"><p className="font-serif text-[18px] text-navy">Stories could not be loaded.</p><button type="button" onClick={() => void reload()} className="mt-3 rounded-button bg-navy px-4 py-2 font-sans text-[11px] font-bold text-white">Try again</button></div>

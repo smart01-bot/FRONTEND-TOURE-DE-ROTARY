@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Heart, Home, LogOut, MessageSquare, Ticket, User, Bike, Moon, Sun, Check, Trophy } from 'lucide-react'
 import { useParticipant } from '@/hooks/useParticipant'
@@ -39,6 +40,28 @@ export function DesktopNav() {
   const { theme, setTheme } = useParticipantTheme()
   const light = theme === 'light'
   const [appearanceOpen, setAppearanceOpen] = useState(false)
+  const appearanceRef = useRef<HTMLDivElement>(null)
+  const appearanceButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!appearanceOpen) return
+    const onPointerDown = (event: MouseEvent) => {
+      if (!appearanceRef.current?.contains(event.target as Node)) setAppearanceOpen(false)
+    }
+    const onKeyDown = (event: globalThis.KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setAppearanceOpen(false)
+        appearanceButtonRef.current?.focus()
+      }
+    }
+    document.addEventListener('mousedown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    appearanceRef.current?.querySelector<HTMLButtonElement>('[role="menuitemradio"]')?.focus()
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [appearanceOpen])
 
   return (
     <>
@@ -50,33 +73,38 @@ export function DesktopNav() {
       >
         <Link href="/dashboard" className="flex items-center gap-3">
           <div className="relative h-12 w-[148px] shrink-0">
-            <img src="/assets/auth/tour-de-rotary-mark.png" alt="Tour de Dar" className="h-full w-full object-contain object-left" />
+            <Image src="/assets/auth/tour-de-rotary-mark.png" alt="Tour de Dar" width={272} height={272} className="h-full w-full object-contain object-left" />
           </div>
         </Link>
 
         <div className="flex items-center gap-4">
-          <div className="relative">
+          <div ref={appearanceRef} className="relative">
             <button
+              ref={appearanceButtonRef}
               type="button"
               onClick={() => setAppearanceOpen(open => !open)}
               aria-label="Appearance settings"
               aria-expanded={appearanceOpen}
+              aria-controls="participant-appearance-menu"
+              aria-haspopup="menu"
               title="Appearance"
               className={cn(
-                'rounded-full p-2 transition',
+                'inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2 transition',
                 light ? 'text-navy/55 hover:bg-navy/5 hover:text-navy' : 'text-white/65 hover:bg-white/5 hover:text-white',
               )}
             >
               {light ? <Moon size={18} strokeWidth={1.8} /> : <Sun size={18} strokeWidth={1.8} />}
             </button>
             {appearanceOpen && (
-              <div className={cn(
+              <div id="participant-appearance-menu" role="menu" aria-label="Appearance" className={cn(
                 'absolute right-0 top-11 w-44 rounded-[14px] border p-2 shadow-card-lg',
                 light ? 'border-navy/10 bg-white' : 'border-white/10 bg-[#0d1b3d]',
               )}>
                 <p className={cn('px-2 py-1.5 font-num text-[9px] font-extrabold uppercase tracking-[.12em]', light ? 'text-navy/35' : 'text-white/35')}>Appearance</p>
                 <button
                   type="button"
+                  role="menuitemradio"
+                  aria-checked={light}
                   onClick={() => { setTheme('light'); setAppearanceOpen(false) }}
                   className={cn('flex w-full items-center justify-between rounded-[9px] px-2.5 py-2 text-left font-sans text-[11px] font-semibold', light ? 'bg-navy/[.05] text-navy' : 'text-white/70 hover:bg-white/[.05]')}
                 >
@@ -85,6 +113,8 @@ export function DesktopNav() {
                 </button>
                 <button
                   type="button"
+                  role="menuitemradio"
+                  aria-checked={!light}
                   onClick={() => { setTheme('dark'); setAppearanceOpen(false) }}
                   className={cn('mt-1 flex w-full items-center justify-between rounded-[9px] px-2.5 py-2 text-left font-sans text-[11px] font-semibold', !light ? 'bg-white/[.06] text-white' : 'text-navy/65 hover:bg-navy/[.05]')}
                 >
@@ -106,7 +136,7 @@ export function DesktopNav() {
             type="button"
             onClick={() => void signOut()}
             aria-label="Sign out"
-            className={cn('rounded-full p-2 transition', light ? 'text-navy/50 hover:bg-navy/5 hover:text-navy' : 'text-white/35 hover:bg-white/5 hover:text-white')}
+            className={cn('inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2 transition', light ? 'text-navy/50 hover:bg-navy/5 hover:text-navy' : 'text-white/35 hover:bg-white/5 hover:text-white')}
           >
             <LogOut size={17} strokeWidth={1.7} />
           </button>

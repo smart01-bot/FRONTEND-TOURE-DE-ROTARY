@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 }
 export default function CommunityGuidelinesPage() {
   return (
-    <main>
+    <main id="main-content" tabIndex={-1}>
       <HomeNav />
 
       <section className="bg-navy px-5 pb-8 pt-10">

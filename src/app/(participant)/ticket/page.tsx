@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import QRCode from 'qrcode'
 import { Download, Printer, Share2 } from 'lucide-react'
 import { useParticipant } from '@/hooks/useParticipant'
@@ -74,9 +75,11 @@ export default function TicketPage() {
               <div className="flex items-start justify-between gap-5">
                 <div>
                   <div className="mb-3 flex items-center gap-3">
-                    <img
+                    <Image
                       src="/assets/auth/tour-de-rotary-mark.png"
                       alt="Tour de Dar"
+                      width={272}
+                      height={272}
                       className="h-12 w-auto object-contain object-left"
                     />
                     <div className={`hidden h-9 w-px sm:block ${dark ? 'bg-white/10' : 'bg-slate-200'}`} />
@@ -90,9 +93,11 @@ export default function TicketPage() {
                 </div>
 
                 <div className="hidden sm:block">
-                  <img
+                  <Image
                     src="/assets/TourdeRotary-main/25bibnumber.png"
                     alt="Bib"
+                    width={128}
+                    height={93}
                     className="h-[72px] w-auto object-contain"
                   />
                 </div>

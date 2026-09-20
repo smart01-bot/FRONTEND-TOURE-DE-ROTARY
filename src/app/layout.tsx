@@ -29,6 +29,7 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
   title: {
     default:  SITE.name,
     template: `%s · ${SITE.name}`,
@@ -46,11 +47,13 @@ export const metadata: Metadata = {
     siteName:    SITE.name,
     locale:      'en_TZ',
     type:        'website',
+    images: [{ url: '/assets/auth/tour-de-rotary-mark.png', width: 272, height: 272, alt: 'Tour de Dar event mark' }],
   },
   twitter: {
     card:        'summary_large_image',
     title:       SITE.name,
     description: SITE.tagline,
+    images: ['/assets/auth/tour-de-rotary-mark.png'],
   },
   robots: { index: true, follow: true },
 }
@@ -58,8 +61,6 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width:        'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   themeColor:   '#0D1B3D',
 }
 
@@ -70,6 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${playfair.variable} ${montserrat.variable} ${jakarta.variable}`}
     >
       <body className="antialiased">
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <UserProvider>
           {children}
         </UserProvider>

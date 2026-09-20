@@ -6,7 +6,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import Link from 'next/link'
-import { useState } from 'react'
+import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { Check, Hash, LayoutDashboard, LogOut, Moon, Sun, Users } from 'lucide-react'
 import { useUser } from '@/hooks/useUser'
@@ -27,6 +28,28 @@ export function AdminShell({ name, children }: { name: string; children: React.R
   const { theme, setTheme } = useParticipantTheme()
   const light = theme === 'light'
   const [appearanceOpen, setAppearanceOpen] = useState(false)
+  const appearanceRef = useRef<HTMLDivElement>(null)
+  const appearanceButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!appearanceOpen) return
+    const onPointerDown = (event: MouseEvent) => {
+      if (!appearanceRef.current?.contains(event.target as Node)) setAppearanceOpen(false)
+    }
+    const onKeyDown = (event: globalThis.KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setAppearanceOpen(false)
+        appearanceButtonRef.current?.focus()
+      }
+    }
+    document.addEventListener('mousedown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    appearanceRef.current?.querySelector<HTMLButtonElement>('[role="menuitemradio"]')?.focus()
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [appearanceOpen])
 
   async function handleSignOut() {
     await signOut()
@@ -50,9 +73,11 @@ export function AdminShell({ name, children }: { name: string; children: React.R
       >
         <Link href="/admin/overview" className="flex items-center gap-3">
           <div className="relative h-12 w-[148px] shrink-0">
-            <img
+            <Image
               src="/assets/auth/tour-de-rotary-mark.png"
               alt="Tour de Dar"
+              width={272}
+              height={272}
               className="h-full w-full object-contain object-left"
             />
           </div>
@@ -67,15 +92,18 @@ export function AdminShell({ name, children }: { name: string; children: React.R
         </Link>
 
         <div className="flex items-center gap-4">
-          <div className="relative">
+          <div ref={appearanceRef} className="relative">
             <button
+              ref={appearanceButtonRef}
               type="button"
               onClick={() => setAppearanceOpen(open => !open)}
               aria-label="Appearance settings"
               aria-expanded={appearanceOpen}
+              aria-controls="admin-appearance-menu"
+              aria-haspopup="menu"
               title="Appearance"
               className={cn(
-                'rounded-full p-2 transition',
+                'inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2 transition',
                 light ? 'text-navy/55 hover:bg-navy/5 hover:text-navy' : 'text-white/65 hover:bg-white/5 hover:text-white',
               )}
             >
@@ -83,6 +111,9 @@ export function AdminShell({ name, children }: { name: string; children: React.R
             </button>
             {appearanceOpen && (
               <div
+                id="admin-appearance-menu"
+                role="menu"
+                aria-label="Appearance"
                 className={cn(
                   'absolute right-0 top-11 w-44 rounded-[14px] border p-2 shadow-card-lg',
                   light ? 'border-navy/10 bg-white' : 'border-white/10 bg-[#0d1b3d]',
@@ -93,6 +124,8 @@ export function AdminShell({ name, children }: { name: string; children: React.R
                 </p>
                 <button
                   type="button"
+                  role="menuitemradio"
+                  aria-checked={light}
                   onClick={() => { setTheme('light'); setAppearanceOpen(false) }}
                   className={cn('flex w-full items-center justify-between rounded-[9px] px-2.5 py-2 text-left font-sans text-[11px] font-semibold', light ? 'bg-navy/[.05] text-navy' : 'text-white/70 hover:bg-white/[.05]')}
                 >
@@ -101,6 +134,8 @@ export function AdminShell({ name, children }: { name: string; children: React.R
                 </button>
                 <button
                   type="button"
+                  role="menuitemradio"
+                  aria-checked={!light}
                   onClick={() => { setTheme('dark'); setAppearanceOpen(false) }}
                   className={cn('mt-1 flex w-full items-center justify-between rounded-[9px] px-2.5 py-2 text-left font-sans text-[11px] font-semibold', !light ? 'bg-white/[.06] text-white' : 'text-navy/65 hover:bg-navy/[.05]')}
                 >
@@ -126,7 +161,7 @@ export function AdminShell({ name, children }: { name: string; children: React.R
             type="button"
             onClick={() => void handleSignOut()}
             aria-label="Sign out"
-            className={cn('rounded-full p-2 transition', light ? 'text-navy/50 hover:bg-navy/5 hover:text-navy' : 'text-white/35 hover:bg-white/5 hover:text-white')}
+            className={cn('inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2 transition', light ? 'text-navy/50 hover:bg-navy/5 hover:text-navy' : 'text-white/35 hover:bg-white/5 hover:text-white')}
           >
             <LogOut size={17} strokeWidth={1.7} />
           </button>
@@ -177,7 +212,7 @@ export function AdminShell({ name, children }: { name: string; children: React.R
       </aside>
 
       {/* ── Content ────────────────────────────────────────────────────── */}
-      <main className="relative min-h-dvh overflow-x-hidden overflow-y-auto pb-[82px] pt-[60px] lg:h-dvh lg:pb-0 lg:pl-[228px] lg:pt-[72px]">
+      <main id="main-content" tabIndex={-1} className="relative min-h-dvh overflow-x-hidden overflow-y-auto pb-[82px] pt-[60px] lg:h-dvh lg:pb-0 lg:pl-[228px] lg:pt-[72px]">
         <div className="participant-admin min-h-full bg-[#f6f8fb] text-[#10233f]">
           <div className="mx-auto w-full max-w-[1480px]">{children}</div>
         </div>
@@ -194,7 +229,7 @@ export function AdminShell({ name, children }: { name: string; children: React.R
         {ITEMS.map(({ href, label, icon: Icon }) => {
           const active = pathname === href || pathname.startsWith(`${href}/`)
           return (
-            <Link key={href} href={href} className="flex flex-1 flex-col items-center gap-1" aria-current={active ? 'page' : undefined}>
+            <Link key={href} href={href} className="flex min-h-11 flex-1 flex-col items-center justify-center gap-1" aria-current={active ? 'page' : undefined}>
               <Icon size={19} strokeWidth={active ? 2 : 1.7} className={cn(active ? (light ? 'text-[#1769AA]' : 'text-bronze') : light ? 'text-navy/30' : 'text-white/30')} />
               <span className={cn('font-sans text-[9px] font-semibold', active ? (light ? 'text-[#1769AA]' : 'text-bronze') : light ? 'text-navy/30' : 'text-white/30')}>
                 {label}

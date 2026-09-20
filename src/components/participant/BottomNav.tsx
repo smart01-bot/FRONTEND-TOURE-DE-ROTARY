@@ -54,7 +54,7 @@ export function BottomNav() {
           : NAV_ITEMS).map(({ href, label, icon: Icon }) => {
         const active = pathname === href || pathname.startsWith(href + '/')
         return (
-          <Link key={href} href={href} className="flex flex-1 flex-col items-center gap-1" aria-current={active ? 'page' : undefined}>
+          <Link key={href} href={href} className="flex min-h-11 flex-1 flex-col items-center justify-center gap-1" aria-current={active ? 'page' : undefined}>
             <Icon size={19} strokeWidth={active ? 2 : 1.7} className={cn(active ? (light ? 'text-[#1769AA]' : 'text-bronze') : light ? 'text-navy/30' : 'text-white/30')} />
             <span className={cn('font-sans text-[9px] font-semibold', active ? (light ? 'text-[#1769AA]' : 'text-bronze') : light ? 'text-navy/30' : 'text-white/30')}>
               {label}

@@ -1,7 +1,7 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
-const PUBLIC_PREFIXES    = ['/', '/about', '/activities', '/contact', '/merch', '/stories', '/race-info', '/course-map', '/community-guidelines', '/archive']
+const PUBLIC_PREFIXES    = ['/', '/about', '/activities', '/contact', '/merch', '/stories', '/race-info', '/course-map', '/community-guidelines', '/archive', '/privacy']
 const AUTH_PREFIXES      = ['/login', '/register', '/reset-password']
 const PROTECTED_PREFIXES = [
   '/dashboard', '/ticket', '/training', '/feed', '/fundraise', '/profile',
@@ -22,7 +22,7 @@ function matchesAny(pathname: string, prefixes: string[]): boolean {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  let response = NextResponse.next({ request: { headers: request.headers } })
+  const response = NextResponse.next({ request: { headers: request.headers } })
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

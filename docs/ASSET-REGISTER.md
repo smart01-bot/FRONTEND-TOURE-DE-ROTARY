@@ -53,3 +53,7 @@ No asset was added, renamed or removed. Memory cards are rendered locally in the
 ## Phase 6 lifecycle assets
 
 No asset was added, renamed or removed. Archive and lifecycle presentation reuse existing approved visual assets. Past-event photography must remain absent until its provenance, rights, credit and participant-consent rules are recorded.
+
+## Phase 7 launch-hardening assets
+
+No asset was added, renamed or removed. The existing event mark is used for social-sharing metadata. The landing photographs were audited and include files between approximately 1.1 MB and 3.7 MB; they were not recompressed or replaced because Phase 7 did not receive approval to alter visual quality. Historical storytelling remains absent until provenance, rights, credit, attribution and factual review are registered.

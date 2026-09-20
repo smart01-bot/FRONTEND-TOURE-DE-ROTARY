@@ -88,7 +88,7 @@ export default function HomeNav() {
             type="button"
             onClick={handleSignOut}
             className="font-sans text-[12px] font-semibold text-ink-subtle
-                       hover:text-coral transition-colors duration-200
+                       inline-flex min-h-11 items-center hover:text-coral transition-colors duration-200
                        focus-visible:outline-none focus-visible:ring-2
                        focus-visible:ring-bronze focus-visible:ring-offset-2"
           >

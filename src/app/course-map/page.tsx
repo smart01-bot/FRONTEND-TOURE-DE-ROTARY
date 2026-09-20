@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function CourseMapPage() {
   return (
-    <main>
+    <main id="main-content" tabIndex={-1}>
       <HomeNav />
       <section className="bg-navy px-5 pb-8 pt-10">
         <div className="mx-auto max-w-wide">

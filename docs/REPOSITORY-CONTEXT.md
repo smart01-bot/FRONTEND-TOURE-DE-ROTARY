@@ -4,14 +4,14 @@
 **Active branch:** `development`
 
 **Protected stable branch:** `main` at pre-Phase-1 state
-**Phase 6 starting baseline:** `d0b15d2b035aa72318b3d78b978734ada3ca45ca`
+**Phase 7 starting baseline:** `313cb684a479cc501c8bbbdbdc416e30591dff08`
 **Reviewed:** 20 September 2026
 
 This file describes the committed implementation. Source code remains authoritative for exact behaviour.
 
 ## Stack
 
-- Next.js 14.2.18 with App Router
+- Next.js 14.2.35 with App Router
 - React 18.3
 - TypeScript 5.6
 - Tailwind CSS 3.4
@@ -46,6 +46,7 @@ This file describes the committed implementation. Source code remains authoritat
 | `/profile` | Participant | Account and participant story |
 | `/community-guidelines` | Public | Community conduct, privacy, photo-consent and reporting guidance |
 | `/archive` | Public | Lifecycle-aware historical-edition home with truthful capability states |
+| `/privacy` | Public | Privacy, consent-boundary and data-rights notice with honest request entry points |
 | `/admin/overview` | HQ admin | Administrative overview |
 | `/admin/athletes` | HQ admin | Athlete management |
 | `/admin/athletes/[id]` | HQ admin | Athlete record |
@@ -68,6 +69,7 @@ This file describes the committed implementation. Source code remains authoritat
 - `src/config/community.ts` contains community guidelines and typed frontend capability states. Its challenge catalogue is intentionally empty until organiser-approved definitions exist.
 - `src/config/race-day.ts` contains result, leaderboard, photography and memory-card capability states. Published result, ranking and album datasets are intentionally empty.
 - `src/config/lifecycle.ts` is the central typed contract for pre-event, race-day, memory and archive presentation, registration/community permissions, navigation priority, edition identity and safe fallback behaviour.
+- `src/app/robots.ts` and `src/app/sitemap.ts` publish public-route indexing guidance while excluding participant and administration routes.
 - `src/components/lifecycle/` contains the compact participant state notice and closed-action explanation.
 - `src/app/race-info/page.tsx` renders static public content using existing homepage components and design tokens. Native `details`/`summary` controls work without client-side data fetching. The route is explicitly public in middleware.
 - `src/app/course-map/page.tsx` renders the public map page. `src/components/course-map/CourseMapExperience.tsx` owns its client-side switcher, connectivity state, optional user-location request, SVG geometry renderer, zoom/fit controls, mobile detail sheet, legend and accessible text alternative. The route is explicitly public in middleware.
@@ -75,7 +77,7 @@ This file describes the committed implementation. Source code remains authoritat
 - `src/context/ParticipantThemeContext.tsx` supplies participant theme state.
 - `src/hooks/` connects screens to participant, story, feed, fundraising, and admin data.
 - `src/lib/supabase/` contains browser/server clients and feature data services.
-- `middleware.ts` protects authenticated and administrative routes.
+- `src/middleware.ts` protects authenticated and administrative routes. It must remain beside `src/app`; placing it at repository root prevents Next.js from bundling it.
 
 ## Current connected flows
 
@@ -92,6 +94,7 @@ This file describes the committed implementation. Source code remains authoritat
 - Digital-ticket QR generation with readiness gates, save, share, and print actions
 - Private digital-bib and participant-story memory cards generated locally from the signed-in participant's verified existing data
 - Lifecycle-aware registration, community composition, public CTAs and participant navigation, plus a truthful public edition archive
+- Public privacy/consent boundaries plus email-based access and deletion request entry points that do not claim backend submission
 - HQ role checks, athlete records, payment confirmation, and bib assignment
 
 ## Current incomplete product areas
@@ -105,6 +108,8 @@ This file describes the committed implementation. Source code remains authoritat
 - Teams and challenges have protected, typed, capability-gated frontend homes with honest unavailable states. Create/join/search/invitation/membership/roles/relay/statistics/activity and challenge enrolment/progress/completion/history/badges/sharing remain backend- or decision-blocked.
 - The course-map frontend is implemented, but all route polylines and operational markers remain unpublished because no reviewed organiser geometry or logistics source exists. Do not convert legacy homepage, registration, README or ticket copy into map records.
 - Phase 5 result, leaderboard, photo/Find Me and memory routes are implemented. Live times, rankings, albums, associations and completion-based cards remain blocked by missing timing, photography, consent and backend contracts.
+- Licensed Old Dar/Modern Dar archival material is unavailable. The archive states this explicitly instead of presenting unsourced history or imagery.
+- Automated privacy requests and communication/research consent persistence are unavailable. `/privacy` provides truthful boundaries and organiser email entry points only.
 - Naming and story prompt were settled in Phase 1: `Tour de Dar` and `Why are you doing this?`.
 
 ## Expected Supabase entities
@@ -161,7 +166,11 @@ If a command is unavailable or blocked by missing external configuration, record
 - Keep generated `*.tsbuildinfo` out of Git.
 - Ticket QR payloads contain only a site/profile URL and registration identifier; do not encode private participant fields.
 - Preserve server-side authentication verification and HQ role checks while editing layouts.
+- Keep middleware at `src/middleware.ts`. The root-level location is not active in this `src/app` project and previously left participant routes unguarded at the request boundary.
 - Run `npm run build` after the final intended change and require it to pass before committing. If any file changes afterward, rerun the build.
+- Keep browser zoom enabled, the global skip link functional, reduced-motion overrides intact and async form errors announced.
+- Keep security headers in `next.config.mjs`; the unused Supabase wildcard image-optimizer rule was removed to reduce attack surface.
+- The remaining Next.js audit finding cannot be cleared within the compatible 14.2 line. Treat a fully verified major-version framework migration as a launch blocker, not an automatic force-upgrade.
 - Populate `COURSE_ROUTES` and `COURSE_MAP_MARKERS` only from reviewed organiser sources. Every record must retain its source and review date; coordinates, venues and operational points must never be estimated.
 - `/course-map` must not request location permission on load. The user-location action stays optional and is disabled while no verified map data exists.
 - Treat `story_public = null` as private in the profile UI. Existing story consent does not authorise a public participant home, photo, activity, team, challenge or bib disclosure.

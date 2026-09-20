@@ -29,6 +29,9 @@ Only settled, project-wide choices belong here. Newer entries replace older entr
 | 2026-09-20 | Active | Only private digital-bib and participant-story cards may be generated from existing signed-in participant data. | Registration does not prove completion; result, finisher, team and challenge cards require real source records. |
 | 2026-09-20 | Active | Event lifecycle is controlled only by typed `src/config/lifecycle.ts`; the approved default is `pre_event`, and no date automatically changes it. | Prevents unverified operational transitions. Invalid configured values fail closed to read-only presentation, while every mode preserves backend capability and privacy gates. |
 | 2026-09-20 | Active | `/archive` is the public home for one configured historical edition; it does not imply that multiple past editions or unpublished results, photos or impact records exist. | Keeps ended events coherent without fabricating archive data. |
+| 2026-09-20 | Active | `/privacy` is the public source for consent boundaries and data-rights entry points; email links open a request channel but never represent a submitted or completed request. | The repository has no approved preference centre, request tracker, research-consent service or deletion API. |
+| 2026-09-20 | Active | Historical Old Dar × Modern Dar content stays unpublished until provenance, usage rights, attribution and factual review are recorded. | The approved narrative direction does not authorise fabricated history or unlicensed material. |
+| 2026-09-20 | Active | Patch Next.js only within the compatible 14.2 line during Phase 7; treat the remaining audit remediation as a separately tested major migration. | `npm audit` requires a breaking upgrade, so force-upgrading during launch hardening would violate safe compatibility verification. |
 
 ## Entry format
 

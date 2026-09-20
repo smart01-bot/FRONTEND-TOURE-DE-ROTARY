@@ -29,7 +29,7 @@ function StandardAuthLayout({ children }: { children: React.ReactNode }) {
             <span className="h-32 w-5 rotate-[24deg] bg-[#9F2B68]" />
             <span className="h-24 w-4 rotate-[24deg] bg-[#FFC62E]" />
           </div>
-          <main className="relative z-20 flex min-h-[calc(100dvh-300px)] lg:min-h-dvh items-center justify-center px-5 py-8 lg:px-0 lg:py-10">
+          <main id="main-content" tabIndex={-1} className="relative z-20 flex min-h-[calc(100dvh-300px)] lg:min-h-dvh items-center justify-center px-5 py-8 lg:px-0 lg:py-10">
             <div className="w-full max-w-[470px] lg:-ml-[33%]">
               <div className="overflow-hidden rounded-[22px] bg-white shadow-[0_22px_70px_rgba(13,27,61,.18)] ring-1 ring-[#0D1B3D]/[.08]">
                 <div className="flex h-[7px] w-full">

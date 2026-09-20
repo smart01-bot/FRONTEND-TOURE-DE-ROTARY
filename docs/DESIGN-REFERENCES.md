@@ -46,6 +46,14 @@ This register prevents phrases such as “the last design” from becoming perma
 
 ## Adding a reference
 
+## Phase 7 preservation record
+
+- `/privacy` and the archive source-status notice reuse the established public navigation/footer, navy/sand surfaces, serif/sans typography, card radii, borders, spacing and mobile-first breakpoints.
+- Existing page composition was not replaced. Accessibility changes are behavioural: zoom, skip navigation, visible focus, reduced motion, labelled forms, announced status, keyboard-safe appearance menus and minimum navigation targets.
+- Dashboard truth corrections retain the same cards and hierarchy while removing invented progress and changing unverified start details to `TBD`.
+- No historical image or new visual asset was added because provenance and usage rights are not approved.
+- Phone/tablet/desktop source and compiled-route checks were completed. This is not a browser screenshot, screen-reader or real-device pass.
+
 ## Phase 6 preservation record
 
 - Lifecycle additions reuse existing public and participant card, notice, colour, type, radius, border and shadow patterns. No page composition, global token or asset was replaced.

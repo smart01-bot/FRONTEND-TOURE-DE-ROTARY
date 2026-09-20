@@ -89,7 +89,7 @@ export default function DashboardPage() {
               <JourneyRow label="Registration" done={isConfirmed} dark={dark} />
               <JourneyRow label="Profile" done={Boolean(profile?.full_name)} dark={dark} />
               <JourneyRow label="Payment" done={isPaid} dark={dark} />
-              <JourneyRow label="Training" done={false} progress={72} dark={dark} />
+              <JourneyRow label="Training" done={false} dark={dark} />
               <JourneyRow label="Race ready" done={false} dark={dark} />
             </div>
           </section>
@@ -112,15 +112,15 @@ export default function DashboardPage() {
           <section className={`rounded-[18px] border p-5 shadow-card sm:p-6 ${dark ? 'border-white/10 bg-[#0C2748]' : 'border-navy/10 bg-white'}`}>
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2.5"><Bike size={20} className="text-[#1769AA]" /><h2 className={`font-serif text-[23px] font-bold ${dark ? 'text-white' : 'text-navy'}`}>Your ride</h2></div>
-              <button type="button" onClick={() => router.push('/training')} className="font-sans text-[10px] font-bold text-[#1769AA]">View route →</button>
+              <button type="button" onClick={() => router.push('/race-info')} className="font-sans text-[10px] font-bold text-[#1769AA]">Race information →</button>
             </div>
             <div className={`mt-5 overflow-hidden rounded-[12px] ${dark ? 'bg-[#123C70]' : 'bg-[#EAF1F8]'}`}>
               <Image src="/assets/auth/dar-city-bridge.jpg" alt="Dar es Salaam route" width={720} height={360} className="h-[145px] w-full object-cover" />
             </div>
             <div className="mt-4 space-y-3">
               <RideInfo icon={Bike} label="Distance" value={category?.distances.bike ?? '—'} dark={dark} />
-              <RideInfo icon={Clock3} label="Start time" value="6:00 AM" dark={dark} />
-              <RideInfo icon={MapPin} label="Start point" value="Dar es Salaam" dark={dark} />
+              <RideInfo icon={Clock3} label="Start time" value="TBD" dark={dark} />
+              <RideInfo icon={MapPin} label="Start point" value="TBD" dark={dark} />
             </div>
           </section>
         </div>
@@ -179,5 +179,5 @@ function ActionCard({ title, text, icon: Icon, tone, dark, onClick }: { title: s
 }
 
 function Spinner({ dark }: { dark: boolean }) {
-  return <div className={`flex min-h-[calc(100dvh-72px)] items-center justify-center ${dark ? 'bg-[#071A33]' : 'bg-sand'}`}><div className="h-7 w-7 animate-spin rounded-full border-2 border-white/15 border-t-[#1769AA]" /></div>
+  return <div role="status" className={`flex min-h-[calc(100dvh-72px)] items-center justify-center ${dark ? 'bg-[#071A33]' : 'bg-sand'}`}><div className="h-7 w-7 animate-spin rounded-full border-2 border-white/15 border-t-[#1769AA]" /><span className="sr-only">Loading dashboard</span></div>
 }
