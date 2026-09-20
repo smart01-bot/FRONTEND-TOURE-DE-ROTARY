@@ -12,6 +12,7 @@ import { initials } from '@/lib/utils'
 import { PostCard } from '@/components/feed/PostCard'
 import { ComposeCard } from '@/components/feed/ComposeCard'
 import type { PostType, FeedDiscipline } from '@/types/feed'
+import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
 
 export default function FeedPage() {
   const { profile, daysUntil } = useParticipant()
@@ -20,6 +21,9 @@ export default function FeedPage() {
   const avatarInitials = profile?.full_name ? initials(profile.full_name) : '?'
 
   async function handlePost(content: string, postType: PostType, discipline: FeedDiscipline | null) {
+    if (ACTIVE_LIFECYCLE.community.state === 'read_only') {
+      throw new Error(ACTIVE_LIFECYCLE.community.explanation)
+    }
     await createPost({ content, post_type: postType, discipline })
   }
 
@@ -36,7 +40,9 @@ export default function FeedPage() {
               The Run-Up.
             </h1>
             <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-[#64748b]">
-              Training updates, milestones and questions from fellow athletes on the road to race day.
+              {ACTIVE_LIFECYCLE.community.state === 'read_only'
+                ? 'Stories and updates from this event edition remain available to read.'
+                : 'Training updates, milestones and questions from fellow athletes on the road to race day.'}
             </p>
           </div>
 
@@ -68,7 +74,11 @@ export default function FeedPage() {
         <section className="mt-7 grid gap-5 lg:grid-cols-[minmax(0,1.55fr)_minmax(300px,.75fr)] lg:items-start">
           {/* Compose + posts */}
           <div className="space-y-5">
-            <ComposeCard avatarInitials={avatarInitials} onPost={handlePost} />
+            <ComposeCard
+              avatarInitials={avatarInitials}
+              onPost={handlePost}
+              readOnlyReason={ACTIVE_LIFECYCLE.community.state === 'read_only' ? ACTIVE_LIFECYCLE.community.explanation : undefined}
+            />
 
             {loading ? (
               <Spinner />

@@ -4,7 +4,7 @@
 **Active branch:** `development`
 
 **Protected stable branch:** `main` at pre-Phase-1 state
-**Phase 4 starting baseline:** `52f86d9de71a633519c13dcfb2cd5bc0d6dbc635`
+**Phase 6 starting baseline:** `d0b15d2b035aa72318b3d78b978734ada3ca45ca`
 **Reviewed:** 20 September 2026
 
 This file describes the committed implementation. Source code remains authoritative for exact behaviour.
@@ -45,6 +45,7 @@ This file describes the committed implementation. Source code remains authoritat
 | `/fundraise` | Participant | Fundraising dashboard |
 | `/profile` | Participant | Account and participant story |
 | `/community-guidelines` | Public | Community conduct, privacy, photo-consent and reporting guidance |
+| `/archive` | Public | Lifecycle-aware historical-edition home with truthful capability states |
 | `/admin/overview` | HQ admin | Administrative overview |
 | `/admin/athletes` | HQ admin | Athlete management |
 | `/admin/athletes/[id]` | HQ admin | Athlete record |
@@ -66,6 +67,8 @@ This file describes the committed implementation. Source code remains authoritat
 - `src/config/course-map.ts` is the only operational course-map data contract. It defines separate view metadata, route polylines, marker/location types, transition relationships, legend entries, required source/review metadata, and the currently empty verified datasets.
 - `src/config/community.ts` contains community guidelines and typed frontend capability states. Its challenge catalogue is intentionally empty until organiser-approved definitions exist.
 - `src/config/race-day.ts` contains result, leaderboard, photography and memory-card capability states. Published result, ranking and album datasets are intentionally empty.
+- `src/config/lifecycle.ts` is the central typed contract for pre-event, race-day, memory and archive presentation, registration/community permissions, navigation priority, edition identity and safe fallback behaviour.
+- `src/components/lifecycle/` contains the compact participant state notice and closed-action explanation.
 - `src/app/race-info/page.tsx` renders static public content using existing homepage components and design tokens. Native `details`/`summary` controls work without client-side data fetching. The route is explicitly public in middleware.
 - `src/app/course-map/page.tsx` renders the public map page. `src/components/course-map/CourseMapExperience.tsx` owns its client-side switcher, connectivity state, optional user-location request, SVG geometry renderer, zoom/fit controls, mobile detail sheet, legend and accessible text alternative. The route is explicitly public in middleware.
 - `src/context/UserContext.tsx` supplies authenticated-user context.
@@ -88,6 +91,7 @@ This file describes the committed implementation. Source code remains authoritat
 - Real homepage community previews with honest loading, empty, and error states
 - Digital-ticket QR generation with readiness gates, save, share, and print actions
 - Private digital-bib and participant-story memory cards generated locally from the signed-in participant's verified existing data
+- Lifecycle-aware registration, community composition, public CTAs and participant navigation, plus a truthful public edition archive
 - HQ role checks, athlete records, payment confirmation, and bib assignment
 
 ## Current incomplete product areas
@@ -129,6 +133,7 @@ Administration access expects the profile role `hq_admin`. Row Level Security an
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `NEXT_PUBLIC_SITE_URL`
 - `NEXT_PUBLIC_API_BASE_URL`
+- `NEXT_PUBLIC_EVENT_LIFECYCLE` (optional: `pre_event`, `race_day`, `memory`, or `archive`; invalid values fail closed)
 
 Never record their values in Git. `.env` and `.env.*` must remain ignored.
 
@@ -162,6 +167,15 @@ If a command is unavailable or blocked by missing external configuration, record
 - Treat `story_public = null` as private in the profile UI. Existing story consent does not authorise a public participant home, photo, activity, team, challenge or bib disclosure.
 - Do not connect public profiles, reports, uploads, teams or challenges by guessing table, bucket, RPC, API or RLS names. Their current unavailable states are intentional.
 - Do not treat registration or bib assignment as completion. Do not connect results, rankings or photographs by guessing timing tables, provider fields, photo buckets, associations, APIs or RLS.
+- Change lifecycle mode only after an organiser-approved operational decision. Do not infer a transition from existing unsourced event copy or dates. Invalid values must retain the read-only fallback.
+
+## Operating Phase 6 lifecycle modes
+
+- The repository default is `pre_event`. A valid `NEXT_PUBLIC_EVENT_LIFECYCLE` value may select `race_day`, `memory` or `archive` for a deployment.
+- `race_day` prioritises ticket, course and result destinations but does not create alerts, live data or provisional results.
+- `memory` and `archive` make community composition read-only while keeping already-authorised stories/posts readable.
+- `/archive` identifies only the configured edition and shows honest unavailable states for unpublished results, photographs and impact.
+- Results, photos, teams and challenges retain their own backend/capability gates in every lifecycle mode.
 
 ## Connecting Phase 5 backend capabilities
 

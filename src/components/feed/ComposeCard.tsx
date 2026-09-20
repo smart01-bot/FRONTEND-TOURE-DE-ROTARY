@@ -28,6 +28,7 @@ const MAX_CHARS = 500
 interface ComposeCardProps {
   avatarInitials: string
   onPost: (content: string, type: PostType, discipline: FeedDiscipline | null) => Promise<void>
+  readOnlyReason?: string
 }
 
 const pill = (selected: boolean) =>
@@ -38,7 +39,7 @@ const pill = (selected: boolean) =>
       : 'border-[#dce5ef] bg-white text-[#64748b] hover:border-[#cbd8e6]',
   )
 
-export function ComposeCard({ avatarInitials, onPost }: ComposeCardProps) {
+export function ComposeCard({ avatarInitials, onPost, readOnlyReason }: ComposeCardProps) {
   const [open,       setOpen]       = useState(false)
   const [content,    setContent]    = useState('')
   const [postType,   setPostType]   = useState<PostType>('general')
@@ -82,7 +83,12 @@ export function ComposeCard({ avatarInitials, onPost }: ComposeCardProps) {
 
   return (
     <div className="rounded-[24px] border border-[#dce5ef] bg-white p-4 shadow-[0_12px_35px_rgba(15,35,63,0.06)] sm:p-5">
-      {!open ? (
+      {readOnlyReason ? (
+        <div role="status" className="rounded-[16px] border border-[#F8BE22]/40 bg-[#FFF8DE] px-4 py-4">
+          <p className="font-sans text-[12px] font-extrabold text-[#10233f]">This edition is read-only.</p>
+          <p className="mt-1 font-sans text-[11px] leading-relaxed text-[#64748b]">{readOnlyReason}</p>
+        </div>
+      ) : !open ? (
         <div className="flex items-center gap-3">
           {avatar}
           <button

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useFeed } from '@/hooks/useFeed'
 import { initials, relativeTime, truncate } from '@/lib/utils'
+import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
 
 export default function CommunityPulse() {
   const { posts, loading, error, reload } = useFeed()
@@ -16,7 +17,7 @@ export default function CommunityPulse() {
           The community<br />is already moving.
         </h2>
         <Link href="/feed" className="font-sans text-[12px] font-semibold text-bronze whitespace-nowrap ml-3 flex-shrink-0">
-          View all
+          {ACTIVE_LIFECYCLE.community.state === 'read_only' ? 'View memories' : 'View all'}
         </Link>
       </div>
 
@@ -84,7 +85,7 @@ export default function CommunityPulse() {
                    hover:border-ink-ghost transition-colors duration-200
                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2"
       >
-        Join the conversation
+        {ACTIVE_LIFECYCLE.community.state === 'read_only' ? 'Read community stories' : 'Join the conversation'}
       </Link>
 
     </section>

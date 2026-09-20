@@ -3,20 +3,33 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { Heart, Home, LogOut, MessageSquare, Ticket, User, Bike, Moon, Sun, Check } from 'lucide-react'
+import { Heart, Home, LogOut, MessageSquare, Ticket, User, Bike, Moon, Sun, Check, Trophy } from 'lucide-react'
 import { useParticipant } from '@/hooks/useParticipant'
 import { useUser } from '@/hooks/useUser'
 import { cn } from '@/lib/utils'
 import { useParticipantTheme } from '@/context/ParticipantThemeContext'
+import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
 
 const ITEMS = [
   { href: '/dashboard', label: 'Dashboard', icon: Home },
   { href: '/ticket', label: 'My Ticket', icon: Ticket },
   { href: '/training', label: 'Training', icon: Bike },
   { href: '/feed', label: 'The Run-Up', icon: MessageSquare },
+  { href: '/results', label: 'Results & Memories', icon: Trophy },
   { href: '/fundraise', label: 'Fundraise', icon: Heart },
   { href: '/profile', label: 'My Profile', icon: User },
 ]
+
+const PRIORITY_HREFS: Record<typeof ACTIVE_LIFECYCLE.participantPriority, string[]> = {
+  prepare: ['/dashboard', '/ticket', '/training', '/feed', '/fundraise', '/profile', '/results'],
+  race_day: ['/dashboard', '/ticket', '/training', '/results', '/feed', '/profile', '/fundraise'],
+  remember: ['/dashboard', '/results', '/profile', '/feed', '/ticket', '/fundraise', '/training'],
+  history: ['/dashboard', '/results', '/profile', '/feed', '/ticket', '/fundraise', '/training'],
+}
+
+const ORDERED_ITEMS = PRIORITY_HREFS[ACTIVE_LIFECYCLE.participantPriority]
+  .map(href => ITEMS.find(item => item.href === href))
+  .filter((item): item is (typeof ITEMS)[number] => Boolean(item))
 
 export function DesktopNav() {
   const pathname = usePathname()
@@ -110,7 +123,7 @@ export function DesktopNav() {
           Participant portal
         </p>
         <nav className="space-y-1" aria-label="Participant navigation">
-          {ITEMS.map(({ href, label, icon: Icon }) => {
+          {ORDERED_ITEMS.map(({ href, label, icon: Icon }) => {
             const active = pathname === href || pathname.startsWith(`${href}/`)
             return (
               <Link

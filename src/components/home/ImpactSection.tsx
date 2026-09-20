@@ -1,5 +1,6 @@
 import { SITE } from '@/config/site'
 import Link from 'next/link'
+import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
 
 export default function ImpactSection() {
   return (
@@ -41,13 +42,13 @@ export default function ImpactSection() {
 
       {/* CTA */}
       <Link
-        href="/register"
+        href={ACTIVE_LIFECYCLE.registration.state === 'open' ? '/register' : ACTIVE_LIFECYCLE.primaryAction.href}
         className="relative w-full py-4 bg-coral text-white rounded-button
                    font-sans text-body-sm font-bold
                    hover:bg-coral-dark active:scale-[.98] transition-all duration-200
                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
       >
-        Register & change lives
+        {ACTIVE_LIFECYCLE.registration.state === 'open' ? 'Register & change lives' : ACTIVE_LIFECYCLE.primaryAction.label}
       </Link>
 
     </section>

@@ -49,3 +49,7 @@ No asset was added, renamed or removed. Existing avatar URLs are presentation-on
 ## Phase 5 race-day assets
 
 No asset was added, renamed or removed. Memory cards are rendered locally in the browser and are not committed images. Event photographs must not be added until provenance, photographer credit, usage permission, participant consent and removal rules are recorded. No placeholder image may be presented as real event photography.
+
+## Phase 6 lifecycle assets
+
+No asset was added, renamed or removed. Archive and lifecycle presentation reuse existing approved visual assets. Past-event photography must remain absent until its provenance, rights, credit and participant-consent rules are recorded.

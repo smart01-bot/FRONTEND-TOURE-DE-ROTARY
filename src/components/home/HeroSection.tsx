@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { SITE } from '@/config/site'
 import { formatEventDate } from '@/lib/utils'
 import CountdownTimer from './CountdownTimer'
+import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
 
 const HERO_IMAGES = [
   '/assets/landing/pexels-jim-de-ramos-395808-1263349.jpg',
@@ -84,7 +85,7 @@ export default function HeroSection() {
         <div className="relative flex items-center gap-2 mb-8">
           <span className="live-dot" />
           <span className="font-sans text-[11px] font-bold text-coral uppercase tracking-[.06em]">
-            Registration Open
+            {ACTIVE_LIFECYCLE.registration.state === 'open' ? 'Registration Open' : ACTIVE_LIFECYCLE.label}
           </span>
         </div>
 
@@ -111,13 +112,13 @@ export default function HeroSection() {
         {/* CTAs */}
         <div className="relative flex flex-col gap-2.5 mb-9 sm:flex-row sm:max-w-[520px]">
           <Link
-            href="/register"
+            href={ACTIVE_LIFECYCLE.primaryAction.href}
             className="w-full py-4 bg-coral text-white rounded-button
                        font-sans text-body-sm font-bold
                        hover:bg-coral-dark active:scale-[.98] transition-all duration-200
                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
           >
-            Register for TdDar 2026
+            {ACTIVE_LIFECYCLE.primaryAction.label}
           </Link>
           <a
             href="/race-info"

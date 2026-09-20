@@ -2,9 +2,10 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Ticket, Bike, MessageSquare, Heart, User } from 'lucide-react'
+import { Home, Ticket, Bike, MessageSquare, Heart, User, Trophy } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useParticipantTheme } from '@/context/ParticipantThemeContext'
+import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
 
 const NAV_ITEMS = [
   { href: '/dashboard', label: 'Home', icon: Home },
@@ -12,6 +13,24 @@ const NAV_ITEMS = [
   { href: '/training', label: 'Training', icon: Bike },
   { href: '/feed', label: 'Feed', icon: MessageSquare },
   { href: '/fundraise', label: 'Fundraise', icon: Heart },
+  { href: '/profile', label: 'Profile', icon: User },
+]
+
+const MEMORY_NAV_ITEMS = [
+  { href: '/dashboard', label: 'Home', icon: Home },
+  { href: '/results', label: 'Results', icon: Trophy },
+  { href: '/feed', label: 'Stories', icon: MessageSquare },
+  { href: '/ticket', label: 'Bib', icon: Ticket },
+  { href: '/fundraise', label: 'Impact', icon: Heart },
+  { href: '/profile', label: 'Profile', icon: User },
+]
+
+const RACE_DAY_NAV_ITEMS = [
+  { href: '/dashboard', label: 'Home', icon: Home },
+  { href: '/ticket', label: 'Bib', icon: Ticket },
+  { href: '/course-map', label: 'Course', icon: Bike },
+  { href: '/results', label: 'Results', icon: Trophy },
+  { href: '/feed', label: 'Updates', icon: MessageSquare },
   { href: '/profile', label: 'Profile', icon: User },
 ]
 
@@ -28,7 +47,11 @@ export function BottomNav() {
       )}
       aria-label="Main navigation"
     >
-      {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
+      {(ACTIVE_LIFECYCLE.participantPriority === 'race_day'
+        ? RACE_DAY_NAV_ITEMS
+        : ACTIVE_LIFECYCLE.participantPriority === 'remember' || ACTIVE_LIFECYCLE.participantPriority === 'history'
+          ? MEMORY_NAV_ITEMS
+          : NAV_ITEMS).map(({ href, label, icon: Icon }) => {
         const active = pathname === href || pathname.startsWith(href + '/')
         return (
           <Link key={href} href={href} className="flex flex-1 flex-col items-center gap-1" aria-current={active ? 'page' : undefined}>

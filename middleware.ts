@@ -1,7 +1,7 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
-const PUBLIC_PREFIXES    = ['/', '/about', '/activities', '/contact', '/merch', '/stories', '/race-info', '/course-map', '/community-guidelines']
+const PUBLIC_PREFIXES    = ['/', '/about', '/activities', '/contact', '/merch', '/stories', '/race-info', '/course-map', '/community-guidelines', '/archive']
 const AUTH_PREFIXES      = ['/login', '/register', '/reset-password']
 const PROTECTED_PREFIXES = [
   '/dashboard', '/ticket', '/training', '/feed', '/fundraise', '/profile',

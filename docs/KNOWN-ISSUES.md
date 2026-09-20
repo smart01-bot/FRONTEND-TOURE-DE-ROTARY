@@ -12,7 +12,7 @@ This register tracks current confirmed frontend problems and major limitations. 
 | TD-006 | Medium | Training | Some resource/map controls do not open real content or explain unavailability. | Resolved `5221cc867fbbbdf6a2a5995db3a0f048062c705b` | Phase 1 |
 | TD-007 | Medium | Product copy | `Tour de Dar` / `Tour de Rotary` and story terminology are inconsistent. | Resolved `5221cc867fbbbdf6a2a5995db3a0f048062c705b` | Phase 1 |
 | TD-008 | Medium | Participant identity | Private profile now connects story, real personal post activity, team/challenge availability and digital bib. Public profiles and uploads remain blocked by separate consent, public-identifier, storage and RLS contracts. | Partially resolved by Phase 4 frontend | Backend contract / Phase 7 privacy |
-| TD-009 | High | Product scope | Teams/challenges and Phase 5 race-day areas now have typed protected frontend homes, but their live backend capabilities are unavailable. Lifecycle modes and archives remain absent. | Partially resolved by Phases 2–5 | Backend contract / Phase 6 |
+| TD-009 | High | Product scope | Lifecycle and archive presentation now exist. Teams/challenges and Phase 5 race-day areas retain typed protected frontend homes, but their live backend capabilities remain unavailable. | Lifecycle portion resolved by Phase 6; backend capabilities remain blocked | Backend contract |
 | TD-010 | Medium | Repository | `tsconfig.tsbuildinfo` is currently tracked although it is generated build state. | Resolved `5221cc867fbbbdf6a2a5995db3a0f048062c705b` | Phase 1 |
 | TD-011 | Medium | Moderation | The feed truthfully says no report was submitted and links to guidelines/urgent contact. Persistent report intake, review states and enforcement remain unavailable. | Frontend state resolved; persistence blocked by backend contract | Backend contract |
 | TD-012 | Medium | Media | Profile-photo upload and feed media attachment require approved Supabase Storage buckets and policies. | Blocked by backend contract | Phase 4 |
@@ -24,6 +24,7 @@ This register tracks current confirmed frontend problems and major limitations. 
 | TD-018 | Medium | Dependency security | `npm ci` warns that Next.js `14.2.18` has a published security vulnerability. No dependency upgrade was authorised within Phase 4. | Open | Dedicated dependency/security update |
 | TD-019 | High | Results | Result, split, transition and ranking experiences are frontend-ready but no approved timing source, schema, participant match or publication rules exist. | Capability-gated by Phase 5 | Timing/backend contract |
 | TD-020 | High | Photography | Gallery, Find Me, credits, downloads and sharing are frontend-ready but no approved storage, albums, bib associations or photo-consent contract exists. | Capability-gated by Phase 5 | Photography/backend contract |
+| TD-021 | Medium | Lifecycle operations | The approved active lifecycle remains `pre_event`; no organiser-approved transition schedule or automatic date rule exists. | Safely configurable; operational switch pending organiser instruction | Event operations |
 
 ## Issue lifecycle
 

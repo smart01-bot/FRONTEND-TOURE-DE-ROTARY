@@ -745,6 +745,8 @@ Keep the platform valuable during and after the physical event.
 
 ## 10. Phase 6 — Event lifecycle and archive
 
+**Frontend status:** Implemented through a central typed lifecycle configuration covering pre-event, race-day, memory and archive presentation. The current approved mode remains pre-event. Registration, community composition, public/participant CTAs and navigation priorities adapt without enabling unavailable backend capabilities. `/archive` provides a truthful edition home; invalid lifecycle values fall back to a read-only unavailable state.
+
 ### Objective
 
 Make the temporary nature of the community an explicit product capability.
@@ -793,6 +795,13 @@ Make the temporary nature of the community an explicit product capability.
 - Closed actions explain why they are closed
 - Past editions remain coherent and accessible
 - The application never looks broken simply because an event has ended
+
+### Phase 6 verified frontend boundary
+
+- `src/config/lifecycle.ts` is the only event-lifecycle switch. `NEXT_PUBLIC_EVENT_LIFECYCLE` accepts the four typed modes; invalid values resolve to a conservative read-only fallback.
+- No mode transition is inferred from an unverified date. The default remains `pre_event` until an organiser-approved operational decision changes it.
+- Lifecycle state changes navigation, CTA wording, registration access and community composition only; it never publishes timing, photography, teams, challenges, alerts, editions or impact data.
+- Archived stories retain their existing consent boundary. Results and photos retain their protected routes and Phase 5 capability gates.
 
 ---
 

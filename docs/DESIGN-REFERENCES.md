@@ -46,6 +46,13 @@ This register prevents phrases such as “the last design” from becoming perma
 
 ## Adding a reference
 
+## Phase 6 preservation record
+
+- Lifecycle additions reuse existing public and participant card, notice, colour, type, radius, border and shadow patterns. No page composition, global token or asset was replaced.
+- The participant shell gains one compact wrapping status strip. Desktop navigation keeps the same sidebar structure; mobile keeps six equal-width destinations and changes only their lifecycle priority.
+- Registration and community closed states occupy the existing action surfaces and explain why an action is unavailable. `/archive` reuses the public navigation/footer and established two-column card breakpoint.
+- Phone bases remain wrapping/single-column, archive cards become two columns at `sm`, and existing desktop shells remain unchanged.
+
 ## Phase 5 preservation record
 
 - Phase 5 uses the participant portal shell, existing navy/blue/magenta/yellow palette, serif/sans/numeric typography, rounded cards, borders and shadows.

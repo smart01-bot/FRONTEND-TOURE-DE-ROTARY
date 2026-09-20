@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { createBrowserClient } from '@supabase/ssr'
 import { SITE } from '@/config/site'
 import type { User } from '@supabase/supabase-js'
+import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
 
 export default function HomeNav() {
   const router  = useRouter()
@@ -97,14 +98,14 @@ export default function HomeNav() {
       ) : (
         // ── Logged out ─────────────────────────────────────────────────────
         <Link
-          href="/register"
+          href={ACTIVE_LIFECYCLE.registration.state === 'open' ? '/register' : ACTIVE_LIFECYCLE.primaryAction.href}
           className="font-sans text-[11px] font-bold text-bronze uppercase tracking-[.04em]
                      border-[1.5px] border-bronze rounded-pill px-4 py-2
                      hover:bg-bronze hover:text-white transition-colors duration-200
                      focus-visible:outline-none focus-visible:ring-2
                      focus-visible:ring-bronze focus-visible:ring-offset-2"
         >
-          Get Started
+          {ACTIVE_LIFECYCLE.registration.state === 'open' ? 'Get Started' : ACTIVE_LIFECYCLE.label}
         </Link>
       )}
     </nav>

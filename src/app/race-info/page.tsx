@@ -4,6 +4,7 @@ import HomeNav from '@/components/home/HomeNav'
 import HomeFooter from '@/components/home/HomeFooter'
 import { RACE_FAQS, RACE_GUIDE, RACE_REGISTRATION, RACE_SECTIONS } from '@/config/race-info'
 import { formatTSh } from '@/lib/utils'
+import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
 
 export const metadata: Metadata = {
   title: 'Race information',
@@ -76,9 +77,14 @@ export default function RaceInfoPage() {
                 {section.content === 'registration' && (
                   <>
                     <p>The current checkout adds a {(RACE_REGISTRATION.processingFeeRate * 100).toFixed(1)}% processing fee. Review the total before payment.</p>
-                    <Link href="/register" className="inline-flex min-h-11 items-center justify-center rounded-button bg-coral px-5 py-3 font-bold text-white hover:bg-coral-dark">
-                      Register
-                    </Link>
+                    {ACTIVE_LIFECYCLE.registration.state === 'open' ? (
+                      <Link href="/register" className="inline-flex min-h-11 items-center justify-center rounded-button bg-coral px-5 py-3 font-bold text-white hover:bg-coral-dark">Register</Link>
+                    ) : (
+                      <div role="status" className="rounded-button border border-sand-dark bg-sand px-5 py-3">
+                        <p className="font-bold text-navy">Registration {ACTIVE_LIFECYCLE.registration.state}</p>
+                        <p className="mt-1 text-caption">{ACTIVE_LIFECYCLE.registration.explanation}</p>
+                      </div>
+                    )}
                     <p>Already registered? <Link href="/ticket" className="font-semibold text-navy underline underline-offset-4">View your ticket</Link> (sign-in required).</p>
                   </>
                 )}
