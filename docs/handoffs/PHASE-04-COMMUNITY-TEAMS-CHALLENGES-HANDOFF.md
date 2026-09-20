@@ -6,9 +6,9 @@
 
 **Starting development commit:** `52f86d9de71a633519c13dcfb2cd5bc0d6dbc635`
 
-**Final phase content commit:** `PENDING_RECEIPT`
+**Final phase content commit:** `761c0f13b760b42d409f3a5991bb8feb6e36c931`
 
-**Commit link:** `PENDING_RECEIPT`
+**Commit link:** https://github.com/smart01-bot/FRONTEND-TOURE-DE-ROTARY/commit/761c0f13b760b42d409f3a5991bb8feb6e36c931
 
 **Active branch:** `development` only.
 
@@ -83,6 +83,6 @@ Approve and implement the Phase 4 backend contracts before enabling any currentl
 
 ## Commit receipt
 
-- Phase-content SHA: `PENDING_RECEIPT`.
-- Verified phase-content tree: `PENDING_RECEIPT`.
+- Phase-content SHA: `761c0f13b760b42d409f3a5991bb8feb6e36c931`.
+- Verified phase-content tree: `619e403cf372b2545be34b7ab2d553c208176f32`.
 - The final receipt update will record the immutable content commit. Its own documentation commit cannot contain its own final hash.
