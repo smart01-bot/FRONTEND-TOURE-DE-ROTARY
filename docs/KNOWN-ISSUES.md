@@ -28,7 +28,7 @@ This register tracks current confirmed frontend problems and major limitations. 
 | TD-022 | High | Privacy operations | No backend request tracker, deletion API, preference centre, research-consent service or response-SLA contract exists. `/privacy` provides truthful email entry points only. | Frontend boundary complete; backend blocked | Organiser/backend process |
 | TD-023 | High | Storytelling | No historical imagery/captions have recorded provenance, rights, attribution and factual approval; event history and past-edition highlights are unavailable. | Honest archive state added; content blocked | Organiser content approval |
 | TD-024 | Medium | Performance | Several landing photographs are 1.1–3.7 MB and the rotating hero currently references four backgrounds. Image replacement/recompression needs visual-quality approval and verified source masters. | Audited; deferred to avoid unapproved quality change | Asset optimisation pass |
-| TD-025 | Critical | Route security | Root-level middleware was not bundled beside `src/app`, so participant routes lacked the intended request-boundary redirect. | Resolved in Phase 7 by moving it to `src/middleware.ts`; final commit pending | Phase 7 |
+| TD-025 | Critical | Route security | Root-level middleware was not bundled beside `src/app`, so participant routes lacked the intended request-boundary redirect. | Resolved `7e8bab93d14a96f31c5a8b8c3f0e0f4b9478433b` by moving it to `src/middleware.ts` | Phase 7 |
 
 ## Issue lifecycle
 

@@ -6,7 +6,9 @@
 
 **Starting development commit:** `313cb684a479cc501c8bbbdbdc416e30591dff08`
 
-**Final phase content commit:** Pending final verified commit.
+**Final phase content commit:** `7e8bab93d14a96f31c5a8b8c3f0e0f4b9478433b`
+
+**Commit link:** https://github.com/smart01-bot/FRONTEND-TOURE-DE-ROTARY/commit/7e8bab93d14a96f31c5a8b8c3f0e0f4b9478433b
 
 **Active branch:** `development` only. `main` was not changed or merged.
 
@@ -46,3 +48,10 @@
 ## Exact recommended next task
 
 Run a launch-readiness remediation project before release: first complete and verify the framework major upgrade, then perform production-like browser/device/accessibility/performance QA, while organisers supply approved race, course, history and privacy-process inputs. Do not merge `development` into `main` until the blocker register is cleared or explicitly accepted by the authorised release owner.
+
+## Commit receipt
+
+- Verified phase-content SHA: `7e8bab93d14a96f31c5a8b8c3f0e0f4b9478433b`.
+- Verified phase-content tree: `8f838945ff5bdd05ab9af4f1fe4feef6cb163a09`.
+- Verified parent: `313cb684a479cc501c8bbbdbdc416e30591dff08`.
+- The receipt-only documentation commit follows the already built and verified content commit and changes no runtime source.
