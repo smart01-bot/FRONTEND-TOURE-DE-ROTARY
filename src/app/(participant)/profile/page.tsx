@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
-import { User, Phone, Trophy, BookOpen, LogOut, Check, ChevronRight, Eye, EyeOff, Camera, Users, Target } from 'lucide-react'
+import { User, Phone, Trophy, BookOpen, LogOut, Check, ChevronRight, Eye, EyeOff, Camera, Users, Target, Medal } from 'lucide-react'
 import { useParticipant } from '@/hooks/useParticipant'
 import { useUser } from '@/hooks/useUser'
 import { updateMyProfile } from '@/lib/supabase/participant'
@@ -233,6 +233,9 @@ export default function ProfilePage() {
               <InfoRow label="Registration" value={registration ? 'Registered' : 'Not registered'} last />
               <Link href="/ticket" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-[13px] border border-[#dfe6f0] px-4 font-sans text-[10px] font-extrabold text-[#2456a6]">
                 View digital ticket and bib
+              </Link>
+              <Link href="/results" className="mt-2 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[13px] border border-[#dfe6f0] px-4 font-sans text-[10px] font-extrabold text-[#2456a6]">
+                <Medal size={14} /> Results and memories
               </Link>
             </section>
 

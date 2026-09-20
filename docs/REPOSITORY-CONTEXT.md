@@ -38,6 +38,10 @@ This file describes the committed implementation. Source code remains authoritat
 | `/teams` | Participant | Capability-gated team experience; unavailable until backend approval |
 | `/challenges` | Participant | Capability-gated challenge catalogue; currently no approved challenges |
 | `/challenges/[slug]` | Participant | Typed challenge detail or honest unpublished state |
+| `/results` | Participant | Personal result status and timing-contract boundary |
+| `/results/leaderboards` | Participant | Performance/community ranking availability |
+| `/results/photos` | Participant | Event gallery and Find Me availability |
+| `/results/memories` | Participant | Private verified-data memory-card creation |
 | `/fundraise` | Participant | Fundraising dashboard |
 | `/profile` | Participant | Account and participant story |
 | `/community-guidelines` | Public | Community conduct, privacy, photo-consent and reporting guidance |
@@ -54,12 +58,14 @@ This file describes the committed implementation. Source code remains authoritat
 - `src/components/participant/` contains participant navigation.
 - `src/components/feed/` contains post composition and cards.
 - `src/components/community/` contains authenticated activity and capability-state presentation.
+- `src/components/race-day/` contains Phase 5 navigation, capability states and local memory-card rendering.
 - `src/components/admin/` contains shared administration UI.
 - `src/config/site.ts` holds general event metadata.
 - `src/config/categories.ts` holds categories, disciplines, prices, and distances.
 - `src/config/race-info.ts` holds race-information sections, sourced facts, pending operational fields, FAQs, and guide availability. It imports registration options and fees from the existing category configuration.
 - `src/config/course-map.ts` is the only operational course-map data contract. It defines separate view metadata, route polylines, marker/location types, transition relationships, legend entries, required source/review metadata, and the currently empty verified datasets.
 - `src/config/community.ts` contains community guidelines and typed frontend capability states. Its challenge catalogue is intentionally empty until organiser-approved definitions exist.
+- `src/config/race-day.ts` contains result, leaderboard, photography and memory-card capability states. Published result, ranking and album datasets are intentionally empty.
 - `src/app/race-info/page.tsx` renders static public content using existing homepage components and design tokens. Native `details`/`summary` controls work without client-side data fetching. The route is explicitly public in middleware.
 - `src/app/course-map/page.tsx` renders the public map page. `src/components/course-map/CourseMapExperience.tsx` owns its client-side switcher, connectivity state, optional user-location request, SVG geometry renderer, zoom/fit controls, mobile detail sheet, legend and accessible text alternative. The route is explicitly public in middleware.
 - `src/context/UserContext.tsx` supplies authenticated-user context.
@@ -81,6 +87,7 @@ This file describes the committed implementation. Source code remains authoritat
 - Public community guidelines and truthful reporting-unavailable guidance
 - Real homepage community previews with honest loading, empty, and error states
 - Digital-ticket QR generation with readiness gates, save, share, and print actions
+- Private digital-bib and participant-story memory cards generated locally from the signed-in participant's verified existing data
 - HQ role checks, athlete records, payment confirmation, and bib assignment
 
 ## Current incomplete product areas
@@ -93,6 +100,7 @@ This file describes the committed implementation. Source code remains authoritat
 - Race-information frontend is implemented; official dates/venues, courses, waves, policies, logistics and guide publication remain unverified/TBD. Existing homepage/registration date and course copy have no recorded organiser provenance; do not treat them as operational confirmation.
 - Teams and challenges have protected, typed, capability-gated frontend homes with honest unavailable states. Create/join/search/invitation/membership/roles/relay/statistics/activity and challenge enrolment/progress/completion/history/badges/sharing remain backend- or decision-blocked.
 - The course-map frontend is implemented, but all route polylines and operational markers remain unpublished because no reviewed organiser geometry or logistics source exists. Do not convert legacy homepage, registration, README or ticket copy into map records.
+- Phase 5 result, leaderboard, photo/Find Me and memory routes are implemented. Live times, rankings, albums, associations and completion-based cards remain blocked by missing timing, photography, consent and backend contracts.
 - Naming and story prompt were settled in Phase 1: `Tour de Dar` and `Why are you doing this?`.
 
 ## Expected Supabase entities
@@ -110,6 +118,8 @@ The current frontend expects or references:
 The frontend assumes `post_comments` contains `id`, `post_id`, `user_id`, `content`, and `created_at` and that authenticated participants have the required RLS permissions.
 
 No repository contract exists for public-profile consent/slugs, reports, moderation actions, teams, memberships, invitations, challenges, progress or completion. `src/types/community.ts` defines frontend domain shapes only; it does not declare Supabase tables or policies.
+
+No repository contract exists for timing results, splits, transitions, rankings, photo albums, participant-photo associations, photographer records or photo consent. `src/types/race-day.ts` is a frontend domain contract only.
 
 Administration access expects the profile role `hq_admin`. Row Level Security and backend migrations are shared/backend responsibilities and must be verified separately.
 
@@ -151,6 +161,15 @@ If a command is unavailable or blocked by missing external configuration, record
 - `/course-map` must not request location permission on load. The user-location action stays optional and is disabled while no verified map data exists.
 - Treat `story_public = null` as private in the profile UI. Existing story consent does not authorise a public participant home, photo, activity, team, challenge or bib disclosure.
 - Do not connect public profiles, reports, uploads, teams or challenges by guessing table, bucket, RPC, API or RLS names. Their current unavailable states are intentional.
+- Do not treat registration or bib assignment as completion. Do not connect results, rankings or photographs by guessing timing tables, provider fields, photo buckets, associations, APIs or RLS.
+
+## Connecting Phase 5 backend capabilities
+
+- Keep Phase 5 routes protected until public-result and public-photo privacy rules are explicitly approved.
+- A result integration requires an approved timing source, stable participant match, publication states and DNF/DNS/disqualification rules.
+- Category, gender and age-group filters appear only when verified fields exist and their publication is approved.
+- Photography requires approved storage, albums, credits, bib associations, consent, withdrawal and download rules.
+- Digital-bib and story cards remain private browser-generated artifacts. Completion/result/team/challenge claims require their real source records.
 
 ## Documentation update trigger
 

@@ -8,7 +8,7 @@
 
 **Working repository:** `smart01-bot/FRONTEND-TOURE-DE-ROTARY`
 
-**Current implementation estimate after the Phase 4 frontend pass:** Approximately 68% of the complete frontend vision and approximately 92% of the pre-race MVP. These are scope estimates, not launch-readiness measures; official race/course content and multiple Phase 4 backend contracts are still awaiting approval.
+**Current implementation estimate after the Phase 5 frontend pass:** Approximately 78% of the complete frontend vision and approximately 92% of the pre-race MVP. These are scope estimates, not launch-readiness measures; official race/course content plus timing, photography and multiple community backend contracts are still awaiting approval.
 
 ---
 
@@ -687,6 +687,8 @@ Deliver the temporary digital community promised by the product vision.
 
 ## 9. Phase 5 — Race day, results and memory
 
+**Frontend status:** Implemented within verified repository contracts. Protected result, leaderboard, photo/Find Me and memory experiences provide complete pre-publication states. Private digital-bib and participant-story cards can be saved or shared from real signed-in participant data. Timing results, rankings, galleries, associations and completion-based cards remain capability-gated pending approved timing, photography, consent and backend contracts. No database or storage change was made.
+
 ### Objective
 
 Keep the platform valuable during and after the physical event.
@@ -729,6 +731,15 @@ Keep the platform valuable during and after the physical event.
 - A participant can save and share a memory
 - The platform remains useful after race day
 - Privacy and consent are respected
+
+### Phase 5 verified frontend boundary
+
+- `/results` and its leaderboard, photos and memories children are protected participant routes.
+- Registration and bib assignment are never treated as proof of starting or finishing.
+- Result fields, rankings, photo albums and associations remain empty until approved sources exist.
+- The digital-bib and story cards use only the signed-in participant's existing profile/registration data and are generated locally in the browser.
+- Completion, result, team and challenge cards remain disabled until their real records exist.
+- `src/types/race-day.ts` defines frontend shapes only and does not authorise tables, APIs, buckets, timing providers or policies.
 
 ---
 

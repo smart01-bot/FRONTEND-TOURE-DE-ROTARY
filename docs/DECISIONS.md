@@ -25,6 +25,8 @@ Only settled, project-wide choices belong here. Newer entries replace older entr
 | 2026-09-20 | Active | Phase 4 uses protected `/teams`, `/challenges` and `/challenges/[slug]` homes plus public `/community-guidelines`; unavailable capabilities are typed and visibly gated instead of being simulated. | The repository has no approved teams, challenges, reports, public-profile or media backend contracts. Frontend domain types do not authorise tables, APIs, buckets or policies. |
 | 2026-09-20 | Active | `story_public` controls the public story listing only and a missing value is treated as private. | Story consent does not authorise a public participant profile, photo, activity, team, challenge history or bib disclosure. |
 | 2026-09-20 | Active | Reporting must never claim success until a persistent moderation contract and enforcement workflow exist. | The former local-only “Reported” acknowledgement was misleading; the feed now states that no report was submitted and provides guidelines plus urgent-contact information. |
+| 2026-09-20 | Active | Phase 5 lives under protected `/results` with leaderboard, photos and memories children; timing and photography datasets remain empty until approved contracts exist. | Prevents publication of invented results, rankings, photos or consent while providing intentional pre-race states. |
+| 2026-09-20 | Active | Only private digital-bib and participant-story cards may be generated from existing signed-in participant data. | Registration does not prove completion; result, finisher, team and challenge cards require real source records. |
 
 ## Entry format
 

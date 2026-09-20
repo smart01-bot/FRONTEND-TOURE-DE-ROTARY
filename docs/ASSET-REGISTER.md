@@ -45,3 +45,7 @@ No new image, route or map-tile asset was added or renamed. Route lines and mark
 ## Phase 4 community assets
 
 No asset was added, renamed or removed. Existing avatar URLs are presentation-only. Profile-photo and post-media uploads remain disabled until approved storage buckets, file restrictions, consent rules and RLS policies exist. Team marks and challenge badges must not be introduced as real participant achievements without approved source data and completion records.
+
+## Phase 5 race-day assets
+
+No asset was added, renamed or removed. Memory cards are rendered locally in the browser and are not committed images. Event photographs must not be added until provenance, photographer credit, usage permission, participant consent and removal rules are recorded. No placeholder image may be presented as real event photography.

@@ -53,6 +53,8 @@ The event is organised by **Rotaract 4 Compassion** and raises funds for the **O
 - Community feed with posts, reactions and comments
 - Private participant activity history
 - Capability-gated Teams and Challenges homes with honest unavailable states until their backend contracts are approved
+- Race results, leaderboards, event-photo/Find Me and memory homes with honest pre-publication states
+- Private downloadable/shareable digital-bib and participant-story cards from verified signed-in participant data
 - Fundraising campaign progress and donation activity
 - Editable participant profile and public/private race story
 - Responsive desktop navigation and mobile bottom navigation
@@ -99,6 +101,10 @@ The event is organised by **Rotaract 4 Compassion** and raises funds for the **O
 | `/teams` | Participant | Team capability and availability home |
 | `/challenges` | Participant | Challenge catalogue and availability home |
 | `/challenges/[slug]` | Participant | Typed challenge detail or unpublished state |
+| `/results` | Participant | Personal result state and timing availability |
+| `/results/leaderboards` | Participant | Performance and participation rankings |
+| `/results/photos` | Participant | Event gallery and Find Me availability |
+| `/results/memories` | Participant | Private participant memory cards |
 | `/fundraise` | Participant | Fundraising dashboard |
 | `/profile` | Participant | Profile and race story |
 | `/admin/overview` | HQ admin | Administration summary |

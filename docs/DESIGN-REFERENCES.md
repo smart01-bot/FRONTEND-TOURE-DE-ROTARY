@@ -46,6 +46,14 @@ This register prevents phrases such as “the last design” from becoming perma
 
 ## Adding a reference
 
+## Phase 5 preservation record
+
+- Phase 5 uses the participant portal shell, existing navy/blue/magenta/yellow palette, serif/sans/numeric typography, rounded cards, borders and shadows.
+- Existing participant navigation was not restructured. Results are reached through an additive profile action and a compact horizontally scrollable local navigation.
+- Result, leaderboard and photo layouts use single-column phone bases, two-column tablet capability grids and four/five-column desktop summaries without horizontal page overflow.
+- Memory-card previews use the existing event palette. Their exported images contain only the signed-in participant's name, category, bib or saved story.
+- No existing page layout, global token or asset was replaced.
+
 Record:
 
 1. Stable filename, repository path, or URL
