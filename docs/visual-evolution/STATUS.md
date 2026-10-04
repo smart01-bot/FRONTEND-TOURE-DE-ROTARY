@@ -26,3 +26,5 @@ Verified implementation receipt: `2c3ef8941e8e568aee0c786542c447f973dde6c4`; tre
 EVOLUTION-02 implementation receipt: `abb0ce39766350399fb800d21219298a4d3766c1`; tree `250f80f4b5bb503cc7a58566e02c16e51ddddb03`. The documentation-only receipt follows; fetch latest development and verify ancestry. Browser responsive/interaction evidence now exists for the landing; real-device/screen-reader/cross-browser and live-backend verification remain pending.
 
 EVOLUTION-03 implementation receipt: `2e3ba603648b9440c4fa7d32baf34ba23e2cdbb5`; tree `526d13ad73dde093e24c185eb5e90cdfdc914a50`. Fetch latest development; a documentation-only receipt follows. One protected CourseMapExperience presentation diff remains explicitly reviewed in CHANGE-REGISTER; do not reset its baseline hash.
+
+EVOLUTION-04 implementation receipt: `6ee7d35d4aecca6723f0370baf71c1d30ff095d8`; tree `922650dced39fb6b93da896682d6293e23f8bd23`. Visual scope complete within documented synthetic QA limits; full operational administration remains gated. Fetch latest development and verify this implementation plus its documentation receipt; never reset to a historical SHA.

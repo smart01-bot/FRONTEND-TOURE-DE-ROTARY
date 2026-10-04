@@ -37,3 +37,13 @@ Evidence: external synthetic harnesses, logs, screenshots, exported synthetic ca
 ## Next chat
 
 [EVOLUTION-05 initiating message](../visual-evolution/EVOLUTION-05-INITIATING-MESSAGE.md). Fetch latest development, verify this implementation and receipt ancestry, preserve newer work, then harden integration and visual cohesion. Do not interpret gated management as operational completion or repeat the redesign.
+
+## Verified publication receipt
+
+- Implementation: `6ee7d35d4aecca6723f0370baf71c1d30ff095d8`.
+- [Implementation commit](https://github.com/smart01-bot/FRONTEND-TOURE-DE-ROTARY/commit/6ee7d35d4aecca6723f0370baf71c1d30ff095d8).
+- Verified tree: `922650dced39fb6b93da896682d6293e23f8bd23`, exactly matching the local final-built tree.
+- Parent: `6a081048d4071a8ad1d05cc3b23194675536923f`.
+- Shell push lacked credentials; connected GitHub service created the exact tree and non-forced development update. Fresh fetch verified SHA/tree, clean local alignment and unchanged main. No work was lost or force-pushed.
+- This immediate documentation receipt has its own final build gate. Its commit SHA is supplied in the completion response and evidence receipt; a commit cannot embed its own SHA.
+- Visual/frontend scope complete within stated verification limits. Full operational admin expansion remains blocked. No deployment/live data/privilege changes.
