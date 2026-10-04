@@ -83,3 +83,8 @@ Unregistered chat screenshots and discarded mockups are not binding.
 ## DR-005 — Approved visual evolution reference
 
 `rotaract4compassion/augmentfx` main `2b0fd671369d05389b9c56189f4ceb920469aa84`: display hierarchy, photographic depth, event tiles, route framing and sponsor hierarchy are approved inspiration. See [extraction decisions](visual-evolution/VISUAL-SYSTEM.md). Do not copy its event model, fake operations, sample records, auth bypasses, payment adapter or unverified asset rights. Named EVOLUTION presentation scopes override historical preservation records for those surfaces only. EVOLUTION-01 uses opt-in components and shared brand text; no individual page redesign.
+
+
+## DR-006 — EVOLUTION-02 landing
+
+Approved landing scope adopts DR-005's photographic depth, bold athletic hierarchy and disciplined tiering through Tour's existing system. Navy/yellow hero, blue fact strip, SWIM/BIKE/RUN photography, magenta editorial story surface, dark cause section and calm weekend/sponsor panels. Local CSS scopes nav/footer presentation to `/`; other pages are unchanged. Original image paths retained; no Augment asset, event model or operation copied. Browser before/after phone/tablet/desktop comparison and interaction evidence are recorded in the Phase 2 handoff/verification record.

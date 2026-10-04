@@ -24,3 +24,21 @@ EVOLUTION-01 planning, 4 October 2026. **No live privileges, roles, schemas or o
 - Every enabled operation needs verified authorized AND denied direct-request tests, scoped data policies, actual actor audit, retry/concurrency handling where applicable, and clear loading/error/empty/forbidden/success states.
 - Roll out additively. Phase 4 may improve current screens and show explicit unavailable requirements, but must report visual completion separately from operational completion.
 - No backend table/RPC/bucket/endpoint names are proposed as if approved. Coordinate requirements first; do not send messages to staff without authorization.
+
+
+## EVOLUTION-02 landing content requirements
+
+The landing now consumes current source-controlled content without introducing backend names.
+
+| Surface | Current owner | Missing admin-managed capability / publication gate |
+| --- | --- | --- |
+| Hero event date/status | Reviewed `race-info` overview fact; `ACTIVE_LIFECYCLE` | Verified date/source/review and authorised publication. Browsing weekend views cannot change lifecycle. |
+| Discipline/course panels | Existing categories and course-map records | Approved geometry, marker/source review, versioned publish/withdraw. Distances remain explicitly registration configuration. |
+| Before / Race Day | Existing race-info registration/schedule facts | Confirmed logistics and running-order publication; null stays TBD. |
+| After | Existing race-day capability/data config and protected memory routes | Real timing/photo contracts and independent consent; no completion inference. |
+| Sponsors | Empty source-controlled presentation list in `SponsorsSection` | Real identity, approved tier, logo dimensions/path, rights/credit, source/review, draft/review/publish/withdraw, version conflict handling and audited editor/publisher authorization. `LandingSponsor` is a rendering shape only, not an API schema. |
+| Impact | SITE charity identity; totals unavailable | Reconciled totals with period/currency/method/source/review; approved beneficiary outcomes and attribution. No numeric placeholders. |
+| Stories/community | Existing consent-filtered story query and feed hook | Preserve current consent and RLS. Any editorial curation/moderation needs a verified separate contract; no synthetic featured participant. |
+| Photography | Existing illustrative sport/cause images | Provenance/rights review and authentic Dar/event photography with participant consent and withdrawal. Filename-derived photographer attribution still needs rights verification before launch. |
+
+No new permission string, table, bucket, endpoint, live staff grant or mutation is implied. Content editor/publisher/auditor are proposed duties, not enabled roles.

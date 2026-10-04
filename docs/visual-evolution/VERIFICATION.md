@@ -47,3 +47,29 @@ Chromium is not installed. Playwright browser download failed with a truncated/i
 ## Publication verification
 
 Authenticated non-forced development update succeeded. A fresh fetch returned `2c3ef8941e8e568aee0c786542c447f973dde6c4` and tree `fe47f9edb9eec483c5e43d680b992a500bbf0ccf`, matching the built staged tree exactly; local development was clean. Main remained `83907b713a963ec520da6e90b887a252831ed85b`. A documentation-only receipt follows with the same runtime tree contents and its own final production-build gate.
+
+
+# EVOLUTION-02 verification — 4 October 2026
+
+Baseline: development `224bb26a8fee6eb1172eb6254211b5bd9aaac71a`, explicitly checked out and clean, with Phase 1 implementation ancestry verified. Main remained `83907b713a963ec520da6e90b887a252831ed85b`.
+
+## Build and boundary gate
+
+Type-check, lint and production build pass. Lint retains only the two inherited image warnings; final production generation reports 31/31. Protected-file check passes 53 unchanged files and 29 retained routes. Final build is repeated after final documentation/styling changes before every commit. No package/lockfile, environment, asset, database, backend or route-contract change.
+
+## Browser and component evidence
+
+Chromium 153.0.8010.0 was installed only in external QA scratch after normal Playwright downloads returned invalid archives. A standard multi-process launch succeeded. An earlier single-process harness stalled a lazy image; direct optimized-image HTTP requests returned 200, and the standard browser loaded every image. No product workaround/dependency was needed.
+
+- Before/after screenshots at 390×844, 768×1024 and 1440×1000, plus final 360×800. At all four widths, document scrollWidth equals viewport width and no element extends horizontally. Long synthetic names/posts/stories also fit at 360px.
+- Mouse preview/exit; native button keyboard Tab/focus/Enter; touch-emulated tap; Before/Race Day/After; focus outline 3px solid; reduced motion 0s / no transform: pass.
+- Loading, denied/error, retry, empty and synthetic populated story/feed states: pass. No browser page exception. Story request retains public-consent filter; bib fixture not rendered.
+- External component harness covers all five active/fallback lifecycle cases, unchanged CTA destinations/closed-registration behavior, weekend local-only state and sponsor empty/synthetic supplied-record surfaces.
+- Public race/course/stories/archive/privacy/register HTTP 200; anonymous feed/memories/dashboard/admin HTTP 307 with existing encoded next destination. No live credentials or participant records used.
+- All five image elements load. One priority hero; four lazy instances. QA scrolls/decodes the full page before screenshots; screenshot preparation is not evidence of natural loading thresholds. Recorded desktop optimized bodies: 80,740 + 60,808 + 20,320 + 18,944 + 20,950 = 201,762 bytes. The four unique unchanged source masters total 8,430,865 bytes. Cached loopback response timing is not production LCP or field performance.
+
+## Accessibility and contrast
+
+Automated WCAG A/AA checks on the landing are paired with manual review; the final scan receipt is recorded below after execution. The first scan found no violations and requested manual image-background contrast inspection. Discipline titles/actions now have solid navy backplates, giving white text a deterministic 16.92:1 ratio. Other retained system pairs: muted slate/white 7.12:1, white/blue 9.19:1, yellow/navy 10.77:1, discipline navy text minimum 4.88:1. Visible text and pressed state accompany color. No continuous animation, essential hover-only content or motion-only state.
+
+Real screen-reader, physical-device, cross-browser, authenticated backend/RLS and field Core Web Vitals verification remain outstanding. Existing global/other-route defects are not certified by this landing-only pass. Full admin operational expansion remains blocked by documented contracts.

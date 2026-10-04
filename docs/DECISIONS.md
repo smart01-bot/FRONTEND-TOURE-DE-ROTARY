@@ -46,3 +46,12 @@ When adding a decision, include the date, status (`Active`, `Pending`, `Supersed
 | Active — user approved | Product name Tour de Dar; retain Rotary attribution and technical identifiers | Shared branding first, page/artwork/export sweep later |
 | Active — scope only | Full event management targets participant approvals, content, sponsors, moderation, race operations, staff permissions and audit | Exact role strings, account grants and persistence contracts remain undecided; retain hq_admin guard |
 | Active | Repository master brief is the phase entry point; STATUS and newest EVOLUTION handoff govern progress | Separate evolution numbering from historical phases 0–7; one chat per phase |
+
+
+## EVOLUTION-02 — 4 October 2026
+
+- Active, approved scope: landing-only visual transformation using existing visual-system tokens. HomeNav/HomeFooter source and non-homepage presentation stay intact.
+- Active: hero shows the reviewed confirmed-date fact (TBD now); no countdown or lifecycle inference from the unsourced legacy date. Protected configuration remains unchanged.
+- Active: discipline selection and Before/Race Day/After are local browsing state, independent of operational lifecycle and registration permission.
+- Active: existing photographs are illustrative; they are never participant identities, official course evidence or treatment/impact records. Authentic organiser imagery/rights remain a publication dependency.
+- Active: sponsor tiers render only explicitly approved records; the production dataset is empty. A frontend rendering type does not establish a persistence API or new permission.

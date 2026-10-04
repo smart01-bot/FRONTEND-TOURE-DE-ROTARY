@@ -5,7 +5,7 @@
 
 **Protected stable branch:** `main` at pre-Phase-1 state
 **Phase 7 starting baseline:** `313cb684a479cc501c8bbbdbdc416e30591dff08`
-**Reviewed:** 4 October 2026 (EVOLUTION-01)
+**Reviewed:** 4 October 2026 (EVOLUTION-02)
 
 This file describes the committed implementation. Source code remains authoritative for exact behaviour.
 
@@ -229,3 +229,10 @@ Update this file whenever a phase changes routes, providers, shared layouts, dat
 Approved scope: [MASTER-CONTEXT](visual-evolution/MASTER-CONTEXT.md). Opt-in `src/components/visual-system` uses a scoped CSS module and existing fonts; public/participant/admin modes do not replace legacy globals or page layouts. Shared `BrandName` delegates to SITE.name; shared participant/admin logo alt text also uses SITE.name. No routes, providers, dependencies, environment names, data helpers, permissions or lifecycle settings changed.
 
 Use [INVENTORY](visual-evolution/INVENTORY.md) for actual journeys, sensitive-file consumers and inherited defects; [ADMIN-CAPABILITIES](visual-evolution/ADMIN-CAPABILITIES.md) separates current hq_admin functions from expanded backend requirements. Read [STATUS](visual-evolution/STATUS.md) before choosing the next phase. Run `node scripts/check-evolution-boundaries.mjs` alongside existing checks. Historical UI-preservation rules still apply outside the approved phase scope.
+
+
+## EVOLUTION-02 landing adoption
+
+`/` now adopts Phase 1 VisualSurface and landing-scoped CSS; other routes keep their presentation. Hero/discipline/impact images use next/image with sizes and reserved geometry, one priority hero and lazy supporting images. Automatic rotation/countdown is absent from the landing; CountdownTimer remains unchanged for other consumers. Hero's confirmed date comes from the reviewed race-info fact, currently TBD, rather than legacy SITE.event.date.
+
+`DisciplinesSection` adds local pointer/keyboard/touch selection around canonical distances and course-map records. `EventWeekend` adds browsing-only Before/Race Day/After views from existing configs. `SponsorsSection` supports three tiers with an intentionally empty approved-record list. No CMS, sponsor source or backend API has been invented. Story/feed helpers and lifecycle action conditions are unchanged; no provider, route, dependency or environment contract changes. See latest [landing handoff](handoffs/EVOLUTION-02-LANDING-HANDOFF.md).

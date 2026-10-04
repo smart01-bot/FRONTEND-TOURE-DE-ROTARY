@@ -17,3 +17,19 @@ Classification follows MASTER-CONTEXT section 5. Documentation/tooling below sup
 | `docs/handoffs/EVOLUTION-01-VISUAL-SYSTEM-HANDOFF.md`, `docs/visual-evolution/EVOLUTION-02-INITIATING-MESSAGE.md` | Supports A/B delivery and D continuity | Cross-chat verification, scope, blockers and publication receipt |
 
 Protected-shell comparison: each existing runtime diff is recorded above. No other existing source file changes. All 53 manifest files remain byte-identical to the fetched baseline, including auth/authorization, data/API services, lifecycle, category/course config and root/admin/participant/auth layouts. Existing route paths, technical identifiers, privacy rules and capability states remain intact. Every new visual component requires an explicit adopter; it does not replace a functional component by name.
+
+
+# EVOLUTION-02 change register — 4 October 2026
+
+| Files | Class | Change and retained boundary |
+| --- | --- | --- |
+| `src/app/page.tsx` | A/C | Landing-only VisualSurface adoption and additive event/sponsor sections. Main landmark and existing section/navigation destinations retained. No route added. |
+| `src/components/home/HeroSection.tsx`, `StatsStrip.tsx`, `ImpactSection.tsx` | A/B | Layered existing photography, display hierarchy, real configured counts, charity identity, lifecycle-owned CTAs. Hero date now consumes reviewed race-info fact (currently TBD); removes misleading countdown to unsourced date. No config changed. |
+| `src/components/home/DisciplinesSection.tsx` | B/C | All three photo cards visible; pointer preview, keyboard focus/activation and touch selection. Canonical distances labelled configuration; course summaries consume existing reviewed records and preserve absent-geometry state. Links keep existing route meanings. |
+| `src/components/home/WhyIRaceSection.tsx`, `CommunityPulse.tsx` | B | Editorial public-story and real-feed presentation. Same getFeaturedStory call/effect and useFeed hook/reload; consent/query helpers untouched. No added participant fields, photos, bibs or public-profile inference. Lifecycle wording retained. |
+| `src/components/home/EventWeekend.tsx` | C | Local Before/Race Day/After selection; reads race-info/race-day and active lifecycle. No lifecycle mutation, schedule inference or operational action. |
+| `src/components/home/SponsorsSection.tsx` | C/D boundary | Tiered responsive rendering for explicitly supplied approved records; production list empty. No logos, tiers or relationships inferred from organiser/beneficiary. No API or admin operation created. |
+| `src/components/home/landing-media.ts`, `landing.module.css` | A | Existing image paths/illustrative captions, scoped responsive composition, dark/light focus, reduced motion and forced-color selection. No asset/dependency/global change. Nav/footer styles apply only under the landing wrapper; their source and behavior are unchanged. |
+| Updated context/decision/design/asset/issue registers, STATUS/VERIFICATION/admin matrix, new handoff/next-phase message | A/B/C delivery; D requirements | Evidence, limitations, content-source requirements and cross-chat continuity. |
+
+Protected review: all 53 exact-file hashes and all 29 route files remain unchanged/present. No auth, registration, provider, role, API, Supabase, type/config, payment, privacy or lifecycle-contract edit. Shared HomeNav/HomeFooter source remains byte-identical; only the home wrapper adopts scoped appearance. No new Class D operation enabled.

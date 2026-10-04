@@ -61,3 +61,17 @@ No asset was added, renamed or removed. The existing event mark is used for soci
 ## EVOLUTION-01
 
 No image/font/video asset was copied, renamed or added. The opt-in system reuses existing Playfair/Montserrat/Jakarta variables; ImagePanel requires caller-reviewed source/alt/caption and reserves image space. Existing technical logo filenames remain stable. Embedded legacy wording and provenance in raster logos/bib artwork need review before later replacement. Augment assets are not licensed by virtue of being in its repository.
+
+
+## EVOLUTION-02 landing usage
+
+No asset is added, renamed, replaced or removed. Existing photographs are now served through next/image (responsive sizes, reserved layout, one priority hero; supporting images lazy). The prior four-background timed rotation is removed from the landing.
+
+| Path under `public/assets/landing/` | New use | Attribution / truth boundary |
+| --- | --- | --- |
+| `pexels-jim-de-ramos-395808-1263349.jpg` | Hero and SWIM card | Jim De Ramos / Pexels, filename-derived credit; pool imagery is illustrative, not Tour open-water geometry |
+| `pexels-daejeung-14226402.jpg` | BIKE card | Daejeung / Pexels, filename-derived credit; no event/location claim |
+| `pexels-olly-3760259.jpg` | RUN card | Olly / Pexels, filename-derived credit; no participant identity claim |
+| `pexels-mikhail-nilov-8542538.jpg` | Impact image | Mikhail Nilov / Pexels, filename-derived credit; no treatment/impact-evidence claim |
+
+These are reused committed assets, not newly licensed material. Exact upstream licence/provenance/credits still require organiser review before launch; authentic Dar/event images remain desirable. Sponsor logos remain absent until real approved records and rights exist. The legacy landing README names unused rotation files and is historical; current references above and landing-media.ts are authoritative.
