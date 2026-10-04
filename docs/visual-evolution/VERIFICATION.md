@@ -109,3 +109,5 @@ External QA uses Chromium 153 and production Next builds with only loopback Supa
 ## Loading/performance scope
 
 No new map library, tile provider, asset fetch, animation loop or polling. CSS/modules remain scoped. Production first-load JS estimates change from 168→174 kB for static public pages, 174→180 kB course map, 177→184 kB stories, and 168→187 kB donor (now includes shared public navigation/identity). This is a measured build-size tradeoff, not a claim of improved LCP. Real mobile networks, field Core Web Vitals, cross-browser, physical devices and live auth/payment/RLS remain unverified. Unavailable content and inherited functional/security blockers remain in KNOWN-ISSUES.
+
+Publication: non-forced development update to `2e3ba603648b9440c4fa7d32baf34ba23e2cdbb5` succeeded. Fresh fetch verified tree `526d13ad73dde093e24c185eb5e90cdfdc914a50`, equal to the built index, unchanged main, and clean local alignment. This immediate documentation receipt has its own final production build; runtime source unchanged.
