@@ -245,3 +245,11 @@ Public race-info, course-map, stories, archive, privacy, community-guidelines an
 Race topics retain their IDs/native details and canonical config. CourseMapExperience retains its engine and adds presentation/accessibility attributes; its protected hash change is explicitly reviewed in CHANGE-REGISTER, not rebaselined. StoryCard expands long already-public stories using native details; useStories and consent queries are unchanged. DonorClient retains its server props and donation behavior; thank-you presentation uses a native modal dialog, and inputs are labelled. Original EV-003/004 payment/consent risks remain.
 
 Current gate/evidence and exact next task are in [EVOLUTION-03 handoff](handoffs/EVOLUTION-03-PUBLIC-EXPERIENCE-HANDOFF.md). No new dependencies, assets, environment names, backend contract or lifecycle mode.
+
+## EVOLUTION-04 participant/admin adoption
+
+Participant layout now wraps its existing children/navigation/lifecycle notice in `PortalSurface`, inside the unchanged theme provider. It adopts the shared visual-system tokens through scoped portal/dashboard CSS. Ticket/profile use calmer typography. Feed, training, fundraising, teams/challenges and race-day headers share athletic hierarchy; existing handlers, hooks and private-data boundaries remain authoritative.
+
+Dashboard status comes from existing registration/payment/bib fields and campaign data; unverified progress/countdown defaults were removed. Dashboard/feed/training/ticket now display the reviewed race-info date (TBD); ticket venue also uses the reviewed fact. Memory-card caption no longer embeds an unverified date. Ticket QR/readiness/actions are unchanged, and a decorative unrelated-number bib raster is no longer displayed.
+
+New `/admin/manage` inherits the unchanged `hq_admin` server layout and contains only gated expanded management controls. Existing athlete/payment/bib actions retain their contracts. Admin fee estimate is not reconciled revenue. Five protected-source flags and one additive route flag are reviewed in CHANGE-REGISTER, not rebaselined. No dependencies, assets, API, auth/config/provider or database changes. See the EVOLUTION-04 handoff for evidence and operational limitations.

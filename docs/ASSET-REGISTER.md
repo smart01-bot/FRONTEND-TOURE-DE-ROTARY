@@ -80,3 +80,7 @@ These are reused committed assets, not newly licensed material. Exact upstream l
 ## EVOLUTION-03 public usage
 
 No image, logo, font, video, route or map-tile asset was added, copied, renamed or removed. Public identity uses existing fonts/tokens and authorized textual identity/initials. Sponsor browsing reuses the Phase 2 surface; approved records remain empty. Illustrative photographs are not used as course or participant evidence. Historical and authentic event imagery still require rights, source, attribution and consent review before publication.
+
+## EVOLUTION-04 assets
+
+No asset file added, renamed, copied or deleted. Shared portal headers use a canonical text wordmark. Ticket no longer displays `assets/TourdeRotary-main/25bibnumber.png`, whose decorative printed number could be mistaken for participant identity. Existing event mark stays on the ticket. Dashboard replaces illustrative photography with a typographic identity/status surface. Memory canvas retains local private-data generation and removes its unverified date caption. Authentic imagery/rights and remaining raster branding review are still separate publication work.

@@ -9,7 +9,7 @@ export default function ChallengesPage() {
       <div className="mx-auto w-full max-w-[1240px] px-5 pb-12 pt-7 sm:px-7 lg:px-10 lg:pb-14 lg:pt-9">
         <Link href="/feed" className="inline-flex min-h-11 items-center text-[10px] font-bold text-[#2563eb] underline underline-offset-4">Back to The Run-Up</Link>
 
-        <header className="mt-2 max-w-[680px]">
+        <header data-portal-heading className="mt-2 max-w-[680px]">
           <p className="mb-2 font-num text-[10px] font-extrabold uppercase tracking-[.14em] text-[#2563eb]">Community</p>
           <h1 className="font-serif text-[32px] font-bold leading-none tracking-[-.035em] text-[#10233f] sm:text-[38px]">Challenges.</h1>
           <p className="mt-3 text-[13px] leading-6 text-[#64748b]">Join event activities, record real progress and earn completion memories once approved challenge data and verification are available.</p>
@@ -20,7 +20,7 @@ export default function ChallengesPage() {
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] bg-white/10 text-[#7db3ff]"><Database size={19} /></span>
             <div>
               <h2 id="challenges-status" className="font-serif text-[20px] font-bold">No challenge catalogue is connected.</h2>
-              <p className="mt-2 max-w-[720px] text-[11px] leading-5 text-white/60">The repository contains {CHALLENGES.length} approved challenges and no participation or completion contract. Dates, progress and completion counts will not be invented.</p>
+              <p className="mt-2 max-w-[720px] text-[11px] leading-5 text-white/60">There are {CHALLENGES.length} published challenges. Activities and joining instructions will appear here when available.</p>
             </div>
           </div>
         </section>

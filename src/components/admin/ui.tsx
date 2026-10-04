@@ -5,10 +5,10 @@
 import { cn } from '@/lib/utils'
 
 export const CARD =
-  'rounded-[24px] border border-[#dce5ef] bg-white shadow-[0_10px_30px_rgba(15,35,63,0.045)]'
+  'rounded-[12px] border border-[#dce5ef] bg-white shadow-[0_10px_30px_rgba(15,35,63,0.045)]'
 
 export const EYEBROW =
-  'font-num text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#94a3b8]'
+  'font-num text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#52627a]'
 
 export function initialsOf(name: string): string {
   return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
@@ -42,7 +42,7 @@ export function PageHeader({
             {pill.icon}
           </span>
           <div className="pr-1">
-            <p className="font-num text-[9px] font-extrabold uppercase tracking-[0.1em] text-[#94a3b8]">{pill.label}</p>
+            <p className="font-num text-[9px] font-extrabold uppercase tracking-[0.1em] text-[#52627a]">{pill.label}</p>
             <p className="font-num text-[13px] font-extrabold text-[#10233f]">{pill.value}</p>
           </div>
         </div>
@@ -86,7 +86,7 @@ export function CategoryChip({ category }: { category: string }) {
 
 export function Spinner() {
   return (
-    <div className="flex min-h-[50vh] items-center justify-center">
+    <div role="status" aria-label="Loading administration" className="flex min-h-[50vh] items-center justify-center">
       <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#2563eb] border-t-transparent" />
     </div>
   )

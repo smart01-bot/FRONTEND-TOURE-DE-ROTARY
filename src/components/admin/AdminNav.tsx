@@ -6,11 +6,11 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import Link from 'next/link'
-import Image from 'next/image'
+import { PortalSurface } from '@/components/participant/PortalSurface'
 import { SITE } from '@/config/site'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import { Check, Hash, LayoutDashboard, LogOut, Moon, Sun, Users } from 'lucide-react'
+import { Check, Hash, LayoutDashboard, LogOut, Moon, Sun, Users, Settings2 } from 'lucide-react'
 import { useUser } from '@/hooks/useUser'
 import { useParticipantTheme } from '@/context/ParticipantThemeContext'
 import { cn } from '@/lib/utils'
@@ -19,6 +19,7 @@ import { initialsOf } from '@/components/admin/ui'
 const ITEMS = [
   { href: '/admin/overview', label: 'Overview', icon: LayoutDashboard },
   { href: '/admin/athletes', label: 'Athletes', icon: Users },
+  { href: '/admin/manage', label: 'Manage event', icon: Settings2 },
   { href: '/admin/bibs',     label: 'Bibs',     icon: Hash },
 ]
 
@@ -59,6 +60,7 @@ export function AdminShell({ name, children }: { name: string; children: React.R
   }
 
   return (
+    <PortalSurface admin>
     <div
       className={cn(
         'participant-shell min-h-dvh overflow-hidden transition-colors duration-200',
@@ -73,15 +75,7 @@ export function AdminShell({ name, children }: { name: string; children: React.R
         )}
       >
         <Link href="/admin/overview" className="flex items-center gap-3">
-          <div className="relative h-12 w-[148px] shrink-0">
-            <Image
-              src="/assets/auth/tour-de-rotary-mark.png"
-              alt={SITE.name}
-              width={272}
-              height={272}
-              className="h-full w-full object-contain object-left"
-            />
-          </div>
+          <span data-brand>{SITE.name}<small>Event administration</small></span>
           <span
             className={cn(
               'hidden rounded-full px-2.5 py-1 font-num text-[9px] font-extrabold uppercase tracking-[0.12em] sm:inline-block',
@@ -208,7 +202,7 @@ export function AdminShell({ name, children }: { name: string; children: React.R
             <span className="h-1 w-6 bg-[#B12A70]" />
             <span className="h-1 w-6 bg-[#F8BE22]" />
           </div>
-          <p className={cn('mt-3 font-num text-[9px] uppercase tracking-[.1em]', light ? 'text-navy/35' : 'text-bronze/50')}>1 November 2026</p>
+          <p className={cn('mt-3 font-num text-[9px] uppercase tracking-[.1em]', light ? 'text-navy/35' : 'text-bronze/50')}>SWIM · BIKE · RUN</p>
         </div>
       </aside>
 
@@ -240,5 +234,6 @@ export function AdminShell({ name, children }: { name: string; children: React.R
         })}
       </nav>
     </div>
+    </PortalSurface>
   )
 }

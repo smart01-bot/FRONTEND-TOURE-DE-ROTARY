@@ -7,19 +7,19 @@ Current workstream: EVOLUTION, separate from historical PHASE-00–07. Product: 
 | EVOLUTION-01 | Complete; verified implementation published to development |
 | EVOLUTION-02 | Complete; verified landing published to development |
 | EVOLUTION-03 | Complete; verified public experience published to development |
-| EVOLUTION-04 | Participant/admin evolution; not started |
+| EVOLUTION-04 | Participant/admin visual scope complete; expanded operations gated |
 | EVOLUTION-05 | Cohesion/integration hardening; not started |
 
-Start from [MASTER-CONTEXT](MASTER-CONTEXT.md), then [latest handoff](../handoffs/EVOLUTION-03-PUBLIC-EXPERIENCE-HANDOFF.md). Do not infer current progress from preparation-time status tables inside the master brief.
+Start from [MASTER-CONTEXT](MASTER-CONTEXT.md), then [latest handoff](../handoffs/EVOLUTION-04-PARTICIPANT-ADMIN-HANDOFF.md). Do not infer current progress from preparation-time status tables inside the master brief.
 
 - [Actual journeys and integration-sensitive inventory](INVENTORY.md)
 - [Shared visual system and brand checklist](VISUAL-SYSTEM.md)
 - [Full-event-management capability matrix](ADMIN-CAPABILITIES.md)
 - [A/B/C/D change register](CHANGE-REGISTER.md)
 - [Verification and limitations](VERIFICATION.md)
-- [Phase 4 initiating message](EVOLUTION-04-INITIATING-MESSAGE.md)
+- [Phase 5 initiating message](EVOLUTION-05-INITIATING-MESSAGE.md)
 
-The landing and scoped public pages have adopted the shared system in EVOLUTION-02/03. Participant/admin redesign remains EVOLUTION-04. Class D expansion remains requirements only. Backend role names/account assignments, policy verification, payment/consent/recovery fixes, verified operational content and cross-browser/real-device QA remain separate dependencies; see INVENTORY. Visual phase foundations do not certify launch readiness.
+The landing and scoped public pages have adopted the shared system in EVOLUTION-02/03. Participant/admin surfaces adopt the system in EVOLUTION-04. Class D expansion remains requirements only. Backend role names/account assignments, policy verification, payment/consent/recovery fixes, verified operational content and cross-browser/real-device QA remain separate dependencies; see INVENTORY. Visual phase foundations do not certify launch readiness.
 
 Verified implementation receipt: `2c3ef8941e8e568aee0c786542c447f973dde6c4`; tree `fe47f9edb9eec483c5e43d680b992a500bbf0ccf`. The documentation receipt follows this commit; fetch current development and verify ancestry rather than resetting to this SHA.
 

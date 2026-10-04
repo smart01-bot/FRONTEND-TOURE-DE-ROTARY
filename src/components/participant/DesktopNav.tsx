@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { SITE } from '@/config/site'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
@@ -73,9 +72,7 @@ export function DesktopNav() {
         )}
       >
         <Link href="/dashboard" className="flex items-center gap-3">
-          <div className="relative h-12 w-[148px] shrink-0">
-            <Image src="/assets/auth/tour-de-rotary-mark.png" alt={SITE.name} width={272} height={272} className="h-full w-full object-contain object-left" />
-          </div>
+          <span data-brand>{SITE.name}<small>Participant space</small></span>
         </Link>
 
         <div className="flex items-center gap-4">
@@ -186,7 +183,7 @@ export function DesktopNav() {
             <span className="h-1 w-6 bg-[#B12A70]" />
             <span className="h-1 w-6 bg-[#F8BE22]" />
           </div>
-          <p className={cn('mt-3 font-num text-[9px] uppercase tracking-[.1em]', light ? 'text-navy/35' : 'text-bronze/50')}>1 November 2026</p>
+          <p className={cn('mt-3 font-num text-[9px] uppercase tracking-[.1em]', light ? 'text-navy/35' : 'text-bronze/50')}>SWIM · BIKE · RUN</p>
         </div>
       </aside>
     </>

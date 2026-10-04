@@ -7,6 +7,7 @@ import QRCode from 'qrcode'
 import { Download, Printer, Share2 } from 'lucide-react'
 import { useParticipant } from '@/hooks/useParticipant'
 import { CATEGORY_MAP } from '@/config/categories'
+import { RACE_SECTIONS } from '@/config/race-info'
 import { SITE } from '@/config/site'
 import { useParticipantTheme } from '@/context/ParticipantThemeContext'
 
@@ -26,9 +27,10 @@ export default function TicketPage() {
   const profileUrl = `${SITE.url}/profile`
   const qrValue = ticketReady ? `${profileUrl}?ticket=${registration?.id}` : ''
 
+  const eventFacts = RACE_SECTIONS.find(section => section.id === 'overview')?.facts
   const details = [
-    { label: 'Race day', value: '1 November 2026' },
-    { label: 'Venue', value: 'Coco Beach, Dar es Salaam' },
+    { label: 'Race day', value: eventFacts?.find(fact => fact.label === 'Confirmed event date')?.value ?? 'TBD' },
+    { label: 'Venue', value: eventFacts?.find(fact => fact.label === 'Start venue')?.value ?? 'TBD' },
     { label: 'Check-in', value: 'TBD' },
     { label: 'Race start', value: 'TBD' },
   ]
@@ -50,10 +52,10 @@ export default function TicketPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-semibold">
+          <div data-ticket-status className="flex flex-wrap items-center gap-2 text-xs font-semibold">
             <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 ${confirmed ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-amber-200 bg-amber-50 text-amber-700'}`}>
               <span className={`h-1.5 w-1.5 rounded-full ${confirmed ? 'bg-emerald-500' : 'bg-amber-500'}`} />
-              {confirmed ? 'Registration confirmed' : 'Registration pending'}
+              {registration ? `Registration ${registration.status}` : 'Registration not available'}
             </span>
             {paid && (
               <span className={`rounded-full border px-3 py-1.5 ${dark ? 'border-white/10 bg-white/5 text-white/65' : 'border-slate-200 bg-white text-slate-600'}`}>
@@ -89,18 +91,10 @@ export default function TicketPage() {
                     </div>
                   </div>
                   <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#B21F68]">Your race credential</p>
-                  <h2 className={`mt-1 font-serif text-3xl font-bold ${dark ? 'text-white' : 'text-[#102E5C]'}`}>Ready for race day.</h2>
+                  <h2 className={`mt-1 font-serif text-3xl font-bold ${dark ? 'text-white' : 'text-[#102E5C]'}`}>Your Tour de Dar ticket.</h2>
                 </div>
 
-                <div className="hidden sm:block">
-                  <Image
-                    src="/assets/TourdeRotary-main/25bibnumber.png"
-                    alt="Bib"
-                    width={128}
-                    height={93}
-                    className="h-[72px] w-auto object-contain"
-                  />
-                </div>
+
               </div>
 
               <div className="mt-8 grid gap-6 sm:grid-cols-[1fr_auto] sm:items-end">

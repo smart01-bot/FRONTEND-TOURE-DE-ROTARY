@@ -1,6 +1,7 @@
 'use client'
 
 import { ArrowUpRight, Bike, CalendarDays, CheckCircle2, Clock3, Dumbbell, Map, Play, Waves } from 'lucide-react'
+import { RACE_SECTIONS } from '@/config/race-info'
 import { useParticipant } from '@/hooks/useParticipant'
 import { useParticipantTheme } from '@/context/ParticipantThemeContext'
 import { cn } from '@/lib/utils'
@@ -64,9 +65,10 @@ const SPRINT_LABELS: Record<string, string> = {
 }
 
 export default function TrainingPage() {
-  const { registration, daysUntil, loading } = useParticipant()
+  const { registration, loading } = useParticipant()
   const { theme } = useParticipantTheme()
   const light = theme === 'light'
+  const eventDate = RACE_SECTIONS.find(section => section.id === 'overview')?.facts.find(fact => fact.label === 'Confirmed event date')?.value
   const isSprint = registration?.category === 'sprint'
 
   if (loading) return <Spinner light={light} />
@@ -74,7 +76,7 @@ export default function TrainingPage() {
   return (
     <div className={cn('min-h-[calc(100dvh-72px)] px-5 pb-10 pt-6 sm:px-7 lg:px-8 lg:pb-12 lg:pt-8', light ? 'bg-[#F7F9FC]' : 'bg-[#07152F]')}>
       <div className="mx-auto max-w-[1180px]">
-        <header className="mb-7 lg:mb-8">
+        <header data-portal-heading className="mb-7 lg:mb-8">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
               <p className={cn('mb-2 font-num text-[9px] font-extrabold uppercase tracking-[.16em]', light ? 'text-[#1769AA]' : 'text-[#F8BE22]')}>
@@ -91,8 +93,8 @@ export default function TrainingPage() {
             <div className={cn('flex w-fit items-center gap-3 rounded-[15px] border px-4 py-3', light ? 'border-[#102E5C]/10 bg-white shadow-[0_8px_24px_rgba(16,46,92,.05)]' : 'border-white/[.08] bg-[#0D1B3D]')}>
               <CalendarDays size={19} className={light ? 'text-[#1769AA]' : 'text-[#F8BE22]'} strokeWidth={1.7} />
               <div>
-                <p className={cn('font-num text-[22px] font-extrabold leading-none', light ? 'text-[#102E5C]' : 'text-white')}>{daysUntil}</p>
-                <p className={cn('mt-1 font-num text-[8px] font-extrabold uppercase tracking-[.1em]', light ? 'text-slate-400' : 'text-white/35')}>days to race</p>
+                <p className={cn('font-num text-[22px] font-extrabold leading-none', light ? 'text-[#102E5C]' : 'text-white')}>{eventDate ?? 'TBD'}</p>
+                <p className={cn('mt-1 font-num text-[8px] font-extrabold uppercase tracking-[.1em]', light ? 'text-slate-400' : 'text-white/35')}>Confirmed race date</p>
               </div>
             </div>
           </div>

@@ -49,3 +49,9 @@ EVOLUTION-02 resolves TD-014 on the landing only: confirmed date reads the revie
 TD-015: Chromium screenshot/overflow, keyboard, offline, synthetic data-state and automated accessibility evidence now covers all seven scoped public surfaces; zero final automated WCAG A/AA violations on their checked states. Real screen-reader, physical-device, cross-browser and live-backend verification remain pending. Initial legacy caption-contrast violations on map/archive/privacy were resolved in scoped CSS.
 
 EV-001–006, official operational content/geometry, sponsor publication, imagery rights, timing/photos, moderation, privacy operations and framework security migration remain open. Fundraising still inherits the unverified return-query paid update and public story/bib consent boundary; visual completion does not make it production-safe. SSR campaign error versus not-found behavior is unchanged and remains a functional review concern. No real payment or authorization policy was tested.
+
+## EVOLUTION-04 status
+
+Participant/admin surfaces now have isolated Chromium before/after responsive and journey evidence. Actual backend/RLS, audit, finance reconciliation, concurrency, cross-browser, real-device and screen-reader verification remain unperformed. Existing useParticipant/useFundraising and admin hooks do not expose all error outcomes; unavailable/empty frontend states cannot certify backend health. Full event administration remains blocked by the matrix contracts.
+
+Dashboard's fixed progress/clock and assumed campaign values were removed. Feed/training/ticket now use reviewed event date/TBD; ticket venue uses reviewed source/TBD. Removed decorative raster bib with unrelated printed number; memory export no longer contains an unverified date. Auth recovery, public fundraising payment/consent risks EV-001–006 and framework migration remain open; auth presentation is unchanged.

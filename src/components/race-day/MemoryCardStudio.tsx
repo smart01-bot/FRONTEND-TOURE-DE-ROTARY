@@ -24,7 +24,7 @@ export function MemoryCardStudio({ profile, registration }: { profile: UserProfi
     ctx.fillStyle = '#B12A70'; ctx.fillRect(0, 0, 1200, 28)
     ctx.fillStyle = '#F8BE22'; ctx.fillRect(0, 28, 1200, 18)
     ctx.fillStyle = '#ffffff'; ctx.font = '800 42px Arial'; ctx.fillText('TOUR DE DAR', 80, 130)
-    ctx.fillStyle = '#7db3ff'; ctx.font = '700 22px Arial'; ctx.fillText('1 NOVEMBER 2026 · DAR ES SALAAM', 80, 178)
+    ctx.fillStyle = '#7db3ff'; ctx.font = '700 22px Arial'; ctx.fillText('TOUR DE DAR · DAR ES SALAAM', 80, 178)
     ctx.fillStyle = '#ffffff'; ctx.font = '700 74px Georgia'; wrap(ctx, name, 80, 340, 1040, 88)
     ctx.fillStyle = '#9fb3cb'; ctx.font = '700 25px Arial'; ctx.fillText(category.toUpperCase(), 80, 570)
     if (kind === 'digital_bib') {

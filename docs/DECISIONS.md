@@ -64,3 +64,10 @@ When adding a decision, include the date, status (`Active`, `Pending`, `Supersed
 - Active: full-story expansion displays only the same consent-filtered record. No broader public participant identity inferred.
 - Active: map data/engine and donor payment business code remain unchanged. Review the single protected map presentation diff explicitly; do not reset its baseline hash.
 - Active: no imagery is newly adopted while source/rights approval is unresolved. No decorative line is presented as route geometry.
+
+## EVOLUTION-04 — 4 October 2026
+
+- Approved scoped participant/admin visual adoption retains all existing hooks, action contracts, theme/lifecycle/auth boundaries and public pages.
+- `/admin/manage` is an additive protected availability workspace. Eight expanded actions remain disabled; no new role, account power, API or persisted operation.
+- Display actual registration/payment/bib statuses; remove fixed progress/clock values and unverified date/venue presentation. Reviewed race-info facts remain authority. Fee estimates are not accounting revenue.
+- Retain and explicitly document inherited error/RLS/concurrency/audit limitations rather than claiming a visual redesign resolves them.

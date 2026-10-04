@@ -93,3 +93,7 @@ Approved landing scope adopts DR-005's photographic depth, bold athletic hierarc
 ## DR-007 — EVOLUTION-03 public experience
 
 Public routes adopt the Phase 1 tokens and Phase 2 athletic typography: navy editorial headers, restrained yellow discipline rail, blue/magenta accents, white content panels, consistent public navigation. Race information has a topic index; the map has a wider discipline-first frame; stories have readable full-text expansion; donor campaigns have a two-column desktop and single-column phone layout. Utility/privacy surfaces remain readable rather than image-heavy. Existing policies and integration semantics remain authoritative. Augment reference stays `2b0fd671369d05389b9c56189f4ceb920469aa84`; its stub geometry, placeholder sponsors and dependencies are not copied. Phone/tablet/desktop before/after evidence accompanies the handoff.
+
+## DR-008 — EVOLUTION-04 participant and administration
+
+Participant mode applies the shared navy/blue/magenta/yellow system through scoped typography, active navigation, athletic headers and calmer ticket/profile utilities. Dashboard places real identity/status before task links. Administration uses compact, low-motion cards and wrapping mobile rows; management areas show explicit availability. Auth/public layouts are unchanged. Before/after synthetic Chromium evidence covers phone/tablet/desktop; native-device, screen-reader and backend certification are not implied.

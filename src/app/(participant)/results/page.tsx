@@ -29,7 +29,7 @@ export default function ResultsPage() {
             <div>
               <p className="font-num text-[9px] font-extrabold uppercase tracking-[.12em] text-white/45">{loading ? 'Checking registration' : bib ? `Bib #${bib}` : 'Participant result'}</p>
               <h2 id="result-state" className="mt-1 font-serif text-[20px] font-bold">No verified result is available.</h2>
-              <p className="mt-2 max-w-[720px] text-[11px] leading-5 text-white/60">No timing table, provider API or publication rules exist in the repository. Registration and bib assignment are not evidence that a participant started or finished.</p>
+              <p className="mt-2 max-w-[720px] text-[11px] leading-5 text-white/60">Timing results have not been published. Your registration and bib identify you; they do not confirm a start or finish.</p>
             </div>
           </div>
           <div className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-5" aria-label="Result fields">

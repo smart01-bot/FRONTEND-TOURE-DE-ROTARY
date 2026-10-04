@@ -1,3 +1,4 @@
+import { PortalSurface } from '@/components/participant/PortalSurface'
 import { DesktopNav } from '@/components/participant/DesktopNav'
 import { BottomNav } from '@/components/participant/BottomNav'
 import { ParticipantThemeProvider } from '@/context/ParticipantThemeContext'
@@ -10,6 +11,7 @@ export default function ParticipantLayout({
 }) {
   return (
     <ParticipantThemeProvider>
+      <PortalSurface>
       <div className="participant-shell min-h-dvh overflow-hidden bg-sand text-navy transition-colors duration-200">
         <DesktopNav />
 
@@ -22,6 +24,7 @@ export default function ParticipantLayout({
 
         <BottomNav />
       </div>
+    </PortalSurface>
     </ParticipantThemeProvider>
   )
 }

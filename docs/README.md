@@ -32,3 +32,5 @@ EVOLUTION-02 landing: [handoff](handoffs/EVOLUTION-02-LANDING-HANDOFF.md) · [ne
 
 
 EVOLUTION-03 public experience: [handoff](handoffs/EVOLUTION-03-PUBLIC-EXPERIENCE-HANDOFF.md) · [next phase](visual-evolution/EVOLUTION-04-INITIATING-MESSAGE.md).
+
+EVOLUTION-04 participant/admin visual scope: [handoff](handoffs/EVOLUTION-04-PARTICIPANT-ADMIN-HANDOFF.md). Full operational admin expansion remains gated.

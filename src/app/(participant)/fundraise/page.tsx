@@ -50,7 +50,7 @@ export default function FundraisePage() {
     <div className="participant-fundraise min-h-full bg-[#f6f8fb] text-[#10233f]">
       <div className="mx-auto w-full max-w-[1240px] px-5 pb-12 sm:px-7 lg:px-10 lg:pb-14">
         {/* Page heading */}
-        <header className="flex flex-col gap-5 pt-7 sm:flex-row sm:items-end sm:justify-between lg:pt-9">
+        <header data-portal-heading className="flex flex-col gap-5 pt-7 sm:flex-row sm:items-end sm:justify-between lg:pt-9">
           <div>
             <p className="mb-2 font-num text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#2563eb]">
               Your impact

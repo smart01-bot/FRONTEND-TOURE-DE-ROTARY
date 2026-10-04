@@ -1,0 +1,81 @@
+/* Scoped adoption of the shared visual system. No data, state or global theme changes. */
+.portal { min-height:100dvh; --portal-muted:#52627a; --portal-panel:#fff; --portal-border:#d5deea; overflow-wrap:anywhere; }
+.portal :global(.participant-shell) { background:var(--td-canvas); }
+.portal main { padding-top:72px; }
+.portal main h1 { font-family:var(--font-jakarta),sans-serif; font-size:clamp(2rem,3.6vw,3.25rem); font-weight:800; font-style:normal; line-height:1.12; letter-spacing:-.045em; text-wrap:balance; }
+.portal main h2,.portal main h3 { font-family:var(--font-jakarta),sans-serif; font-style:normal; letter-spacing:-.025em; line-height:1.3; }
+.portal main h2 { font-size:clamp(1.15rem,2vw,1.45rem); }
+.portal main h3 { font-size:1rem; }
+.portal main :is(p,li,label,input,textarea,select) { font-size:max(.8125rem,1em); }
+.portal :is(button,input,select) { min-height:44px; }
+.portal textarea { min-width:0; }
+.portal :is(a,button,input,textarea,select,summary):focus-visible { outline:3px solid #b3447e; outline-offset:3px; }
+.portal main :is(section,article,[class*="rounded-"]):not(button):not(a) { scroll-margin-top:90px; }
+.portal main :is(article,section)[class*="border"] { border-radius:1rem; }
+.portal main [class*="shadow-"] { box-shadow:none; }
+.portal main [class*="text-[#94a3b8]"],.portal main [class*="text-[#718096]"] { color:var(--portal-muted); }
+.portal main [class*="text-navy/"] { color:var(--portal-muted); }
+.portal main [class*="text-white/"] { color:#d3ddeb; }
+.portal main [class*="bg-[#102f59]"] { background:#0d1b3d; border-color:#31425e; }
+.portal main [class*="bg-[#2563eb]"] { background:#17458f; }
+.portal main [class*="text-[#2563eb]"] { color:#17458f; }
+.portal main [class*="bg-[#f6f8fb]"],.portal main [class*="bg-[#f5f7fb]"],.portal main [class*="bg-sand"] { background:var(--td-canvas); }
+.portal :global(.participant-shell)>header { border-top:4px solid #17458f; height:72px; padding-inline:1rem; }
+.portal :global(.participant-shell)>aside { border-right:1px solid var(--portal-border); padding-inline:1rem; }
+.portal :global(.participant-shell)>aside nav a { min-height:48px; border-radius:.65rem; font-size:.85rem; }
+.portal :global(.participant-shell)>aside nav a[aria-current="page"] { color:white; background:#17458f; box-shadow:inset 4px 0 #ffc62e; }
+.portal :global(.participant-shell)>aside nav a span { font-size:.8125rem; }
+.portal :global(.participant-shell)>nav a { color:var(--portal-muted); border-top:3px solid transparent; }
+.portal :global(.participant-shell)>nav a span,.portal :global(.participant-shell)>nav a svg { color:inherit; }
+.portal :global(.participant-shell)>nav a[aria-current="page"] { color:#17458f; border-color:#9f2b68; }
+.portal :global(.participant-shell)>nav a span { font-size:.625rem; }
+.portal [data-brand] { color:#17458f; font-family:var(--font-jakarta),sans-serif; font-size:1.15rem; font-weight:800; letter-spacing:-.05em; white-space:nowrap; }
+.portal [data-brand] small { display:block; color:#52627a; font-size:.55rem; letter-spacing:.16em; text-transform:uppercase; }
+.portal main [data-portal-heading] { padding:1.5rem; border-radius:1rem; background:#0d1b3d; color:white; border-bottom:4px solid #ffc62e; }
+.portal main [data-portal-heading] :is(h1,p) { color:inherit; }
+.portal main [data-portal-heading] p { opacity:1; }
+.portal main [data-portal-heading]>p:first-child { color:#ffc62e; }
+.portal[data-utility="true"] main h1 { font-size:clamp(1.8rem,3vw,2.4rem); }
+.portal[data-portal="admin"] main h1 { font-size:clamp(1.75rem,3vw,2.25rem); }
+.portal[data-portal="admin"] main [class*="rounded-"] { border-radius:.65rem; }
+.portal[data-portal="admin"] main { background:var(--td-canvas); }
+.portal[data-portal="admin"] * { transition:none; }
+.portal[data-portal="admin"] main [data-admin-row] { display:grid; grid-template-columns:40px minmax(0,1fr) auto; gap:.8rem; align-items:center; padding:1rem 0; border-bottom:1px solid var(--portal-border); }
+.portal[data-portal="admin"] main [data-admin-row]>div:last-child { grid-column:2/-1; justify-self:start; }
+.portal[data-portal="admin"] main [data-admin-row] input { width:6rem; }
+.portal [data-row-name] { white-space:normal; overflow-wrap:anywhere; }
+:global(html[data-participant-theme='dark']) .portal { --portal-muted:#bdcbdd; --portal-panel:#122541; --portal-border:#354760; }
+:global(html[data-participant-theme='dark']) .portal [data-brand] { color:white; }
+:global(html[data-participant-theme='dark']) .portal [data-brand] small { color:#bdcbdd; }
+:global(html[data-participant-theme='dark']) .portal main [class*="text-[#2563eb]"] { color:#90c5ff; }
+:global(html[data-participant-theme='dark']) .portal :global(.participant-shell)>nav a[aria-current="page"] { color:#ffc62e; }
+@media(min-width:640px) { .portal :global(.participant-shell)>header { padding-inline:1.75rem; } .portal[data-portal="admin"] main [data-admin-row] { grid-template-columns:40px minmax(0,1fr) auto; } .portal[data-portal="admin"] main [data-admin-row]>div:last-child { grid-column:auto; } }
+@media(max-width:639px) { .portal main h1 { overflow-wrap:anywhere; } .portal main :is(input,textarea,select) { font-size:1rem; } .portal [data-ticket-status] { flex-wrap:wrap; } }
+@media(prefers-reduced-motion:reduce) { .portal * { transition:none!important; animation:none!important; scroll-behavior:auto!important; } }
+@media(forced-colors:active) { .portal [aria-current="page"] { border:2px solid Highlight; } }
+@media print { .portal :global(.participant-shell)>:is(header,aside,nav) { display:none!important; } .portal main { padding:0!important; height:auto!important; overflow:visible!important; } }
+.portal main nav a[aria-current="page"] { background:#17458f; color:white; border-color:#17458f; }
+.portal main [data-portal-heading] [class*="text-[#2563eb]"] { color:#17458f; }
+.portal main [data-portal-heading] [class*="bg-white"] p { color:#0d1b3d; }
+.portal main [data-portal-heading] [class*="bg-white"] { color:#0d1b3d; }
+/* Legacy route palettes use !important for dark mode; override only inside this opt-in portal. */
+.portal main [aria-label="Current event state"] { background:#eaf1f8; color:#0d1b3d; }
+.portal main [aria-label="Current event state"] span { opacity:1; }
+.portal main :is([class*="text-slate-400"],[class*="text-slate-500"],[class*="text-[#64748b]"],[class*="text-[#52627a]"],[class*="text-[#7b8798]"],[class*="text-[#8a96a7]"],[class*="text-[#8995a6]"],[class*="text-[#9aa6b6]"]) { color:var(--portal-muted); }
+.portal main [class*="text-[#a3670c]"] { color:#85520a; }
+.portal main [class*="text-[#c45c51]"] { color:#a63c32; }
+.portal main [data-portal-heading] [class*="text-[#2563eb]"] { color:#ffc62e; }
+.portal main [data-portal-heading] [class*="bg-white"] [class*="text-[#2563eb]"] { color:#17458f; }
+:global(html[data-participant-theme='dark']) .portal main :is([class*="text-[#64748b]"],[class*="text-[#94a3b8]"],[class*="text-[#52627a]"],[class*="text-[#7b8798]"],[class*="text-[#8a96a7]"],[class*="text-[#8995a6]"],[class*="text-[#9aa6b6]"]) { color:#bdcbdd!important; }
+:global(html[data-participant-theme='dark']) .portal main :is(input,textarea) { color:#e8eff8!important; }
+:global(html[data-participant-theme='dark']) .portal main :is([class*="text-[#a3670c]"],[class*="text-[#B21F68]"]) { color:#ffbdde!important; }
+:global(html[data-participant-theme='dark']) .portal main [data-portal-heading] p { color:white!important; }
+:global(html[data-participant-theme='dark']) .portal main [data-portal-heading] [class*="bg-white"] { background:#18345f!important; }
+.portal :global(.participant-shell)>aside p { color:var(--portal-muted); }
+.portal :global(.participant-shell)>aside nav a:not([aria-current="page"]) { color:var(--portal-muted); }
+.portal main { color:var(--td-ink); }
+:global(html:not([data-participant-theme='dark'])) .portal main [class*="text-[#5EA7E8]"] { color:#17458f; }
+:global(html[data-participant-theme='dark']) .portal main :is([class*="text-[#b6453a]"],[class*="text-[#c45c51]"],[class*="text-[#B12A70]"]) { color:#ffbdde!important; }
+:global(html[data-participant-theme='dark']) .portal main [class*="text-[#102f59]"] { color:#d3ddeb!important; }
+:global(html[data-participant-theme='dark']) .portal main :global(.participant-profile) :is(input,textarea) { color:#e8eff8!important; }
+:global(html[data-participant-theme='dark']) .portal main [aria-label="Current event state"] { background:#122541; color:#d3ddeb; }

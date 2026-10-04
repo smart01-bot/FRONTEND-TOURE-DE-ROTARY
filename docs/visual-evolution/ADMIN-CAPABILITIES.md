@@ -57,3 +57,19 @@ No new permission string, table, bucket, endpoint, live staff grant or mutation 
 | Edition/archive | Existing lifecycle and race-day capability config | Authorized operational transition and versioned edition publishing; timing/photo/impact source and publication/withdrawal gates. No inferred history or completion. |
 
 All target editor/publisher duties remain proposals rather than enabled roles; preserve `hq_admin` until the backend team provides verified server enforcement. No endpoints, buckets, tables or permission strings are guessed.
+
+## EVOLUTION-04 delivery and integration acceptance
+
+`/admin/manage` is a protected availability workspace, not an operational console. It inherits the existing server `hq_admin` check. All eight expanded actions are native disabled buttons with visible, associated reasons. Existing athlete/payment/bib destinations remain connected. The published event mode is read-only; no staff grant, permission model, scanner, sponsor record, result or history is simulated.
+
+The matrix above remains the integration specification. Before enabling any action, provide an approved contract covering:
+
+1. **Identity and authorization:** authenticated actor, event/resource scope and server authorization on every read/write; exact role/capability names must be supplied by the backend design. Reject absent/expired sessions and unauthorized direct calls; never trust a client role field.
+2. **Inputs:** stable resource ID, allowed fields, expected version, action/reason, request idempotency identifier where a retry can duplicate work. Validate on the server, using approved transitions rather than inferred status names.
+3. **Outcomes:** authoritative saved resource/version and permitted next actions; explicit unavailable, forbidden, invalid, missing, stale-conflict and retry/unknown-outcome cases. Re-fetch must reflect persistence. Unknown payment outcomes stay unresolved.
+4. **History:** real actor, subject, action, timestamp, reason, request identity and permitted before/after values. Scope history reads/exports; exclude secrets and unnecessary private participant content.
+5. **Release evidence:** isolated authorized and unauthorized direct-request tests; concurrent bib/check-in uniqueness, duplicate-request safety, stale edits, revocation, publication/withdrawal and consent checks appropriate to the capability. Only then connect the associated button.
+
+Per-area prerequisites remain precise in the matrix: approved review transitions/reasons; reviewed content/geometry versions; sponsor rights/storage; report states and enforcement; timing/photo sources and consent; provider reconciliation; delegated staff scope/revocation; immutable scoped audit history. No endpoint, table, bucket, RPC or new role string is invented here.
+
+Operational limitations retained: current admin hooks discard read errors; payment confirmation and queue assignment do not consistently expose mutation errors; sequential bib allocation has no demonstrated atomic uniqueness; deployed RLS and durable audit are unverified. Existing fee totals are calculated estimates, now labelled accordingly. EVOLUTION-04 preserves these contracts and records the limitations; it does not certify operational launch readiness.
