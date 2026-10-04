@@ -1,6 +1,6 @@
 # EVOLUTION-01 — Visual System Extraction & Infrastructure Protection
 
-4 October 2026. Implementation complete locally; publication receipt pending below. This is the first evolution phase, separate from historical Phases 0–7.
+4 October 2026. Complete and published to development, within the explicitly documented verification limits. This is the first evolution phase, separate from historical Phases 0–7.
 
 ## Baseline and authority
 
@@ -37,4 +37,10 @@ EVOLUTION-02 — Landing Page Transformation. Use [the complete initiating messa
 
 ## Commit receipt
 
-Publication pending. This section will record the verified implementation commit and tree in a follow-up receipt commit. A commit cannot contain its own SHA; the follow-up preserves an exact verified implementation receipt, and the final branch-head receipt is supplied in the completion message. Both commits require the repository's final build gate.
+- Verified remote implementation commit: `2c3ef8941e8e568aee0c786542c447f973dde6c4`.
+- [Implementation commit](https://github.com/smart01-bot/FRONTEND-TOURE-DE-ROTARY/commit/2c3ef8941e8e568aee0c786542c447f973dde6c4).
+- Verified implementation tree: `fe47f9edb9eec483c5e43d680b992a500bbf0ccf`; exact match to the locally built/staged tree.
+- Parent: `a2e569ffc252388f07f0c0ddd2d8927606c3e64b`.
+- Non-forced update of development succeeded; fresh fetch confirmed SHA/tree. Local development aligned with a clean worktree.
+- Main remained `83907b713a963ec520da6e90b887a252831ed85b`. Augment remained unchanged.
+- This documentation-only follow-up records the already verified implementation receipt. Its own final branch-head SHA is supplied in the completion message (a commit cannot embed its own SHA). It changes only this handoff, STATUS, VERIFICATION and the Phase 2 initiating message and passes a repeated final production build gate.

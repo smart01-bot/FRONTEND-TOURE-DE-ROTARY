@@ -43,3 +43,7 @@ Calculated WCAG sRGB contrast ratios (normal text threshold 4.5:1): body 16.92; 
 ## Limitations
 
 Chromium is not installed. Playwright browser download failed with a truncated/invalid archive. No browser screenshot, measured layout/overflow, keyboard interaction, screen-reader, real-device, cross-browser or Core Web Vitals pass is claimed. The source audit and rendered HTML are the available Phase 1 evidence; browser/device QA remains required when pages adopt the system and before launch. Existing operational/security/content blockers are in INVENTORY and KNOWN-ISSUES; none is silently marked fixed.
+
+## Publication verification
+
+Authenticated non-forced development update succeeded. A fresh fetch returned `2c3ef8941e8e568aee0c786542c447f973dde6c4` and tree `fe47f9edb9eec483c5e43d680b992a500bbf0ccf`, matching the built staged tree exactly; local development was clean. Main remained `83907b713a963ec520da6e90b887a252831ed85b`. A documentation-only receipt follows with the same runtime tree contents and its own final production-build gate.
