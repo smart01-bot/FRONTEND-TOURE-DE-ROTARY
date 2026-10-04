@@ -73,3 +73,8 @@ Chromium 153.0.8010.0 was installed only in external QA scratch after normal Pla
 Automated WCAG A/AA checks on the landing are paired with manual review; the final scan receipt is recorded below after execution. The first scan found no violations and requested manual image-background contrast inspection. Discipline titles/actions now have solid navy backplates, giving white text a deterministic 16.92:1 ratio. Other retained system pairs: muted slate/white 7.12:1, white/blue 9.19:1, yellow/navy 10.77:1, discipline navy text minimum 4.88:1. Visible text and pressed state accompany color. No continuous animation, essential hover-only content or motion-only state.
 
 Real screen-reader, physical-device, cross-browser, authenticated backend/RLS and field Core Web Vitals verification remain outstanding. Existing global/other-route defects are not certified by this landing-only pass. Full admin operational expansion remains blocked by documented contracts.
+
+
+Final automated landing scan: 20 passing checks, zero violations. The engine retains an image-background contrast item for manual review; solid navy title/action backplates and reviewed token pairs establish readable foregrounds. This is not a screen-reader certification.
+
+Publication: non-forced development update to `abb0ce39766350399fb800d21219298a4d3766c1` succeeded. Fresh fetch confirmed tree `250f80f4b5bb503cc7a58566e02c16e51ddddb03`, exactly equal to the locally verified index tree, and unchanged main. Local development aligned with a clean tree. The immediate documentation receipt has its own final production build; runtime source is unchanged.

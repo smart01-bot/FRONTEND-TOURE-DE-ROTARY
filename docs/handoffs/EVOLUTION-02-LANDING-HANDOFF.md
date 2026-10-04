@@ -1,6 +1,6 @@
 # EVOLUTION-02 — Landing Page Transformation
 
-4 October 2026. Landing implementation verified locally; publication receipt follows after the non-forced development update. This is EVOLUTION-02, separate from historical Phases 0–7.
+4 October 2026. Complete and published to development within the verification limits below. This is EVOLUTION-02, separate from historical Phases 0–7.
 
 ## Baseline and previous gate
 
@@ -52,4 +52,10 @@ EVOLUTION-03 — Public Race & Event Experience. Use the [complete initiating me
 
 ## Commit receipt
 
-Publication is pending at the time this implementation handoff is staged. After the verified tree is published, an immediate documentation-only follow-up records the implementation SHA/tree and confirmed remote result. Its own final branch SHA is provided in the completion message (a commit cannot embed its own SHA).
+- Verified remote implementation: `abb0ce39766350399fb800d21219298a4d3766c1`.
+- [Implementation commit](https://github.com/smart01-bot/FRONTEND-TOURE-DE-ROTARY/commit/abb0ce39766350399fb800d21219298a4d3766c1).
+- Verified tree: `250f80f4b5bb503cc7a58566e02c16e51ddddb03` — exact match to the final built/staged local tree.
+- Parent: `224bb26a8fee6eb1172eb6254211b5bd9aaac71a`.
+- Non-forced development update succeeded. Fresh fetch confirmed SHA/tree; local development aligned cleanly. Main remained `83907b713a963ec520da6e90b887a252831ed85b`.
+- This immediate documentation-only follow-up records that receipt and the final automated scan (20 passing checks, zero violations; image contrast manually reviewed). It receives its own final build gate. Its own branch-head SHA is supplied in the completion message; a commit cannot embed its own SHA.
+- No deployment, live database change, privilege grant or Augment modification.
