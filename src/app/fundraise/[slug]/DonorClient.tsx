@@ -4,6 +4,9 @@
 // Public — no auth. Handles donation form + PayMe redirect + thank-you overlay.
 // ─────────────────────────────────────────────────────────────────────────────
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
+import PublicPage from '@/components/public/PublicPage'
+import styles from '@/components/public/donor.module.css'
 import { useRouter }                    from 'next/navigation'
 import { insertDonation, markDonationPaid } from '@/lib/supabase/fundraising'
 import { paymentsApi }                  from '@/lib/api'
@@ -20,6 +23,7 @@ const CAT_LABEL: Record<string, string> = {
 }
 
 const inputCls = [
+  styles.input,
   'w-full bg-white/[.07] border-[1.5px] border-white/[.11] rounded-[12px]',
   'px-4 py-[14px] font-sans text-[13px] text-white',
   'placeholder:text-white/[.22]',
@@ -27,8 +31,7 @@ const inputCls = [
   'transition-all duration-200',
 ].join(' ')
 
-const labelCls =
-  'block font-num text-[10px] font-extrabold text-white/35 uppercase tracking-[.08em] mb-[8px]'
+const labelCls = styles.label + ' block font-num text-[10px] font-extrabold text-white/35 uppercase tracking-[.08em] mb-[8px]'
 
 interface Props {
   campaign:   Campaign
@@ -63,6 +66,10 @@ export default function DonorClient({
   const [donorDisplayName,   setDonorDisplayName]   = useState('')
   const [donorDisplayAmount, setDonorDisplayAmount] = useState(0)
   const [showThankYou,       setShowThankYou]       = useState(false)
+  const thankYouRef = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    if (showThankYou) thankYouRef.current?.showModal()
+  }, [showThankYou])
 
   // Mark paid when returning from PayMe
   useEffect(() => {
@@ -133,41 +140,22 @@ export default function DonorClient({
   const pct = Math.min(100, Math.round((campaign.total_raised / campaign.goal) * 100))
 
   return (
-    <div className="min-h-dvh bg-navy relative overflow-x-hidden">
+    <PublicPage current="/fundraise" eyebrow="Move with purpose / Fundraising" title="Every effort counts." description="Support a participant’s fundraising for Ocean Road Cancer Institute." accent="magenta">
+    <div className={styles.donor}>
 
-      {/* Texture overlay */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0"
-        style={{
-          background:
-            'repeating-linear-gradient(-52deg,transparent 0,transparent 40px,rgba(200,149,60,.03) 40px,rgba(200,149,60,.03) 41px)',
-        }}
-      />
-
-      {/* Page content */}
-      <div className="relative z-10 max-w-canvas mx-auto px-[22px] pb-12">
-
-        {/* Wordmark */}
-        <div className="pt-[24px] mb-[24px] text-center">
-          <p className="font-serif text-[22px] italic font-bold text-bronze tracking-[-0.01em]">
-            Tour de Dar
-          </p>
-          <p className="font-sans text-[11px] text-white/35 mt-[3px]">
-            Benefiting Ocean Road Cancer Institute
-          </p>
-        </div>
-
+      <div className={styles.layout}>
+        <section className={styles.campaign} aria-label="Participant campaign">
         {/* Participant hero */}
-        <div className="text-center mb-[22px]">
+        <div className={styles.identity}>
           <div className="w-[52px] h-[52px] rounded-full bg-white/[.08] border-[1.5px] border-bronze/30 flex items-center justify-center mx-auto mb-[10px]">
             <span className="font-num text-[16px] font-extrabold text-bronze">
               {initials(campaign.participant_name)}
             </span>
           </div>
-          <h1 className="font-serif text-[26px] italic font-bold text-white tracking-[-0.02em] mb-[8px]">
+          <h2 className={styles.name}>
             {campaign.participant_name}
-          </h1>
-          <div className="flex items-center justify-center gap-[8px]">
+          </h2>
+          <div className="flex flex-wrap items-center justify-center gap-2">
             {campaign.participant_category && (
               <span className="font-sans text-[10px] font-bold text-bronze bg-bronze/10 rounded-full px-[10px] py-[3px] uppercase tracking-[.05em]">
                 {CAT_LABEL[campaign.participant_category] ?? campaign.participant_category}
@@ -194,7 +182,7 @@ export default function DonorClient({
         )}
 
         {/* Progress */}
-        <div className="bg-white/[.06] border-[1.5px] border-white/10 rounded-[18px] p-[18px] text-center mb-[14px]">
+        <div className={styles.progress}>
           <p className="font-sans text-[11px] text-white/35 mb-[4px]">Total raised</p>
           <p className="font-num text-[38px] font-extrabold text-bronze leading-none">
             {formatTSh(campaign.total_raised)}
@@ -216,6 +204,10 @@ export default function DonorClient({
           </div>
         </div>
 
+        <p className={styles.purpose}>A personal challenge with a shared purpose. Your support goes toward this participant’s fundraising goal.</p>
+        <Link href="/privacy" className={styles.privacy}>Privacy &amp; data rights ↗</Link>
+        </section>
+        <section className={styles.form} aria-labelledby="donation-title">
         {/* Cancelled banner */}
         {cancelled && !showThankYou && (
           <div className="bg-coral/10 border-[1.5px] border-coral/30 rounded-[12px] px-[16px] py-[12px] mb-[14px]">
@@ -226,14 +218,14 @@ export default function DonorClient({
         )}
 
         {/* ── Donation form ──────────────────────────────────────────────── */}
-        <p className="font-num text-[10px] font-extrabold text-white/35 uppercase tracking-[.08em] mb-[14px]">
-          Make a donation
-        </p>
+        <h2 id="donation-title" className={styles.formTitle}>Be part of their purpose.</h2>
+        <p className={styles.formIntro}>Choose your amount. Continue to PayMe to make your donation.</p>
 
         {/* Name */}
         <div className="mb-[14px]">
-          <label className={labelCls}>Your name</label>
+          <label htmlFor="donor-name" className={labelCls}>Your name</label>
           <input
+            id="donor-name"
             type="text"
             autoComplete="name"
             placeholder="Grace Mwamba"
@@ -245,13 +237,14 @@ export default function DonorClient({
 
         {/* Email */}
         <div className="mb-[14px]">
-          <label className={labelCls}>
+          <label htmlFor="donor-email" className={labelCls}>
             Email{' '}
             <span className="text-white/20 normal-case font-sans font-normal tracking-normal">
               (for receipt)
             </span>
           </label>
           <input
+            id="donor-email"
             type="email"
             autoComplete="email"
             placeholder="you@example.com"
@@ -263,11 +256,12 @@ export default function DonorClient({
 
         {/* Amount quick-picks */}
         <div className="mb-[14px]">
-          <label className={labelCls}>Amount (TSh)</label>
+          <label htmlFor="donor-amount" className={labelCls}>Amount (TSh)</label>
           <div className="grid grid-cols-3 gap-[8px] mb-[8px]">
             {QUICK_AMOUNTS.map(amt => (
               <button
                 key={amt}
+                aria-pressed={quickAmt === amt}
                 type="button"
                 onClick={() => { setQuickAmt(amt); setCustom('') }}
                 className={[
@@ -283,6 +277,7 @@ export default function DonorClient({
             ))}
           </div>
           <input
+            id="donor-amount"
             type="text"
             inputMode="numeric"
             placeholder="Or enter custom amount"
@@ -294,13 +289,14 @@ export default function DonorClient({
 
         {/* Message */}
         <div className="mb-[20px]">
-          <label className={labelCls}>
+          <label htmlFor="donor-message" className={labelCls}>
             Message{' '}
             <span className="text-white/20 normal-case font-sans font-normal tracking-normal">
               (optional)
             </span>
           </label>
           <textarea
+            id="donor-message"
             placeholder="Cheering you on every stroke, every pedal, every step!"
             value={message}
             onChange={e => setMessage(e.target.value)}
@@ -311,7 +307,7 @@ export default function DonorClient({
 
         {/* Error */}
         {error && (
-          <div className="bg-coral/10 border-[1.5px] border-coral/30 rounded-[12px] px-[16px] py-[12px] mb-[14px]">
+          <div role="alert" className="bg-coral/10 border-[1.5px] border-coral/30 rounded-[12px] px-[16px] py-[12px] mb-[14px]">
             <p className="font-sans text-[13px] text-coral">{error}</p>
           </div>
         )}
@@ -342,6 +338,9 @@ export default function DonorClient({
           All proceeds go to Ocean Road Cancer Institute.
         </p>
 
+        </section>
+        <section className={styles.supporters} aria-label="Recent supporters">
+        {donations.length === 0 && <div><h2>Make the first contribution.</h2><p>No paid donations are listed yet.</p></div>}
         {/* Recent supporters */}
         {donations.length > 0 && (
           <div className="mt-[30px]">
@@ -371,11 +370,12 @@ export default function DonorClient({
           </div>
         )}
 
+        </section>
       </div>
 
       {/* ── Thank-you overlay ──────────────────────────────────────────────── */}
       {showThankYou && (
-        <div className="fixed inset-0 z-50 bg-navy/95 backdrop-blur-sm flex flex-col items-center justify-center px-[32px]">
+        <dialog ref={thankYouRef} onCancel={() => setShowThankYou(false)} aria-labelledby="thank-you-title" className={styles.thanks}>
 
           {/* Check circle */}
           <div className="w-[64px] h-[64px] rounded-full bg-bronze/15 border-[2px] border-bronze/40 flex items-center justify-center mb-[22px]">
@@ -390,7 +390,7 @@ export default function DonorClient({
             </svg>
           </div>
 
-          <h2 className="font-serif text-[30px] italic font-bold text-white text-center tracking-[-0.02em] mb-[8px]">
+          <h2 id="thank-you-title" className="font-serif text-[30px] italic font-bold text-white text-center tracking-[-0.02em] mb-[8px]">
             {donorDisplayName
               ? `Thank you, ${donorDisplayName.split(' ')[0]}.`
               : 'Thank you!'}
@@ -416,9 +416,10 @@ export default function DonorClient({
             See their progress
           </button>
 
-        </div>
+        </dialog>
       )}
 
     </div>
+    </PublicPage>
   )
 }

@@ -88,3 +88,8 @@ Unregistered chat screenshots and discarded mockups are not binding.
 ## DR-006 — EVOLUTION-02 landing
 
 Approved landing scope adopts DR-005's photographic depth, bold athletic hierarchy and disciplined tiering through Tour's existing system. Navy/yellow hero, blue fact strip, SWIM/BIKE/RUN photography, magenta editorial story surface, dark cause section and calm weekend/sponsor panels. Local CSS scopes nav/footer presentation to `/`; other pages are unchanged. Original image paths retained; no Augment asset, event model or operation copied. Browser before/after phone/tablet/desktop comparison and interaction evidence are recorded in the Phase 2 handoff/verification record.
+
+
+## DR-007 — EVOLUTION-03 public experience
+
+Public routes adopt the Phase 1 tokens and Phase 2 athletic typography: navy editorial headers, restrained yellow discipline rail, blue/magenta accents, white content panels, consistent public navigation. Race information has a topic index; the map has a wider discipline-first frame; stories have readable full-text expansion; donor campaigns have a two-column desktop and single-column phone layout. Utility/privacy surfaces remain readable rather than image-heavy. Existing policies and integration semantics remain authoritative. Augment reference stays `2b0fd671369d05389b9c56189f4ceb920469aa84`; its stub geometry, placeholder sponsors and dependencies are not copied. Phone/tablet/desktop before/after evidence accompanies the handoff.

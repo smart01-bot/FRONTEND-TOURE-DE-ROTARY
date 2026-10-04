@@ -29,3 +29,6 @@ This directory carries the durable context required to continue the project acro
 Never store credentials, environment values, private participant data, or full chat transcripts in these documents.
 
 EVOLUTION-02 landing: [handoff](handoffs/EVOLUTION-02-LANDING-HANDOFF.md) · [next phase](visual-evolution/EVOLUTION-03-INITIATING-MESSAGE.md).
+
+
+EVOLUTION-03 public experience: [handoff](handoffs/EVOLUTION-03-PUBLIC-EXPERIENCE-HANDOFF.md) · [next phase](visual-evolution/EVOLUTION-04-INITIATING-MESSAGE.md).

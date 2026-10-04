@@ -75,3 +75,8 @@ No asset is added, renamed, replaced or removed. Existing photographs are now se
 | `pexels-mikhail-nilov-8542538.jpg` | Impact image | Mikhail Nilov / Pexels, filename-derived credit; no treatment/impact-evidence claim |
 
 These are reused committed assets, not newly licensed material. Exact upstream licence/provenance/credits still require organiser review before launch; authentic Dar/event images remain desirable. Sponsor logos remain absent until real approved records and rights exist. The legacy landing README names unused rotation files and is historical; current references above and landing-media.ts are authoritative.
+
+
+## EVOLUTION-03 public usage
+
+No image, logo, font, video, route or map-tile asset was added, copied, renamed or removed. Public identity uses existing fonts/tokens and authorized textual identity/initials. Sponsor browsing reuses the Phase 2 surface; approved records remain empty. Illustrative photographs are not used as course or participant evidence. Historical and authentic event imagery still require rights, source, attribution and consent review before publication.

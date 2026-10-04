@@ -20,7 +20,7 @@ const TIERS = [
 ] as const
 
 export default function SponsorsSection({ records = APPROVED_SPONSORS }: { records?: readonly LandingSponsor[] }) {
-  return <section className={styles.section} aria-labelledby="sponsors-title">
+  return <section id="sponsors" className={styles.section} aria-labelledby="sponsors-title">
     <SectionHeading id="sponsors-title" eyebrow="06 / Together, for Dar" title="Partners in purpose.">
       <p>Recognising the organisations that support the event, with approved names and logos.</p>
     </SectionHeading>

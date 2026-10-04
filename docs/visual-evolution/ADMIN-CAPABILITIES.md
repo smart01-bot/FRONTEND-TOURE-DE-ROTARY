@@ -42,3 +42,18 @@ The landing now consumes current source-controlled content without introducing b
 | Photography | Existing illustrative sport/cause images | Provenance/rights review and authentic Dar/event photography with participant consent and withdrawal. Filename-derived photographer attribution still needs rights verification before launch. |
 
 No new permission string, table, bucket, endpoint, live staff grant or mutation is implied. Content editor/publisher/auditor are proposed duties, not enabled roles.
+
+
+## EVOLUTION-03 public publishing requirements
+
+| Public surface | Current authority | Required administration / publication capability |
+| --- | --- | --- |
+| Race topic/FAQ/guide | `config/race-info.ts`, canonical categories | Editor supplies verified fact/asset, source and review date; publisher reviews/version-publishes/withdraws; stale edits and missing provenance rejected; attributable history. No editor API exists. |
+| SWIM/BIKE/RUN/EVENT map | `config/course-map.ts` | Reviewed geometry/markers with stable IDs, source/review and discipline/transition relationships; validation, version conflict, publish/withdraw and audit. Optional visitor location stays local, never an admin tracker. |
+| Story collection | Existing `story_public=true` query | Any curation requires consent recheck, approved withdrawal/moderation and attribution rules. Name/category/discipline/story do not authorize a broader public profile or photo. |
+| Sponsor navigation | Existing `SponsorsSection` approved records, currently empty | Same Phase 2 tier/logo/rights gates; an anchor is not a CMS or new relationship. |
+| Public fundraiser | Existing campaign/profile/registration/paid-donation queries | Separate EV-003 server payment verification/reconciliation and EV-004 public field consent reviews remain required before launch. No refund, override, settlement, or consent contract invented. |
+| Community/privacy | Existing source-controlled guidance and SITE contact | Approved policy versions, rights-request/moderation intake, scoped staff visibility, review/response records; email links still require the visitor to send. |
+| Edition/archive | Existing lifecycle and race-day capability config | Authorized operational transition and versioned edition publishing; timing/photo/impact source and publication/withdrawal gates. No inferred history or completion. |
+
+All target editor/publisher duties remain proposals rather than enabled roles; preserve `hq_admin` until the backend team provides verified server enforcement. No endpoints, buckets, tables or permission strings are guessed.

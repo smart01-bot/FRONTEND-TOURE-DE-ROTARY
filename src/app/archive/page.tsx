@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import HomeNav from '@/components/home/HomeNav'
-import HomeFooter from '@/components/home/HomeFooter'
+import PublicPage from '@/components/public/PublicPage'
+import styles from '@/components/public/public.module.css'
 import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
 
 export const metadata: Metadata = {
@@ -18,25 +18,22 @@ const SECTIONS = [
 
 export default function ArchivePage() {
   return (
-    <main id="main-content" tabIndex={-1}>
-      <HomeNav />
-      <section className="bg-navy px-5 py-10 text-white">
+    <PublicPage current="/archive" eyebrow={ACTIVE_LIFECYCLE.editionLabel ?? 'Event edition'} title="The effort. The memories." description="The home for this event edition. Explore published stories and discover results, photographs and impact when they become available." accent="magenta">
+      <section className={styles.content}>
         <div className="mx-auto max-w-wide">
-          <p className="font-num text-[10px] font-extrabold uppercase tracking-[.14em] text-bronze">{ACTIVE_LIFECYCLE.editionLabel ?? 'Event edition'}</p>
-          <h1 className="mt-3 font-serif text-headline">Edition <span className="text-bronze">memory.</span></h1>
-          <p className="mt-3 max-w-content font-sans text-body-sm leading-relaxed text-white/70">A truthful home for this event edition. Unpublished results, photos and impact remain clearly unavailable rather than being simulated.</p>
-        </div>
-      </section>
-      <section className="bg-sand px-5 py-8">
-        <div className="mx-auto max-w-wide">
+          <aside className={styles.lifecycle} aria-labelledby="edition-status">
+            <h2 id="edition-status">{ACTIVE_LIFECYCLE.label}</h2>
+            <p>{ACTIVE_LIFECYCLE.summary}</p>
+            <p>{ACTIVE_LIFECYCLE.registration.explanation} {ACTIVE_LIFECYCLE.community.explanation}</p>
+          </aside>
           <aside className="mb-4 rounded-card border border-sand-dark bg-white p-5 shadow-card" aria-labelledby="dar-story-status">
             <p className="font-num text-[9px] font-extrabold uppercase tracking-[.12em] text-bronze">Story source status</p>
             <h2 id="dar-story-status" className="mt-2 font-serif text-[20px] font-bold text-navy">Old Dar × Modern Dar</h2>
             <p className="mt-2 max-w-content font-sans text-caption leading-relaxed text-ink-muted">Historical photographs, captions and event-history claims are not published because no verified source and usage-rights record has been approved. This space remains intentionally honest until licensed material is available.</p>
           </aside>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className={styles.grid}>
             {SECTIONS.map(section => (
-              <article key={section.label} className="rounded-card bg-white p-5 shadow-card">
+              <article key={section.label} className={styles.card}>
                 <p className="font-num text-[9px] font-extrabold uppercase tracking-[.12em] text-bronze">{section.state}</p>
                 <h2 className="mt-2 font-serif text-[21px] font-bold text-navy">{section.label}</h2>
                 <p className="mt-2 font-sans text-caption leading-relaxed text-ink-muted">{section.detail}</p>
@@ -46,7 +43,6 @@ export default function ArchivePage() {
           </div>
         </div>
       </section>
-      <HomeFooter />
-    </main>
+    </PublicPage>
   )
 }

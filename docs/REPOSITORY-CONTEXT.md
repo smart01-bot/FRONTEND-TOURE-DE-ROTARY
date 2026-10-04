@@ -236,3 +236,12 @@ Use [INVENTORY](visual-evolution/INVENTORY.md) for actual journeys, sensitive-fi
 `/` now adopts Phase 1 VisualSurface and landing-scoped CSS; other routes keep their presentation. Hero/discipline/impact images use next/image with sizes and reserved geometry, one priority hero and lazy supporting images. Automatic rotation/countdown is absent from the landing; CountdownTimer remains unchanged for other consumers. Hero's confirmed date comes from the reviewed race-info fact, currently TBD, rather than legacy SITE.event.date.
 
 `DisciplinesSection` adds local pointer/keyboard/touch selection around canonical distances and course-map records. `EventWeekend` adds browsing-only Before/Race Day/After views from existing configs. `SponsorsSection` supports three tiers with an intentionally empty approved-record list. No CMS, sponsor source or backend API has been invented. Story/feed helpers and lifecycle action conditions are unchanged; no provider, route, dependency or environment contract changes. See latest [landing handoff](handoffs/EVOLUTION-02-LANDING-HANDOFF.md).
+
+
+## EVOLUTION-03 public experience
+
+Public race-info, course-map, stories, archive, privacy, community-guidelines and donor campaign pages now adopt `components/public/PublicPage.tsx` with scoped public/donor CSS. It composes the unchanged HomeNav/HomeFooter, existing lifecycle label/edition, active public navigation and utility links. `/` retains its Phase 2 composition; its sponsor section only gains a stable `#sponsors` target. There is no new route or API.
+
+Race topics retain their IDs/native details and canonical config. CourseMapExperience retains its engine and adds presentation/accessibility attributes; its protected hash change is explicitly reviewed in CHANGE-REGISTER, not rebaselined. StoryCard expands long already-public stories using native details; useStories and consent queries are unchanged. DonorClient retains its server props and donation behavior; thank-you presentation uses a native modal dialog, and inputs are labelled. Original EV-003/004 payment/consent risks remain.
+
+Current gate/evidence and exact next task are in [EVOLUTION-03 handoff](handoffs/EVOLUTION-03-PUBLIC-EXPERIENCE-HANDOFF.md). No new dependencies, assets, environment names, backend contract or lifecycle mode.

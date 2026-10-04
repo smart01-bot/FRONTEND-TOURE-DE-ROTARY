@@ -42,3 +42,10 @@ This register tracks current confirmed frontend problems and major limitations. 
 See [INVENTORY](visual-evolution/INVENTORY.md#inherited-defects-and-unverified-boundaries) for source evidence and reproduction: EV-001 account-only register entry; EV-002 missing reset confirmation route; EV-003 return-query-triggered client paid update; EV-004 public fundraising story/bib consent review; EV-005 unverified admin RLS/error/concurrency/audit guarantees; EV-006 webhook deployment routing unresolved. These were recorded, not functionally changed by visual work. Old TD-007 resolution covers text changes only; raster branding/export visual review remains pending. The historical dependency vulnerability counts are not a fresh audit.
 
 EVOLUTION-02 resolves TD-014 on the landing only: confirmed date reads the reviewed race-info fact, course summaries avoid unsourced venue copy, and distances are labelled configuration. Other legacy consumers and inherited EV-001–006 remain unchanged. No sponsor dataset or admin publishing service exists.
+
+
+## EVOLUTION-03 status
+
+TD-015: Chromium screenshot/overflow, keyboard, offline, synthetic data-state and automated accessibility evidence now covers all seven scoped public surfaces; zero final automated WCAG A/AA violations on their checked states. Real screen-reader, physical-device, cross-browser and live-backend verification remain pending. Initial legacy caption-contrast violations on map/archive/privacy were resolved in scoped CSS.
+
+EV-001–006, official operational content/geometry, sponsor publication, imagery rights, timing/photos, moderation, privacy operations and framework security migration remain open. Fundraising still inherits the unverified return-query paid update and public story/bib consent boundary; visual completion does not make it production-safe. SSR campaign error versus not-found behavior is unchanged and remains a functional review concern. No real payment or authorization policy was tested.

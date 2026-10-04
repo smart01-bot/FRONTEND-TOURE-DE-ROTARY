@@ -31,6 +31,8 @@ import {
   type MapMarkerKind,
 } from '@/config/course-map'
 
+import styles from './course-map.module.css'
+
 type Connectivity = 'checking' | 'online' | 'offline'
 
 const MARKER_ICONS: Record<MapMarkerKind, typeof MapPin> = {
@@ -125,11 +127,11 @@ export default function CourseMapExperience() {
   }
 
   return (
-    <section aria-labelledby="course-map-heading" className="bg-sand px-5 py-6">
-      <div className="mx-auto max-w-wide">
+    <section aria-labelledby="course-map-heading" className={styles.experience}>
+      <div className="mx-auto">
         <h2 id="course-map-heading" className="sr-only">Interactive course map</h2>
 
-        <div className="rounded-card bg-white p-2 shadow-card" role="tablist" aria-label="Map view">
+        <div className={styles.tabs} role="tablist" aria-label="Map view">
           <div className="grid grid-cols-4 gap-1">
             {COURSE_MAP_LAYERS.map((option, index) => {
               const active = option.id === activeView
@@ -140,6 +142,7 @@ export default function CourseMapExperience() {
                   id={`course-map-tab-${option.id}`}
                   role="tab"
                   aria-selected={active}
+                  tabIndex={active ? 0 : -1}
                   aria-controls="course-map-panel"
                   onClick={() => changeView(option.id)}
                   onKeyDown={event => handleTabKey(event, index)}
@@ -153,7 +156,7 @@ export default function CourseMapExperience() {
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-2" aria-label="Race sequence">
+        <div className={styles.sequence} aria-label="Race sequence">
           {COURSE_SEQUENCE.map((step, index) => (
             <div key={`${step.label}-${index}`} className="flex items-center gap-2">
               <button
@@ -178,9 +181,9 @@ export default function CourseMapExperience() {
           id="course-map-panel"
           role="tabpanel"
           aria-labelledby={`course-map-tab-${activeView}`}
-          className="mt-4 overflow-hidden rounded-card bg-white shadow-card lg:grid lg:grid-cols-[minmax(0,1.65fr)_minmax(280px,.75fr)]"
+          className={styles.panel}
         >
-          <div className="relative min-w-0 bg-navy-900 p-3 sm:p-5">
+          <div className={styles.canvasFrame}>
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="font-sans text-[10px] font-bold uppercase tracking-[.08em] text-white/45">Active view</p>
@@ -191,6 +194,7 @@ export default function CourseMapExperience() {
                   type="button"
                   onClick={fitRoute}
                   disabled={!hasMapData}
+                  aria-describedby={!hasMapData ? 'map-controls-unavailable' : undefined}
                   title={!hasMapData ? 'Official route geometry is not published' : undefined}
                   className="inline-flex min-h-11 items-center gap-2 rounded-button border border-white/20 px-3 font-sans text-[11px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-40"
                 >
@@ -200,6 +204,7 @@ export default function CourseMapExperience() {
                   type="button"
                   onClick={requestLocation}
                   disabled={!hasMapData}
+                  aria-describedby={!hasMapData ? 'map-controls-unavailable' : undefined}
                   title={!hasMapData ? 'Location becomes available after a verified map is published' : undefined}
                   className="inline-flex min-h-11 items-center gap-2 rounded-button border border-white/20 px-3 font-sans text-[11px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-40"
                 >
@@ -208,6 +213,7 @@ export default function CourseMapExperience() {
               </div>
             </div>
 
+            {!hasMapData && <p id="map-controls-unavailable" className="mb-4 text-xs leading-6">Fit, zoom and optional location are available after a verified map is published.</p>}
             {connectivity === 'checking' ? (
               <MapLoading />
             ) : (
@@ -227,7 +233,7 @@ export default function CourseMapExperience() {
             )}
           </div>
 
-          <aside className="relative z-10 -mt-4 rounded-t-[24px] bg-white px-5 pb-5 pt-6 font-sans text-body-sm text-ink-muted lg:mt-0 lg:rounded-none lg:border-l lg:border-sand-dark">
+          <aside className={styles.details}>
             <p className="font-serif text-[19px] font-bold text-navy">{layer.label} details</p>
             <p className="mt-2 leading-relaxed">{layer.description}</p>
 
@@ -270,7 +276,7 @@ export default function CourseMapExperience() {
           </aside>
         </div>
 
-        <div className="mt-4 grid gap-4 lg:grid-cols-2">
+        <div className={styles.supplement}>
           <MapLegend />
           <AccessibleMapList routes={routes} markers={markers} unavailableReason={layer.unavailableReason} />
         </div>
@@ -313,7 +319,7 @@ const CourseMapCanvas = forwardRef<HTMLDivElement, CanvasProps>(function CourseM
   const hasMapData = coordinates.length > 0
 
   return (
-    <div ref={ref} tabIndex={-1} className="relative min-h-[390px] overflow-hidden rounded-card border border-white/10 bg-[#0a1630] sm:min-h-[500px]">
+    <div ref={ref} tabIndex={-1} className={styles.canvas}>
       <svg viewBox="0 0 1000 600" className="absolute inset-0 h-full w-full" role="img" aria-label={hasMapData ? 'Published course geometry and event locations' : 'Course map unavailable'}>
         <defs>
           <pattern id="map-grid" width="50" height="50" patternUnits="userSpaceOnUse">
@@ -435,7 +441,7 @@ function MapLegend() {
 function AccessibleMapList({ routes, markers, unavailableReason }: { routes: readonly CourseRoute[]; markers: readonly CourseMapMarker[]; unavailableReason: string }) {
   return (
     <section className="rounded-card bg-white p-5 shadow-card" aria-labelledby="map-list-heading">
-      <h3 id="map-list-heading" className="font-serif text-[19px] font-bold text-navy">Route and location list</h3>
+      <h3 tabIndex={-1} id="map-list-heading" className="font-serif text-[19px] font-bold text-navy">Route and location list</h3>
       <p className="mt-1 font-sans text-caption text-ink-subtle">Text alternative to the visual map.</p>
       {routes.length === 0 && markers.length === 0 ? (
         <p className="mt-4 rounded-card bg-sand p-4 font-sans text-body-sm leading-relaxed text-ink-muted">{unavailableReason}</p>

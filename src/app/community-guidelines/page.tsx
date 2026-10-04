@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { AlertTriangle, ShieldCheck } from 'lucide-react'
-import HomeNav from '@/components/home/HomeNav'
-import HomeFooter from '@/components/home/HomeFooter'
+import { AlertTriangle } from 'lucide-react'
+import PublicPage from '@/components/public/PublicPage'
+import styles from '@/components/public/public.module.css'
 import { COMMUNITY_GUIDELINES } from '@/config/community'
 import { SITE } from '@/config/site'
 
@@ -12,31 +12,13 @@ export const metadata: Metadata = {
 }
 export default function CommunityGuidelinesPage() {
   return (
-    <main id="main-content" tabIndex={-1}>
-      <HomeNav />
+    <PublicPage current="/community-guidelines" eyebrow="Belong / Tour de Dar" title="A community worth joining." description="The Run-Up helps participants prepare, encourage one another and feel part of Tour de Dar." action={<Link href="/feed">Open the community ↗</Link>}>
 
-      <section className="bg-navy px-5 pb-8 pt-10">
+      <section className={styles.content}>
         <div className="mx-auto max-w-wide">
-          <Link href="/feed" className="inline-flex min-h-11 items-center font-sans text-caption text-white/75 underline underline-offset-4">
-            Back to the community
-          </Link>
-          <div className="mt-3 flex h-11 w-11 items-center justify-center rounded-[14px] bg-white/10 text-bronze">
-            <ShieldCheck size={21} />
-          </div>
-          <h1 className="mt-4 font-serif text-headline text-white">
-            Community <span className="text-bronze">guidelines.</span>
-          </h1>
-          <p className="mt-3 max-w-content font-sans text-body-sm leading-relaxed text-white/75">
-            The Run-Up exists to help participants prepare, encourage one another and feel part of Tour de Dar.
-          </p>
-        </div>
-      </section>
-
-      <section className="bg-sand px-5 py-7 sm:py-10">
-        <div className="mx-auto max-w-wide">
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className={styles.grid}>
             {COMMUNITY_GUIDELINES.map((guideline, index) => (
-              <article key={guideline.id} className="rounded-card border border-sand-dark bg-white p-5 shadow-card">
+              <article key={guideline.id} className={styles.card}>
                 <p className="font-num text-[10px] font-extrabold uppercase tracking-[.13em] text-bronze-700">
                   Guideline {index + 1}
                 </p>
@@ -68,7 +50,6 @@ export default function CommunityGuidelinesPage() {
         </div>
       </section>
 
-      <HomeFooter />
-    </main>
+    </PublicPage>
   )
 }

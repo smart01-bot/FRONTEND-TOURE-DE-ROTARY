@@ -33,3 +33,21 @@ Protected-shell comparison: each existing runtime diff is recorded above. No oth
 | Updated context/decision/design/asset/issue registers, STATUS/VERIFICATION/admin matrix, new handoff/next-phase message | A/B/C delivery; D requirements | Evidence, limitations, content-source requirements and cross-chat continuity. |
 
 Protected review: all 53 exact-file hashes and all 29 route files remain unchanged/present. No auth, registration, provider, role, API, Supabase, type/config, payment, privacy or lifecycle-contract edit. Shared HomeNav/HomeFooter source remains byte-identical; only the home wrapper adopts scoped appearance. No new Class D operation enabled.
+
+
+# EVOLUTION-03 — Public Race & Event Experience
+
+| Files | Class | Scope and retained boundary |
+| --- | --- | --- |
+| `src/components/public/PublicPage.tsx`, `public.module.css` | A/C | Shared opt-in public frame, navigation/current-page state, canonical lifecycle identity, utility links, scoped responsive/focus/contrast/reduced-motion styling. HomeNav/HomeFooter auth behavior retained; no global or participant change. |
+| `src/app/race-info/page.tsx` | A/B/C | Athletic header, compact/sticky topic index and native expandable topics. All 17 section IDs, facts, registration/guide gates and canonical categories/fees retained. |
+| `src/app/course-map/page.tsx`, `src/components/course-map/CourseMapExperience.tsx`, `course-map.module.css` | A/B | Wider map frame, discipline hierarchy, mobile details, text jump link, roving tab focus and explicit disabled explanation. Protected-file edit reviewed below; data, projection, optional location and offline behavior retained. |
+| `src/app/stories/page.tsx`, `src/components/stories/StoryCard.tsx` | A/B/C | Editorial identities/quotes, full-story native expansion, category/empty/error/retry presentation. Same hook/query and authorized identity fields; no photo/bib/profile publication. |
+| `src/components/home/SponsorsSection.tsx` | C, one anchor | Adds `id=sponsors` so every public frame reaches the existing Phase 2 tiered sponsor surface. Production records stay empty; no separate route, duplicate data source or publishing operation. |
+| `src/app/fundraise/[slug]/DonorClient.tsx`, `src/components/public/donor.module.css` | A/B/C | Campaign identity/purpose, responsive two-column donation surface, empty supporter presentation, explicit input labels/pressed/alert semantics and native modal focus/Escape. Existing server query, identity fields, total calculation, validation, insert, fee, payment payload, sessionStorage, return update and refresh retained. EV-003/004 remain separate reviews. |
+| `src/app/{archive,privacy,community-guidelines}/page.tsx` | A/B | Shared frame and readable cards. Archive exposes existing lifecycle summary/restrictions. Existing policy text, mailto entry points, protected results/photos links and historical-content unavailability retained. |
+| Context, decision, issue, design/asset registers, status, verification, admin requirements, handoff/indices and next-phase message | Supports A/B/C; D requirements only | Current source owners, verification, limitations and continuity. No new operation or contract enabled. |
+
+## Protected map review (no manifest reset)
+
+The original checker deliberately reports exactly `src/components/course-map/CourseMapExperience.tsx` changed: 52 other protected files are byte-identical and all 29 route files are retained. Do not describe the unchanged-manifest command as a clean pass. Its one flag is an approved A/B presentation edit, manually diff-reviewed and checked by exact-block comparison: parent component state/effects/filtering/handlers, canvas state/projection, SVG geometry rendering, location options and callbacks are unchanged. Added behavior is only roving tabIndex, focusable text-heading navigation and aria-describedby for unavailable controls. Synthetic component tests cover geometry/markers, zoom/fit and location success/denied. The production geometry/config arrays remain untouched and empty. The baseline and checker remain unchanged for future review.

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import HomeNav from '@/components/home/HomeNav'
-import HomeFooter from '@/components/home/HomeFooter'
+import PublicPage from '@/components/public/PublicPage'
+import styles from '@/components/public/public.module.css'
 import { RACE_FAQS, RACE_GUIDE, RACE_REGISTRATION, RACE_SECTIONS } from '@/config/race-info'
 import { formatTSh } from '@/lib/utils'
 import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
@@ -13,28 +13,16 @@ export const metadata: Metadata = {
 
 export default function RaceInfoPage() {
   return (
-    <main id="main-content" tabIndex={-1}>
-      <HomeNav />
-      <section className="bg-navy px-5 pt-10 pb-8">
-        <div className="mx-auto max-w-wide">
-          <Link href="/" className="inline-flex min-h-11 items-center font-sans text-caption text-white/75 underline underline-offset-4">
-            Back to home
-          </Link>
-          <h1 className="mt-3 font-serif text-headline text-white">
-            Race <span className="text-bronze">information.</span>
-          </h1>
-          <p className="mt-3 max-w-content font-sans text-body-sm leading-relaxed text-white/75">
-            Find your category, prepare for each discipline and check race-day arrangements.
-            Open a section below. Unconfirmed details are marked TBD.
-          </p>
-          <Link href="/course-map" className="mt-5 inline-flex min-h-11 items-center justify-center rounded-button border border-white/25 px-5 py-3 font-sans text-body-sm font-semibold text-white hover:border-white/50">
-            Explore course map
-          </Link>
-        </div>
-      </section>
+    <PublicPage current="/race-info" eyebrow="Prepare / Tour de Dar" title="Your race. Every detail." description="Find your category, prepare for SWIM / BIKE / RUN and check race-day arrangements. Unconfirmed information is marked TBD." action={<Link href="/course-map">Explore the course map ↗</Link>}>
 
-      <div className="bg-sand px-5 py-6">
-        <div className="mx-auto max-w-wide space-y-3">
+      <div className={styles.content}>
+        <div className={styles.raceLayout}>
+          <nav className={styles.topicNav} aria-label="Race information topics">
+            <h2>Find what you need</h2>
+            {RACE_SECTIONS.map((section, index) => <a key={section.id} href={`#${section.id}`}><span>{String(index + 1).padStart(2, '0')}</span>{section.title}</a>)}
+            <p>Choose a topic, then open it to read the details.</p>
+          </nav>
+          <div className={styles.raceSections}>
           {RACE_SECTIONS.map(section => (
             <details key={section.id} id={section.id} open={section.id === 'overview'} className="scroll-mt-20 rounded-card bg-white shadow-card">
               <summary className="cursor-pointer rounded-card px-5 py-4 font-serif text-[18px] font-bold text-navy marker:text-bronze">
@@ -128,9 +116,9 @@ export default function RaceInfoPage() {
               </div>
             </details>
           ))}
+          </div>
         </div>
       </div>
-      <HomeFooter />
-    </main>
+    </PublicPage>
   )
 }

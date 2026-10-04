@@ -55,3 +55,12 @@ When adding a decision, include the date, status (`Active`, `Pending`, `Supersed
 - Active: discipline selection and Before/Race Day/After are local browsing state, independent of operational lifecycle and registration permission.
 - Active: existing photographs are illustrative; they are never participant identities, official course evidence or treatment/impact records. Authentic organiser imagery/rights remain a publication dependency.
 - Active: sponsor tiers render only explicitly approved records; the production dataset is empty. A frontend rendering type does not establish a persistence API or new permission.
+
+
+## EVOLUTION-03 — 4 October 2026
+
+- Active, approved public scope: shared public frame, athletic type, navigable race topics, map framing, editorial stories and participant-led fundraising; calm readable privacy/community cards.
+- Active: sponsors remain the existing Phase 2 tiered section at `/#sponsors`; add its anchor and public navigation instead of introducing another source or an unneeded route.
+- Active: full-story expansion displays only the same consent-filtered record. No broader public participant identity inferred.
+- Active: map data/engine and donor payment business code remain unchanged. Review the single protected map presentation diff explicitly; do not reset its baseline hash.
+- Active: no imagery is newly adopted while source/rights approval is unresolved. No decorative line is presented as route geometry.

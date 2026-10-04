@@ -78,3 +78,34 @@ Real screen-reader, physical-device, cross-browser, authenticated backend/RLS an
 Final automated landing scan: 20 passing checks, zero violations. The engine retains an image-background contrast item for manual review; solid navy title/action backplates and reviewed token pairs establish readable foregrounds. This is not a screen-reader certification.
 
 Publication: non-forced development update to `abb0ce39766350399fb800d21219298a4d3766c1` succeeded. Fresh fetch confirmed tree `250f80f4b5bb503cc7a58566e02c16e51ddddb03`, exactly equal to the locally verified index tree, and unchanged main. Local development aligned with a clean tree. The immediate documentation receipt has its own final production build; runtime source is unchanged.
+
+
+# EVOLUTION-03 verification — 4 October 2026
+
+Baseline: fresh fetch of main and development; explicitly checked out development `7620446a4b41ddc2ff9cbba329371c7ad5497d70`, clean tree. It immediately follows Phase 2 implementation `abb0ce39766350399fb800d21219298a4d3766c1`; ancestry verified. Main is read-only `83907b713a963ec520da6e90b887a252831ed85b`. Main's historical instructions were read; current explicit development-only instruction/current governance supersede their old branch rule. Required full documents and reference code reviewed.
+
+Phase 2 gate rechecked: baseline production build passed, original 53-file/29-route boundary passed, actual landing source and receipt matched. Before screenshots captured on the fetched production build.
+
+## Checks and boundaries
+
+- Type-check and lint pass; only the two inherited profile/ticket no-img-element warnings.
+- Production build passes, 31/31 static-generation steps. A final build is rerun after documentation changes before each commit.
+- Original boundary script returns one expected reviewed flag for CourseMapExperience. 52 other protected files unchanged; 29 route files retained. Manifest/checker unchanged. Exact business-block comparison and synthetic component checks recorded in CHANGE-REGISTER; no claim of an unqualified hash pass.
+- Exact donor validation/payment/return effect/fee/payload and map state/effects/filtering/handlers/projection/geometry blocks match the fetched baseline. Server campaign query, all hooks/data helpers/config, auth/providers, middleware and participant/admin files unchanged.
+- Patch whitespace check passes. No tracked environment, dependency/lockfile, asset, API, database or role changes.
+
+## Chromium evidence
+
+External QA uses Chromium 153 and production Next builds with only loopback Supabase and synthetic records. Screenshots: before/after at 390×844, 768×1024 and 1440×1000 for seven public surfaces. Additional 360px checks and long-content screenshots. All checked document widths equal viewport widths. QA fixtures are never product data and no live mutation occurred.
+
+- Navigation: public links retain destinations; sponsor anchor reaches the existing tiered surface; privacy/community links exposed. Anonymous protected feed/results/admin destinations retain 307 login-next redirects; missing donor campaign retains 404.
+- Race: topic anchors, native keyboard-expandable sections, canonical category distances, all 17 IDs, disabled unpublished PDF and lifecycle registration states.
+- Map: Arrow/Home/End navigation, selected roving tab, optional-location disabled without geometry, zero mount-time geolocation calls, offline switching and focusable text alternative. External synthetic component test covers populated geometry/marker/source list, zoom/fit, location success and denied responses. No production geometry or permission state was injected.
+- Stories: loading, denied/error+retry, empty, populated, category-empty and reset, long name/story, keyboard full-text expansion. Query retains `story_public=eq.true`; no bib fixture rendered.
+- Fundraising: no paid supporter state, long participant/story/supporter content, existing six-supporter limit, cancelled return, name/minimum validation, quick/custom selection, denied insert, payment-init error/retry and synthetic redirect. Recorded payload keeps pending donation, amount/currency, 1.5% fee, IDs, return and cancel paths. Return behavior preserved; native dialog opens with focus, modal state and Escape dismissal. This tests compatibility, not trustworthiness of inherited EV-003.
+- Lifecycle: isolated component tests cover pre-event, race-day, memory, archive and invalid fallback. Closed states expose no race-info registration link; archive displays original restrictions.
+- Automated WCAG A/AA checks: zero final violations across seven checked pages (19–29 passing rules per page). Initial caption contrast violations fixed. Native landmarks/headings, labels, disclosure/tab semantics and focus reviewed; 3px focus and zero transition duration in reduced motion verified. Native dialog may allow tabbing to browser chrome; background is modal/inert. No real screen-reader certification.
+
+## Loading/performance scope
+
+No new map library, tile provider, asset fetch, animation loop or polling. CSS/modules remain scoped. Production first-load JS estimates change from 168→174 kB for static public pages, 174→180 kB course map, 177→184 kB stories, and 168→187 kB donor (now includes shared public navigation/identity). This is a measured build-size tradeoff, not a claim of improved LCP. Real mobile networks, field Core Web Vitals, cross-browser, physical devices and live auth/payment/RLS remain unverified. Unavailable content and inherited functional/security blockers remain in KNOWN-ISSUES.

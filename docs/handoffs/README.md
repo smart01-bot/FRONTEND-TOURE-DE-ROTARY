@@ -33,4 +33,4 @@ No phase is marked complete until its final commit is confirmed on GitHub `devel
 
 Use `EVOLUTION-01` through `EVOLUTION-05` independently of historical PHASE-00–07. The current phase and latest handoff are linked from [visual-evolution/STATUS.md](../visual-evolution/STATUS.md). Always fetch and check out development before editing; never infer completion from the historical phase number.
 
-Latest evolution handoff: [EVOLUTION-02 landing](EVOLUTION-02-LANDING-HANDOFF.md). Next: EVOLUTION-03 public experience.
+Latest evolution handoff: [EVOLUTION-03 public experience](EVOLUTION-03-PUBLIC-EXPERIENCE-HANDOFF.md). Next: EVOLUTION-04 participant/admin evolution.

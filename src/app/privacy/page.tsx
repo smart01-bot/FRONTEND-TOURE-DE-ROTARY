@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Camera, Mail, MessageCircle, ShieldCheck, UserRound, FlaskConical } from 'lucide-react'
-import HomeNav from '@/components/home/HomeNav'
-import HomeFooter from '@/components/home/HomeFooter'
+import PublicPage from '@/components/public/PublicPage'
+import styles from '@/components/public/public.module.css'
 import { SITE } from '@/config/site'
 
 export const metadata: Metadata = {
@@ -43,28 +43,14 @@ export default function PrivacyPage() {
   const deletionHref = `mailto:${SITE.contact.email}?subject=${encodeURIComponent('Tour de Dar account deletion request')}`
 
   return (
-    <main id="main-content" tabIndex={-1}>
-      <HomeNav />
-      <section className="bg-navy px-5 pb-8 pt-10">
-        <div className="mx-auto max-w-wide">
-          <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-white/10 text-bronze" aria-hidden="true">
-            <ShieldCheck size={21} />
-          </div>
-          <h1 className="mt-4 font-serif text-headline text-white">
-            Privacy &amp; <span className="text-bronze">data rights.</span>
-          </h1>
-          <p className="mt-3 max-w-content font-sans text-body-sm leading-relaxed text-white/75">
-            Clear boundaries for participant information, public stories, photographs, research and requests.
-          </p>
-        </div>
-      </section>
+    <PublicPage current="/privacy" eyebrow="Trust / Tour de Dar" title="Your story. Your choice." description="Privacy and data rights: clear boundaries for participant information, stories, photographs and requests.">
 
-      <section className="bg-sand px-5 py-7 sm:py-10" aria-labelledby="privacy-boundaries">
+      <section className={styles.content} aria-labelledby="privacy-boundaries">
         <div className="mx-auto max-w-wide">
           <h2 id="privacy-boundaries" className="sr-only">Privacy and consent boundaries</h2>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className={styles.grid}>
             {sections.map(({ title, icon: Icon, text }) => (
-              <article key={title} className="rounded-card border border-sand-dark bg-white p-5 shadow-card">
+              <article key={title} className={styles.card}>
                 <Icon size={18} className="text-bronze-700" aria-hidden="true" />
                 <h3 className="mt-3 font-serif text-[19px] font-bold text-navy">{title}</h3>
                 <p className="mt-2 font-sans text-body-sm leading-6 text-ink-muted">{text}</p>
@@ -95,7 +81,6 @@ export default function PrivacyPage() {
           </p>
         </div>
       </section>
-      <HomeFooter />
-    </main>
+    </PublicPage>
   )
 }
