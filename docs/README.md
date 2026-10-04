@@ -11,7 +11,8 @@ This directory carries the durable context required to continue the project acro
 5. [`KNOWN-ISSUES.md`](KNOWN-ISSUES.md) — active defects and limitations
 6. [`DESIGN-REFERENCES.md`](DESIGN-REFERENCES.md) — approved and superseded visual directions
 7. [`ASSET-REGISTER.md`](ASSET-REGISTER.md) — important asset locations and usage
-8. Latest numbered file in [`handoffs/`](handoffs/) — current phase status and next task
+8. [`visual-evolution/MASTER-CONTEXT.md`](visual-evolution/MASTER-CONTEXT.md) — approved five-phase visual scope, Tour authority and admin expansion
+9. [`visual-evolution/STATUS.md`](visual-evolution/STATUS.md) — current evolution phase, inventories and latest EVOLUTION handoff; do not select historical PHASE-07 as the latest evolution handoff
 
 ## Maintenance ownership
 

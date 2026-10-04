@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { SITE } from '@/config/site'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Heart, Home, LogOut, MessageSquare, Ticket, User, Bike, Moon, Sun, Check, Trophy } from 'lucide-react'
@@ -73,7 +74,7 @@ export function DesktopNav() {
       >
         <Link href="/dashboard" className="flex items-center gap-3">
           <div className="relative h-12 w-[148px] shrink-0">
-            <Image src="/assets/auth/tour-de-rotary-mark.png" alt="Tour de Dar" width={272} height={272} className="h-full w-full object-contain object-left" />
+            <Image src="/assets/auth/tour-de-rotary-mark.png" alt={SITE.name} width={272} height={272} className="h-full w-full object-contain object-left" />
           </div>
         </Link>
 

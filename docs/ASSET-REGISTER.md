@@ -57,3 +57,7 @@ No asset was added, renamed or removed. Archive and lifecycle presentation reuse
 ## Phase 7 launch-hardening assets
 
 No asset was added, renamed or removed. The existing event mark is used for social-sharing metadata. The landing photographs were audited and include files between approximately 1.1 MB and 3.7 MB; they were not recompressed or replaced because Phase 7 did not receive approval to alter visual quality. Historical storytelling remains absent until provenance, rights, credit, attribution and factual review are registered.
+
+## EVOLUTION-01
+
+No image/font/video asset was copied, renamed or added. The opt-in system reuses existing Playfair/Montserrat/Jakarta variables; ImagePanel requires caller-reviewed source/alt/caption and reserves image space. Existing technical logo filenames remain stable. Embedded legacy wording and provenance in raster logos/bib artwork need review before later replacement. Augment assets are not licensed by virtue of being in its repository.

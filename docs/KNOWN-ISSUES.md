@@ -36,3 +36,7 @@ This register tracks current confirmed frontend problems and major limitations. 
 - Change status to `In progress`, `Blocked`, `Resolved`, or `Deferred` as appropriate.
 - For resolved issues, record the full fix commit SHA.
 - Remove routine resolved items after the relevant handoff preserves the result; retain only prevention-critical lessons in `REPOSITORY-CONTEXT.md`.
+
+## EVOLUTION-01 inherited findings
+
+See [INVENTORY](visual-evolution/INVENTORY.md#inherited-defects-and-unverified-boundaries) for source evidence and reproduction: EV-001 account-only register entry; EV-002 missing reset confirmation route; EV-003 return-query-triggered client paid update; EV-004 public fundraising story/bib consent review; EV-005 unverified admin RLS/error/concurrency/audit guarantees; EV-006 webhook deployment routing unresolved. These were recorded, not functionally changed by visual work. Old TD-007 resolution covers text changes only; raster branding/export visual review remains pending. The historical dependency vulnerability counts are not a fresh audit.

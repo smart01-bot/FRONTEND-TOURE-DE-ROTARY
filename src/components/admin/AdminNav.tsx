@@ -7,6 +7,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { SITE } from '@/config/site'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { Check, Hash, LayoutDashboard, LogOut, Moon, Sun, Users } from 'lucide-react'
@@ -75,7 +76,7 @@ export function AdminShell({ name, children }: { name: string; children: React.R
           <div className="relative h-12 w-[148px] shrink-0">
             <Image
               src="/assets/auth/tour-de-rotary-mark.png"
-              alt="Tour de Dar"
+              alt={SITE.name}
               width={272}
               height={272}
               className="h-full w-full object-contain object-left"

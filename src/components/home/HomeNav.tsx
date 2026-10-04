@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createBrowserClient } from '@supabase/ssr'
-import { SITE } from '@/config/site'
+import { BrandName } from '@/components/brand/BrandName'
 import type { User } from '@supabase/supabase-js'
 import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
 
@@ -52,7 +52,7 @@ export default function HomeNav() {
       {/* Wordmark */}
       <Link href="/" className="focus-visible:outline-none">
         <span className="font-serif text-[19px] font-bold text-navy tracking-tight leading-none">
-          {SITE.name}
+          <BrandName />
         </span>
       </Link>
 

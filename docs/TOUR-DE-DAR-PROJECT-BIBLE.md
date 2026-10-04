@@ -379,6 +379,10 @@ People, places, movement and memories should carry the experience.
 
 ## 4. Design direction
 
+### Approved EVOLUTION program (4 October 2026)
+
+The five-phase [Visual Evolution Master Context](visual-evolution/MASTER-CONTEXT.md) is approved. Its named presentation scopes supersede historical UI-preservation restrictions within each phase. EVOLUTION-01 establishes shared foundations only; landing, public and participant/admin page evolution follow in phases 02–04, then phase 05 verifies cohesion. Authentication, authorization, Supabase, API/route contracts, privacy, lifecycle and existing capabilities remain protected. Full event management is approved as a capability objective; exact roles/contracts and live grants are not approved by this brief. Use [STATUS](visual-evolution/STATUS.md) and the latest EVOLUTION handoff for current progress. Historical phase completion is not evidence that evolution phases are complete.
+
 ### Protected UI baseline
 
 The UI committed on the active GitHub `development` branch must be preserved during feature work, and `main` remains the protected pre-Phase-1 visual reference. The existing design must be followed religiously.

@@ -12,7 +12,7 @@ Before planning, editing, generating code, or beginning any project phase:
 4. Read `docs/TOUR-DE-DAR-PROJECT-BIBLE.md` completely.
 5. Read `docs/REPOSITORY-CONTEXT.md` completely.
 6. Read `docs/DECISIONS.md`, `docs/KNOWN-ISSUES.md`, `docs/DESIGN-REFERENCES.md`, and `docs/ASSET-REGISTER.md`.
-7. Read the latest numbered file in `docs/handoffs/`.
+7. For EVOLUTION work, read `docs/visual-evolution/MASTER-CONTEXT.md`, `STATUS.md`, `CHANGE-REGISTER.md`, `ADMIN-CAPABILITIES.md`, and the latest `EVOLUTION-*` handoff. Historical `PHASE-*` handoffs describe the earlier program.
 8. Inspect the current code relevant to the requested phase.
 
 No implementation may begin before this review is complete.
@@ -47,6 +47,12 @@ Every phase must:
 13. Record the full final commit SHA in the handoff.
 
 A phase is not complete if its work exists only locally, only in a ZIP, in an unpushed commit, or in documentation that does not match GitHub `development`.
+
+## Approved visual evolution scope
+
+The user approved the five phases in [the master context](docs/visual-evolution/MASTER-CONTEXT.md). This exact scope supersedes historical UI-preservation rules only for the named phase surfaces. Do not ask for settled redesign approval again. EVOLUTION-01 establishes opt-in shared foundations and safe shared branding, not individual-page redesigns. Tour remains the functional/integration authority; Augment is a read-only visual reference. Preserve authentication, permissions, data/consent, lifecycle, API contracts, routes and unrelated work. Classify changes A/B/C/D and keep unavailable operations gated. No live role grants, deployment or database mutation is authorized by a visual phase.
+
+Run `node scripts/check-evolution-boundaries.mjs` and investigate every protected-file/route difference; do not rebaseline it automatically. Latest evolution status: [STATUS](docs/visual-evolution/STATUS.md).
 
 ## UI preservation law
 

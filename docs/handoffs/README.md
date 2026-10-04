@@ -28,3 +28,7 @@ The highest numbered applicable handoff is the one future work must read. Correc
 - Exact recommended next action
 
 No phase is marked complete until its final commit is confirmed on GitHub `development`.
+
+## Visual evolution workstream
+
+Use `EVOLUTION-01` through `EVOLUTION-05` independently of historical PHASE-00–07. The current phase and latest handoff are linked from [visual-evolution/STATUS.md](../visual-evolution/STATUS.md). Always fetch and check out development before editing; never infer completion from the historical phase number.

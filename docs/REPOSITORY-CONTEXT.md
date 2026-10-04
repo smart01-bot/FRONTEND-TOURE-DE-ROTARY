@@ -5,7 +5,7 @@
 
 **Protected stable branch:** `main` at pre-Phase-1 state
 **Phase 7 starting baseline:** `313cb684a479cc501c8bbbdbdc416e30591dff08`
-**Reviewed:** 20 September 2026
+**Reviewed:** 4 October 2026 (EVOLUTION-01)
 
 This file describes the committed implementation. Source code remains authoritative for exact behaviour.
 
@@ -29,7 +29,7 @@ This file describes the committed implementation. Source code remains authoritat
 | `/course-map` | Public | SWIM, BIKE, RUN and EVENT map views with configurable verified geometry and honest unavailable states |
 | `/fundraise/[slug]` | Public | Public fundraising campaign |
 | `/login` | Guest | Participant sign-in |
-| `/register` | Guest | Multi-step registration |
+| `/register` | Guest | Account creation through DetailsStep; race-registration steps are not connected |
 | `/reset-password` | Guest | Password recovery |
 | `/dashboard` | Participant | Participant overview |
 | `/ticket` | Participant | Digital ticket and bib presentation |
@@ -82,7 +82,7 @@ This file describes the committed implementation. Source code remains authoritat
 ## Current connected flows
 
 - Supabase authentication and password recovery
-- Multi-step participant registration
+- Account creation (DetailsStep → signUp); category/discipline/story/payment step files are not connected to the current entry journey
 - Participant record to dashboard, ticket, training, fundraising, story, profile, and feed
 - Public fundraising campaigns and supporter activity
 - Public participant stories
@@ -223,3 +223,9 @@ Update this file whenever a phase changes routes, providers, shared layouts, dat
 - Persistent reports require approved reasons, statuses, moderator roles, enforcement behaviour and RLS. Until then, the feed must say that no report was submitted.
 - Profile photos and post media remain disabled until approved storage buckets, file constraints and RLS exist.
 - No database migration, storage change, dependency, environment-variable name or asset was introduced by Phase 4.
+
+## EVOLUTION-01 shared foundation
+
+Approved scope: [MASTER-CONTEXT](visual-evolution/MASTER-CONTEXT.md). Opt-in `src/components/visual-system` uses a scoped CSS module and existing fonts; public/participant/admin modes do not replace legacy globals or page layouts. Shared `BrandName` delegates to SITE.name; shared participant/admin logo alt text also uses SITE.name. No routes, providers, dependencies, environment names, data helpers, permissions or lifecycle settings changed.
+
+Use [INVENTORY](visual-evolution/INVENTORY.md) for actual journeys, sensitive-file consumers and inherited defects; [ADMIN-CAPABILITIES](visual-evolution/ADMIN-CAPABILITIES.md) separates current hq_admin functions from expanded backend requirements. Read [STATUS](visual-evolution/STATUS.md) before choosing the next phase. Run `node scripts/check-evolution-boundaries.mjs` alongside existing checks. Historical UI-preservation rules still apply outside the approved phase scope.

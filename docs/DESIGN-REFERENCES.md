@@ -79,3 +79,7 @@ Record:
 6. The replacement reference when superseded
 
 Unregistered chat screenshots and discarded mockups are not binding.
+
+## DR-005 — Approved visual evolution reference
+
+`rotaract4compassion/augmentfx` main `2b0fd671369d05389b9c56189f4ceb920469aa84`: display hierarchy, photographic depth, event tiles, route framing and sponsor hierarchy are approved inspiration. See [extraction decisions](visual-evolution/VISUAL-SYSTEM.md). Do not copy its event model, fake operations, sample records, auth bypasses, payment adapter or unverified asset rights. Named EVOLUTION presentation scopes override historical preservation records for those surfaces only. EVOLUTION-01 uses opt-in components and shared brand text; no individual page redesign.

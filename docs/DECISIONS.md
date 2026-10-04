@@ -36,3 +36,13 @@ Only settled, project-wide choices belong here. Newer entries replace older entr
 ## Entry format
 
 When adding a decision, include the date, status (`Active`, `Pending`, `Superseded`), exact decision, reason, affected areas, and the decision it replaces when applicable.
+
+## Visual evolution decisions — 4 October 2026
+
+| Status | Decision | Scope / supersession |
+| --- | --- | --- |
+| Active — user approved | Five-phase visual evolution; Tour development supplies functional truth, Augment read-only inspiration | Supersedes blanket UI-preservation restrictions only within each named EVOLUTION scope; main stays protected |
+| Active | EVOLUTION-01 components are opt-in CSS-module foundations with public/participant/admin modes, existing fonts and stable discipline colors | No independent page redesign or global-token replacement |
+| Active — user approved | Product name Tour de Dar; retain Rotary attribution and technical identifiers | Shared branding first, page/artwork/export sweep later |
+| Active — scope only | Full event management targets participant approvals, content, sponsors, moderation, race operations, staff permissions and audit | Exact role strings, account grants and persistence contracts remain undecided; retain hq_admin guard |
+| Active | Repository master brief is the phase entry point; STATUS and newest EVOLUTION handoff govern progress | Separate evolution numbering from historical phases 0–7; one chat per phase |

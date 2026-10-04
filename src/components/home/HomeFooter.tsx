@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import { SITE } from '@/config/site'
+import { BrandName } from '@/components/brand/BrandName'
 
 export default function HomeFooter() {
   return (
     <footer className="bg-navy-900 px-5 py-6 flex flex-wrap items-center justify-between gap-4">
       <div>
         <div className="font-serif text-[16px] font-bold text-white mb-1 leading-none">
-          {SITE.name}
+          <BrandName />
         </div>
         <div className="font-sans text-[11px] text-white/30 font-medium">
           {SITE.event.location}
