@@ -1,15 +1,18 @@
 'use client'
+
 import { useState } from 'react'
 import Link from 'next/link'
 import { sendPasswordReset } from '@/lib/supabase/auth'
 
 const inp = [
-  'w-full bg-white/[.07] border-[1.5px] border-white/[.11] rounded-[12px]',
-  'px-4 py-[15px] font-sans text-body text-white',
-  'placeholder:text-white/[.22]',
-  'focus:outline-none focus:border-bronze focus:bg-white/10',
+  'w-full bg-white border-[1.5px] border-[#0D1B3D]/50 rounded-[12px]',
+  'px-4 py-[15px] font-sans text-body text-[#0D1B3D]',
+  'placeholder:text-[#0D1B3D]/70',
+  'focus:outline-none focus:border-[#9F2B68] focus:ring-4 focus:ring-[#9F2B68]/10',
   'transition-all duration-200',
 ].join(' ')
+
+const lbl = 'block font-num font-extrabold text-[10px] text-[#0D1B3D]/70 uppercase tracking-[.08em] mb-[9px]'
 
 export default function ResetPasswordPage() {
   const [email, setEmail] = useState('')
@@ -18,26 +21,35 @@ export default function ResetPasswordPage() {
   const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit() {
-    if (!email) { setError('Please enter your email address.'); return }
-    setLoading(true); setError(null)
-    const { error: e } = await sendPasswordReset(email)
+    const trimmedEmail = email.trim()
+    if (!trimmedEmail) { setError('Please enter your email address.'); return }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) { setError('Enter a valid email address.'); return }
+    setLoading(true)
+    setError(null)
+    const { error: e } = await sendPasswordReset(trimmedEmail)
     if (e) { setError(e); setLoading(false); return }
-    setSent(true); setLoading(false)
+    setSent(true)
+    setLoading(false)
   }
 
   if (sent) return (
     <div className="w-full px-6 pb-10 animate-fade-up">
-      <div className="bg-white/[.06] border-[1.5px] border-white/10 rounded-[18px] p-8 text-center mt-6">
-        <div className="w-14 h-14 rounded-full bg-bronze/[.15] flex items-center justify-center mx-auto mb-5">
-          <svg className="w-7 h-7 text-bronze" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+      <div className="mt-6 rounded-[18px] border-[1.5px] border-[#3F78B5]/20 bg-[#3F78B5]/[.05] p-8 text-center">
+        <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-[#9F2B68]/[.10]">
+          <svg className="h-7 w-7 text-[#9F2B68]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden>
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
         </div>
-        <h2 className="font-serif text-[28px] font-bold italic text-white tracking-[-0.02em] mb-2">Check your inbox.</h2>
-        <p className="font-sans text-[13px] text-white/40 mb-6 leading-relaxed">
-          Reset link sent to <span className="text-bronze font-semibold">{email}</span>. Expires in 1 hour.
-        </p>
-        <Link href="/login" className="font-sans text-[13px] font-semibold text-bronze/70 hover:text-bronze transition-colors">
+        <div role="status" aria-live="polite">
+          <h2 className="mb-2 font-serif text-[28px] font-bold italic tracking-[-0.02em] text-[#0D1B3D]">Check your inbox.</h2>
+          <p className="mb-6 font-sans text-[13px] leading-relaxed text-[#0D1B3D]/70">
+            Reset link sent to <span className="font-semibold text-[#9F2B68]">{email.trim()}</span>.
+          </p>
+          <p className="mb-6 font-sans text-[12px] leading-relaxed text-[#0D1B3D]/60">
+            Follow the instructions in the email to continue.
+          </p>
+        </div>
+        <Link href="/login" className="font-sans text-[13px] font-semibold text-[#9F2B68] transition-opacity hover:opacity-80">
           Back to sign in →
         </Link>
       </div>
@@ -45,38 +57,58 @@ export default function ResetPasswordPage() {
   )
 
   return (
-    <div className="w-full px-6 pb-10 animate-fade-up">
-      <h2 className="font-serif text-[32px] font-bold italic text-white leading-[1.08] tracking-[-0.02em] mb-[6px]">
+    <form
+      className="w-full px-6 pb-10 animate-fade-up"
+      onSubmit={event => { event.preventDefault(); void handleSubmit() }}
+      noValidate
+      aria-busy={loading}
+    >
+      <h2 className="mb-[6px] font-serif text-[32px] font-bold italic leading-[1.08] tracking-[-0.02em] text-[#0D1B3D]">
         Reset your password.
       </h2>
-      <p className="font-sans text-[13px] text-white/40 mb-[26px] leading-relaxed">
+      <p className="mb-[26px] font-sans text-[13px] leading-relaxed text-[#0D1B3D]/70">
         Enter your email and we&apos;ll send you a reset link.
       </p>
+
       <div className="mb-5">
-        <label className="block font-num font-extrabold text-[10px] text-white/40 uppercase tracking-[.08em] mb-[9px]">Email</label>
-        <input type="email" autoComplete="email" placeholder="you@example.com" value={email}
-          onChange={e => setEmail(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-          className={inp} />
+        <label htmlFor="reset-email" className={lbl}>Email</label>
+        <input
+          id="reset-email"
+          type="email"
+          autoComplete="email"
+          placeholder="you@example.com"
+          value={email}
+          onChange={event => setEmail(event.target.value)}
+          disabled={loading}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? 'reset-error' : undefined}
+          className={inp}
+        />
       </div>
+
       {error && (
-        <div className="mb-5 rounded-[12px] bg-coral/10 border border-coral/30 px-4 py-3">
-          <p className="font-sans text-[13px] text-coral">{error}</p>
+        <div id="reset-error" role="alert" className="mb-5 rounded-[12px] border border-[#9F2B68]/25 bg-[#9F2B68]/[.07] px-4 py-3">
+          <p className="font-sans text-[13px] text-[#9F2B68]">{error}</p>
         </div>
       )}
-      <button type="button" onClick={handleSubmit} disabled={loading}
-        className="w-full bg-bronze text-navy font-sans text-[14px] font-extrabold rounded-[12px] py-4
-                   hover:opacity-90 active:scale-[.98] disabled:opacity-60 disabled:cursor-not-allowed
-                   transition-all duration-200 focus:outline-none">
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full rounded-[12px] bg-[#FFC62E] py-4 font-sans text-[14px] font-extrabold text-[#0D1B3D]
+                   transition-all duration-200 hover:brightness-95 active:scale-[.98]
+                   disabled:cursor-not-allowed disabled:opacity-60 focus:outline-none"
+      >
         {loading
-          ? <span className="flex items-center justify-center gap-2"><span className="w-4 h-4 border-2 border-navy/30 border-t-navy rounded-full animate-spin" />Sending…</span>
+          ? <span className="flex items-center justify-center gap-2"><span className="h-4 w-4 animate-spin rounded-full border-2 border-[#0D1B3D]/30 border-t-[#0D1B3D]" />Sending…</span>
           : 'Send reset link'}
       </button>
+
       <p className="mt-6 text-center">
-        <Link href="/login" className="font-sans text-[13px] font-semibold text-bronze/60 hover:text-bronze transition-colors">
+        <Link href="/login" className="font-sans text-[13px] font-semibold text-[#9F2B68] transition-opacity hover:opacity-80">
           ← Back to sign in
         </Link>
       </p>
-    </div>
+    </form>
   )
 }
