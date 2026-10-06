@@ -40,8 +40,8 @@ function StandardAuthLayout({ children }: { children: React.ReactNode }) {
                 <div className="px-7 pb-8 pt-7 sm:px-9 sm:pb-9 sm:pt-8">
                   {!isReset && (
                     <div className="mb-7 flex items-center rounded-full bg-[#3F78B5]/[.07] p-1">
-                      <Link href="/login" className={`flex-1 rounded-full py-2.5 text-center font-sans text-[12px] font-extrabold transition-all ${!isRegister ? 'bg-[#3F78B5] text-white shadow-sm' : 'text-[#3F78B5]/60 hover:text-[#3F78B5]'}`}>Sign in</Link>
-                      <Link href="/register" className={`flex-1 rounded-full py-2.5 text-center font-sans text-[12px] font-extrabold transition-all ${isRegister ? 'bg-[#9F2B68] text-white shadow-sm' : 'text-[#9F2B68]/65 hover:text-[#9F2B68]'}`}>{ACTIVE_LIFECYCLE.registration.state === 'open' ? 'Register' : 'Registration closed'}</Link>
+                      <Link href="/login" className={`flex-1 rounded-full py-2.5 text-center font-sans text-[12px] font-extrabold transition-all ${!isRegister ? 'bg-[#3F78B5] text-white shadow-sm' : 'text-[#3F78B5] hover:brightness-90'}`}>Sign in</Link>
+                      <Link href="/register" className={`flex-1 rounded-full py-2.5 text-center font-sans text-[12px] font-extrabold transition-all ${isRegister ? 'bg-[#9F2B68] text-white shadow-sm' : 'text-[#9F2B68] hover:brightness-90'}`}>{ACTIVE_LIFECYCLE.registration.state === 'open' ? 'Register' : 'Registration closed'}</Link>
                     </div>
                   )}
                   {children}

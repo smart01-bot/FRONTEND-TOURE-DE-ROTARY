@@ -13,19 +13,24 @@ const MAGENTA = '#9F2B68'
 const YELLOW = '#FFC62E'
 
 const inp = [
-  'w-full bg-white border-[1.5px] border-[#0D1B3D]/[.12] rounded-[12px]',
+  'w-full bg-white border-[1.5px] border-[#0D1B3D]/50 rounded-[12px]',
   'px-4 py-[15px] font-sans text-body text-[#0D1B3D]',
-  'placeholder:text-[#0D1B3D]/30',
+  'placeholder:text-[#0D1B3D]/70',
   'focus:outline-none focus:border-[#9F2B68] focus:ring-4 focus:ring-[#9F2B68]/10',
   'transition-all duration-200',
 ].join(' ')
 
-const lbl = 'block font-num font-extrabold text-[10px] text-[#0D1B3D]/55 uppercase tracking-[.08em] mb-[9px]'
+const lbl = 'block font-num font-extrabold text-[10px] text-[#0D1B3D]/70 uppercase tracking-[.08em] mb-[9px]'
+
+function safeInternalPath(value: string | null): string {
+  if (!value || !value.startsWith('/') || value.startsWith('//') || value.includes('\\')) return '/dashboard'
+  return value
+}
 
 export default function LoginForm() {
   const router       = useRouter()
   const searchParams = useSearchParams()
-  const nextPath     = searchParams.get('next') ?? '/dashboard'
+  const nextPath     = safeInternalPath(searchParams.get('next'))
 
   const [role,     setRole]     = useState<Role>('participant')
   const [email,    setEmail]    = useState('')
@@ -33,6 +38,7 @@ export default function LoginForm() {
   const [showPass, setShowPass] = useState(false)
   const [loading,  setLoading]  = useState(false)
   const [error,    setError]    = useState<string | null>(null)
+  const credentialsInvalid = error === 'Please enter your email and password.' || error === 'Incorrect email or password. Please try again.'
 
   async function handleSubmit() {
     if (!email || !password) { setError('Please enter your email and password.'); return }
@@ -75,7 +81,7 @@ export default function LoginForm() {
         <h2 className="font-serif text-[32px] font-bold italic text-[#0D1B3D] leading-[1.08] tracking-[-0.02em]">
            Login <span style={{ color: MAGENTA }}>to your account.</span>
         </h2>
-        <p className="font-sans text-[13px] text-[#0D1B3D]/55 mt-2 leading-relaxed">
+        <p className="font-sans text-[13px] text-[#0D1B3D]/70 mt-2 leading-relaxed">
           Continue your journey. Track your progress,
           manage your fundraising and more.
         </p>
@@ -89,7 +95,7 @@ export default function LoginForm() {
             onClick={() => { setRole(r); setError(null) }}
             aria-pressed={role === r}
             className="flex-1 rounded-[10px] py-[10px] font-sans text-[12px] font-extrabold transition-all focus:outline-none"
-            style={role === r ? { background: BLUE, color: '#fff' } : { color: `${BLUE}99` }}
+            style={role === r ? { background: BLUE, color: '#fff' } : { color: BLUE }}
           >
             {r === 'participant' ? 'Participant' : 'HQ Admin'}
           </button>
@@ -99,7 +105,7 @@ export default function LoginForm() {
       <div className="mb-5">
         <label htmlFor="login-email" className={lbl}>Email</label>
         <input id="login-email" type="email" autoComplete="email" placeholder="you@example.com" value={email}
-          onChange={e => setEmail(e.target.value)} aria-invalid={Boolean(error)} aria-describedby={error ? 'login-error' : undefined} className={inp} />
+          onChange={e => setEmail(e.target.value)} aria-invalid={credentialsInvalid} aria-describedby={credentialsInvalid ? 'login-error' : undefined} className={inp} />
       </div>
 
       <div className="mb-0">
@@ -111,7 +117,7 @@ export default function LoginForm() {
         </div>
         <div className="relative">
           <input id="login-password" type={showPass ? 'text' : 'password'} autoComplete="current-password" placeholder="Your password" value={password}
-            onChange={e => setPassword(e.target.value)} aria-invalid={Boolean(error)} aria-describedby={error ? 'login-error' : undefined} className={`${inp} pr-[54px]`} />
+            onChange={e => setPassword(e.target.value)} aria-invalid={credentialsInvalid} aria-describedby={credentialsInvalid ? 'login-error' : undefined} className={`${inp} pr-[54px]`} />
           <button type="button" onClick={() => setShowPass(p => !p)}
             aria-label={showPass ? 'Hide password' : 'Show password'} aria-pressed={showPass}
             className="absolute right-4 top-1/2 -translate-y-1/2 font-num font-bold text-[11px] tracking-[.05em] hover:opacity-70 focus:outline-none"
@@ -139,7 +145,7 @@ export default function LoginForm() {
         ) : `Sign in as ${role === 'admin' ? 'HQ Admin' : 'Participant'}`}
       </button>
 
-      <p className="mt-6 font-sans text-[13px] text-[#0D1B3D]/50 text-center leading-relaxed">
+      <p className="mt-6 font-sans text-[13px] text-[#0D1B3D]/70 text-center leading-relaxed">
         Don&apos;t have an account?{' '}
         <Link href="/register" className="font-extrabold hover:opacity-75" style={{ color: MAGENTA }}>
           Register for Tour de Dar 2026 →
