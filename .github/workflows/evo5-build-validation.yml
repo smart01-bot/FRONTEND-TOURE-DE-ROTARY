@@ -15,19 +15,18 @@ jobs:
       NEXT_PUBLIC_API_BASE_URL: http://127.0.0.1:8787
       NEXT_PUBLIC_EVENT_LIFECYCLE: pre_event
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
-      - name: Type check
-        run: npm run type-check
-      - name: Lint
-        run: npm run lint
-      - name: Boundary audit
-        continue-on-error: true
-        run: node scripts/check-evolution-boundaries.mjs
-      - name: Production build
-        run: npm run build
+      - name: Clone validation branch
+        run: |
+          git clone --depth 1 --branch evo5-build-validation https://github.com/smart01-bot/FRONTEND-TOURE-DE-ROTARY.git repo
+          cd repo
+          git rev-parse HEAD
+      - name: Install and verify
+        working-directory: repo
+        run: |
+          node --version
+          npm --version
+          npm ci --no-audit --no-fund
+          npm run type-check
+          npm run lint
+          node scripts/check-evolution-boundaries.mjs || true
+          npm run build
