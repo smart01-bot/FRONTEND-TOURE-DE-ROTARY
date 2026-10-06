@@ -1,6 +1,8 @@
+import { PortalSurface } from '@/components/participant/PortalSurface'
 import { DesktopNav } from '@/components/participant/DesktopNav'
 import { BottomNav } from '@/components/participant/BottomNav'
 import { ParticipantThemeProvider } from '@/context/ParticipantThemeContext'
+import { LifecycleNotice } from '@/components/lifecycle/LifecycleNotice'
 
 export default function ParticipantLayout({
   children,
@@ -9,10 +11,12 @@ export default function ParticipantLayout({
 }) {
   return (
     <ParticipantThemeProvider>
+      <PortalSurface>
       <div className="participant-shell min-h-dvh overflow-hidden bg-sand text-navy transition-colors duration-200">
         <DesktopNav />
 
-        <main className="relative min-h-dvh overflow-x-hidden overflow-y-auto pb-[82px] pt-[60px] lg:h-dvh lg:pb-0 lg:pl-[228px] lg:pt-[72px]">
+        <main id="main-content" tabIndex={-1} className="relative min-h-dvh overflow-x-hidden overflow-y-auto pb-[82px] pt-[60px] lg:h-dvh lg:pb-0 lg:pl-[228px] lg:pt-[72px]">
+          <LifecycleNotice />
           <div className="mx-auto w-full max-w-[1480px] pb-6 lg:pb-10">
             {children}
           </div>
@@ -20,6 +24,7 @@ export default function ParticipantLayout({
 
         <BottomNav />
       </div>
+    </PortalSurface>
     </ParticipantThemeProvider>
   )
 }

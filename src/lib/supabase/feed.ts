@@ -3,19 +3,24 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { supabase } from '@/lib/supabase/client'
-import type { FeedPost, CreatePostPayload, ReactionEmoji } from '@/types/feed'
+import type { FeedPost, CreatePostPayload, PostComment, ReactionEmoji } from '@/types/feed'
 
 // ── Feed posts ─────────────────────────────────────────────────────────────
 
-export async function getFeedPosts(): Promise<FeedPost[]> {
+async function fetchFeedPosts(userId?: string): Promise<FeedPost[]> {
   // Step 1 — posts
-  const { data: posts, error } = await supabase
+  let query = supabase
     .from('posts')
     .select('id, user_id, content, post_type, discipline, created_at')
     .order('created_at', { ascending: false })
     .limit(50)
 
-  if (error || !posts || posts.length === 0) return []
+  if (userId) query = query.eq('user_id', userId)
+
+  const { data: posts, error } = await query
+
+  if (error) throw error
+  if (!posts || posts.length === 0) return []
 
   const userIds = [...new Set(posts.map(p => p.user_id))]
   const postIds = posts.map(p => p.id)
@@ -49,6 +54,15 @@ export async function getFeedPosts(): Promise<FeedPost[]> {
     reactions:     (reactions ?? []).filter(r => r.post_id === p.id),
     comment_count: (comments ?? []).filter(c => c.post_id === p.id).length,
   }))
+}
+
+export async function getFeedPosts(): Promise<FeedPost[]> {
+  return fetchFeedPosts()
+}
+
+/** Authenticated participant activity. Never use this as a public-profile query. */
+export async function getParticipantPosts(userId: string): Promise<FeedPost[]> {
+  return fetchFeedPosts(userId)
 }
 
 // ── Create post ────────────────────────────────────────────────────────────
@@ -98,4 +112,37 @@ export async function toggleReaction(postId: string, emoji: ReactionEmoji): Prom
     await supabase.from('post_reactions')
       .insert({ post_id: postId, user_id: user.id, emoji })
   }
+}
+
+export async function getPostComments(postId: string): Promise<PostComment[]> {
+  const { data: comments, error } = await supabase.from('post_comments')
+    .select('id, post_id, user_id, content, created_at')
+    .eq('post_id', postId).order('created_at', { ascending: true })
+  if (error) throw error
+  if (!comments?.length) return []
+  const ids = [...new Set(comments.map(comment => comment.user_id))]
+  const { data: profiles } = await supabase.from('profiles').select('id, full_name').in('id', ids)
+  const names = Object.fromEntries((profiles ?? []).map(profile => [profile.id, profile.full_name]))
+  return comments.map(comment => ({ ...comment, full_name: names[comment.user_id] ?? 'Athlete' }))
+}
+
+export async function createComment(postId: string, content: string): Promise<void> {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Not authenticated')
+  const { error } = await supabase.from('post_comments').insert({ post_id: postId, user_id: user.id, content: content.trim() })
+  if (error) throw error
+}
+
+export async function updatePost(postId: string, content: string): Promise<void> {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Not authenticated')
+  const { error } = await supabase.from('posts').update({ content: content.trim() }).eq('id', postId).eq('user_id', user.id)
+  if (error) throw error
+}
+
+export async function deletePost(postId: string): Promise<void> {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Not authenticated')
+  const { error } = await supabase.from('posts').delete().eq('id', postId).eq('user_id', user.id)
+  if (error) throw error
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { ArrowUpRight, Bike, CalendarDays, CheckCircle2, Clock3, Dumbbell, Map, Play, Waves } from 'lucide-react'
+import { RACE_SECTIONS } from '@/config/race-info'
 import { useParticipant } from '@/hooks/useParticipant'
 import { useParticipantTheme } from '@/context/ParticipantThemeContext'
 import { cn } from '@/lib/utils'
@@ -9,6 +10,7 @@ interface Resource {
   title: string
   subtitle: string
   type: string
+  available: boolean
 }
 
 interface DiscSection {
@@ -28,8 +30,8 @@ const SECTIONS: DiscSection[] = [
     colour: '#1769AA',
     icon: Waves,
     resources: [
-      { title: 'Open-water technique guide', subtitle: 'Build confidence in open water', type: 'PDF · 12 pages' },
-      { title: '8-week swim plan', subtitle: 'Structured sessions toward race day', type: 'Training schedule' },
+      { title: 'Open-water technique guide', subtitle: 'Awaiting verified event content', type: 'Coming soon', available: false },
+      { title: 'Swim-to-bike transition', subtitle: 'Official guidance not published yet', type: 'Coming soon', available: false },
     ],
   },
   {
@@ -39,8 +41,8 @@ const SECTIONS: DiscSection[] = [
     colour: '#C58A22',
     icon: Bike,
     resources: [
-      { title: 'Bike fit and gear checklist', subtitle: 'Get your setup race-ready', type: 'PDF · 6 pages' },
-      { title: 'DSM route preview', subtitle: 'Know the course before race day', type: 'Interactive map' },
+      { title: 'Bike fit and gear checklist', subtitle: 'Awaiting verified event content', type: 'Coming soon', available: false },
+      { title: 'DSM route preview', subtitle: 'Official course not published yet', type: 'Coming soon', available: false },
     ],
   },
   {
@@ -50,8 +52,8 @@ const SECTIONS: DiscSection[] = [
     colour: '#B12A70',
     icon: Play,
     resources: [
-      { title: 'Brick training protocol', subtitle: 'Practice your bike-to-run transition', type: 'Training guide' },
-      { title: 'Coco Beach course map', subtitle: 'Preview the route and elevation', type: 'PDF · Course map' },
+      { title: 'Bike-to-run transition', subtitle: 'Official guidance not published yet', type: 'Coming soon', available: false },
+      { title: 'Run course map', subtitle: 'Official course not published yet', type: 'Coming soon', available: false },
     ],
   },
 ]
@@ -63,9 +65,10 @@ const SPRINT_LABELS: Record<string, string> = {
 }
 
 export default function TrainingPage() {
-  const { registration, daysUntil, loading } = useParticipant()
+  const { registration, loading } = useParticipant()
   const { theme } = useParticipantTheme()
   const light = theme === 'light'
+  const eventDate = RACE_SECTIONS.find(section => section.id === 'overview')?.facts.find(fact => fact.label === 'Confirmed event date')?.value
   const isSprint = registration?.category === 'sprint'
 
   if (loading) return <Spinner light={light} />
@@ -73,7 +76,7 @@ export default function TrainingPage() {
   return (
     <div className={cn('min-h-[calc(100dvh-72px)] px-5 pb-10 pt-6 sm:px-7 lg:px-8 lg:pb-12 lg:pt-8', light ? 'bg-[#F7F9FC]' : 'bg-[#07152F]')}>
       <div className="mx-auto max-w-[1180px]">
-        <header className="mb-7 lg:mb-8">
+        <header data-portal-heading className="mb-7 lg:mb-8">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
               <p className={cn('mb-2 font-num text-[9px] font-extrabold uppercase tracking-[.16em]', light ? 'text-[#1769AA]' : 'text-[#F8BE22]')}>
@@ -90,8 +93,8 @@ export default function TrainingPage() {
             <div className={cn('flex w-fit items-center gap-3 rounded-[15px] border px-4 py-3', light ? 'border-[#102E5C]/10 bg-white shadow-[0_8px_24px_rgba(16,46,92,.05)]' : 'border-white/[.08] bg-[#0D1B3D]')}>
               <CalendarDays size={19} className={light ? 'text-[#1769AA]' : 'text-[#F8BE22]'} strokeWidth={1.7} />
               <div>
-                <p className={cn('font-num text-[22px] font-extrabold leading-none', light ? 'text-[#102E5C]' : 'text-white')}>{daysUntil}</p>
-                <p className={cn('mt-1 font-num text-[8px] font-extrabold uppercase tracking-[.1em]', light ? 'text-slate-400' : 'text-white/35')}>days to race</p>
+                <p className={cn('font-num text-[22px] font-extrabold leading-none', light ? 'text-[#102E5C]' : 'text-white')}>{eventDate ?? 'TBD'}</p>
+                <p className={cn('mt-1 font-num text-[8px] font-extrabold uppercase tracking-[.1em]', light ? 'text-slate-400' : 'text-white/35')}>Confirmed race date</p>
               </div>
             </div>
           </div>
@@ -149,7 +152,7 @@ export default function TrainingPage() {
 
                 <div className="space-y-2">
                   {section.resources.map(resource => (
-                    <button key={resource.title} type="button" className={cn('group flex w-full items-center gap-3 rounded-[12px] border p-3 text-left transition', light ? 'border-[#102E5C]/[.08] bg-[#F7F9FC] hover:border-[#1769AA]/20 hover:bg-[#F1F6FB]' : 'border-white/[.07] bg-white/[.035] hover:border-white/[.13] hover:bg-white/[.05]')}>
+                    <button key={resource.title} type="button" disabled={!resource.available} title={!resource.available ? 'This resource has not been published yet' : undefined} className={cn('group flex w-full items-center gap-3 rounded-[12px] border p-3 text-left transition disabled:cursor-not-allowed disabled:opacity-65', light ? 'border-[#102E5C]/[.08] bg-[#F7F9FC]' : 'border-white/[.07] bg-white/[.035]')}>
                       <div className="min-w-0 flex-1">
                         <p className={cn('truncate font-sans text-[11px] font-bold', light ? 'text-[#102E5C]' : 'text-white/85')}>{resource.title}</p>
                         <p className={cn('mt-1 truncate font-sans text-[9px]', light ? 'text-slate-400' : 'text-white/35')}>{resource.subtitle}</p>

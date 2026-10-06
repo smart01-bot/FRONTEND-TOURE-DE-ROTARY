@@ -12,12 +12,14 @@ import type { Category } from '@/types'
 export function useStories() {
   const [stories, setStories] = useState<PublicStory[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [filter,  setFilter]  = useState<Category | 'all'>('all')
 
   const reload = useCallback(async () => {
-    const data = await getPublicStories()
-    setStories(data)
-    setLoading(false)
+    setLoading(true); setError(null)
+    try { setStories(await getPublicStories()) }
+    catch { setError('Stories could not be loaded.') }
+    finally { setLoading(false) }
   }, [])
 
   useEffect(() => { void reload() }, [reload])
@@ -27,5 +29,5 @@ export function useStories() {
     [stories, filter],
   )
 
-  return { stories: filtered, allCount: stories.length, loading, filter, setFilter }
+  return { stories: filtered, allCount: stories.length, loading, error, reload, filter, setFilter }
 }

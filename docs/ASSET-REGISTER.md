@@ -1,6 +1,6 @@
 # Tour de Dar — Asset Register
 
-The source of truth for exact asset files is `public/assets/` on the latest `main`. This register documents important usage conventions without duplicating binary files.
+The source of truth for exact asset files is `public/assets/` on the latest `development`. This register documents important usage conventions without duplicating binary files.
 
 ## Asset groups
 
@@ -33,3 +33,54 @@ The source of truth for exact asset files is `public/assets/` on the latest `mai
 | Status | Exploratory / Approved / Superseded |
 | Rights/credit | Owner, licence, photographer, or `TBD` |
 | Replacement | New stable ID if superseded |
+
+## Phase 2 race-guide asset
+
+No new assets were added or renamed. The official race-guide PDF is **TBD**. `RACE_GUIDE.file` in `src/config/race-info.ts` remains `null`, and the download is visibly disabled with an explanation. When the organiser supplies a verified PDF, register its exact path, source, review date and rights before enabling the download. Do not generate a document of placeholders and present it as the official race guide.
+
+## Phase 3 course-map assets
+
+No new image, route or map-tile asset was added or renamed. Route lines and markers are configured data in `src/config/course-map.ts`, and their verified datasets remain empty. If the organiser supplies GPX, GeoJSON, KML, a PDF map or another route asset, record its exact path, source, review date, rights and relationship to the published coordinate data before use. No unverified screenshot or traced route may become operational map geometry.
+
+## Phase 4 community assets
+
+No asset was added, renamed or removed. Existing avatar URLs are presentation-only. Profile-photo and post-media uploads remain disabled until approved storage buckets, file restrictions, consent rules and RLS policies exist. Team marks and challenge badges must not be introduced as real participant achievements without approved source data and completion records.
+
+## Phase 5 race-day assets
+
+No asset was added, renamed or removed. Memory cards are rendered locally in the browser and are not committed images. Event photographs must not be added until provenance, photographer credit, usage permission, participant consent and removal rules are recorded. No placeholder image may be presented as real event photography.
+
+## Phase 6 lifecycle assets
+
+No asset was added, renamed or removed. Archive and lifecycle presentation reuse existing approved visual assets. Past-event photography must remain absent until its provenance, rights, credit and participant-consent rules are recorded.
+
+## Phase 7 launch-hardening assets
+
+No asset was added, renamed or removed. The existing event mark is used for social-sharing metadata. The landing photographs were audited and include files between approximately 1.1 MB and 3.7 MB; they were not recompressed or replaced because Phase 7 did not receive approval to alter visual quality. Historical storytelling remains absent until provenance, rights, credit, attribution and factual review are registered.
+
+## EVOLUTION-01
+
+No image/font/video asset was copied, renamed or added. The opt-in system reuses existing Playfair/Montserrat/Jakarta variables; ImagePanel requires caller-reviewed source/alt/caption and reserves image space. Existing technical logo filenames remain stable. Embedded legacy wording and provenance in raster logos/bib artwork need review before later replacement. Augment assets are not licensed by virtue of being in its repository.
+
+
+## EVOLUTION-02 landing usage
+
+No asset is added, renamed, replaced or removed. Existing photographs are now served through next/image (responsive sizes, reserved layout, one priority hero; supporting images lazy). The prior four-background timed rotation is removed from the landing.
+
+| Path under `public/assets/landing/` | New use | Attribution / truth boundary |
+| --- | --- | --- |
+| `pexels-jim-de-ramos-395808-1263349.jpg` | Hero and SWIM card | Jim De Ramos / Pexels, filename-derived credit; pool imagery is illustrative, not Tour open-water geometry |
+| `pexels-daejeung-14226402.jpg` | BIKE card | Daejeung / Pexels, filename-derived credit; no event/location claim |
+| `pexels-olly-3760259.jpg` | RUN card | Olly / Pexels, filename-derived credit; no participant identity claim |
+| `pexels-mikhail-nilov-8542538.jpg` | Impact image | Mikhail Nilov / Pexels, filename-derived credit; no treatment/impact-evidence claim |
+
+These are reused committed assets, not newly licensed material. Exact upstream licence/provenance/credits still require organiser review before launch; authentic Dar/event images remain desirable. Sponsor logos remain absent until real approved records and rights exist. The legacy landing README names unused rotation files and is historical; current references above and landing-media.ts are authoritative.
+
+
+## EVOLUTION-03 public usage
+
+No image, logo, font, video, route or map-tile asset was added, copied, renamed or removed. Public identity uses existing fonts/tokens and authorized textual identity/initials. Sponsor browsing reuses the Phase 2 surface; approved records remain empty. Illustrative photographs are not used as course or participant evidence. Historical and authentic event imagery still require rights, source, attribution and consent review before publication.
+
+## EVOLUTION-04 assets
+
+No asset file added, renamed, copied or deleted. Shared portal headers use a canonical text wordmark. Ticket no longer displays `assets/TourdeRotary-main/25bibnumber.png`, whose decorative printed number could be mistaken for participant identity. Existing event mark stays on the ticket. Dashboard replaces illustrative photography with a typographic identity/status surface. Memory canvas retains local private-data generation and removes its unverified date caption. Authentic imagery/rights and remaining raster branding review are still separate publication work.

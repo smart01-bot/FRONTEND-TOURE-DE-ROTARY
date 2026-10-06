@@ -21,7 +21,7 @@ export default function OverviewPage() {
       <PageHeader
         eyebrow="Race overview"
         title="HQ overview."
-        subtitle="Registrations, revenue and bib progress for Tour de Rotary · 1 November 2026."
+        subtitle="Registration records, payment status and bib assignment for Tour de Dar."
         pill={{ icon: <Users size={14} strokeWidth={2.5} />, label: 'Registrations', value: String(stats.total) }}
       />
 
@@ -29,10 +29,11 @@ export default function OverviewPage() {
       <section className="mt-7 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <StatCard icon={<Users size={16} />}        label="Registrations" value={String(stats.total)} />
         <StatCard icon={<CheckCircle2 size={16} />} label="Paid"          value={String(stats.paid)} />
-        <StatCard icon={<Banknote size={16} />}     label="Revenue"       value={formatTSh(stats.revenue)} small />
+        <StatCard icon={<Banknote size={16} />}     label="Fee estimate"       value={formatTSh(stats.revenue)} small />
         <StatCard icon={<Hash size={16} />}         label="Need a bib"    value={String(stats.unbibed)} />
       </section>
 
+      <p className="mt-3 text-sm text-[#52627a]">Fee estimate uses paid registrations and configured category prices. It is not reconciled payment revenue.</p>
       <section className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)]">
         {/* By category */}
         <div className={`${CARD} p-5 sm:p-6`}>
@@ -108,7 +109,7 @@ function RegRow({ row, onClick }: { row: RegistrationRow; onClick: () => void })
     >
       <Avatar name={name} />
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[13px] font-semibold text-[#334155]">{name}</p>
+        <p data-row-name className="text-[13px] font-semibold text-[#334155]">{name}</p>
         <div className="mt-1.5 flex flex-wrap gap-1.5">
           <CategoryChip category={row.category} />
           <StatusChip paid={row.payment_status === 'paid'} />

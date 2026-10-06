@@ -1,11 +1,13 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
-import { User, Phone, Trophy, BookOpen, LogOut, Check, ChevronRight, Eye, EyeOff } from 'lucide-react'
+import { User, Phone, Trophy, BookOpen, LogOut, Check, ChevronRight, Eye, EyeOff, Camera, Users, Target, Medal } from 'lucide-react'
 import { useParticipant } from '@/hooks/useParticipant'
 import { useUser } from '@/hooks/useUser'
 import { updateMyProfile } from '@/lib/supabase/participant'
 import { updateMyStory } from '@/lib/supabase/stories'
+import { ParticipantActivity } from '@/components/community/ParticipantActivity'
 import { CATEGORY_MAP } from '@/config/categories'
 import { initials, cn } from '@/lib/utils'
 
@@ -38,7 +40,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (registration && !storyInitialized.current) {
       setStoryText(registration.story ?? '')
-      setStoryPublic(registration.story_public ?? true)
+      setStoryPublic(registration.story_public ?? false)
       storyInitialized.current = true
     }
   }, [registration])
@@ -51,7 +53,7 @@ export default function ProfilePage() {
   const dirty = fullName !== (profile?.full_name ?? '') || phone !== (profile?.phone ?? '')
 
   const storyDirty =
-    storyText !== (registration?.story ?? '') || storyPublic !== (registration?.story_public ?? true)
+    storyText !== (registration?.story ?? '') || storyPublic !== (registration?.story_public ?? false)
   const storyOverLimit = storyText.length > STORY_MAX
 
   async function handleSave() {
@@ -107,9 +109,10 @@ export default function ProfilePage() {
           <section className="overflow-hidden rounded-[24px] border border-[#e1e7f0] bg-white shadow-[0_12px_40px_rgba(16,29,53,.06)]">
             <div className="border-b border-[#edf0f5] px-5 py-5 sm:px-7">
               <div className="flex items-center gap-4">
-                <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-[20px] bg-[#eaf1fb] ring-1 ring-[#d8e5f6]">
-                  <span className="font-serif text-[23px] font-bold italic text-[#2456a6]">{avi}</span>
+                <div className="relative flex h-[64px] w-[64px] shrink-0 items-center justify-center overflow-hidden rounded-[20px] bg-[#eaf1fb] ring-1 ring-[#d8e5f6]">
+                  {profile?.avatar_url ? <img src={profile.avatar_url} alt={`${profile.full_name ?? 'Participant'} profile`} className="h-full w-full object-cover" /> : <span className="font-serif text-[23px] font-bold italic text-[#2456a6]">{avi}</span>}
                 </div>
+                <button type="button" disabled title="Photo uploads will be enabled after secure media storage is configured" className="flex cursor-not-allowed items-center gap-1.5 rounded-full border border-[#dfe6f0] px-3 py-2 text-[10px] font-bold text-[#8b98aa]"><Camera size={13} /> Photo upload coming soon</button>
                 <div className="min-w-0">
                   <h2 className="truncate font-sans text-[18px] font-extrabold text-[#101d35]">
                     {profile?.full_name || 'Participant'}
@@ -131,13 +134,13 @@ export default function ProfilePage() {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Full name">
-                  <input type="text" value={fullName} onChange={e => { setFullName(e.target.value); setStatus('idle') }} placeholder="Your full name" className={inputClass} />
+                <Field label="Full name" htmlFor="profile-full-name">
+                  <input id="profile-full-name" type="text" autoComplete="name" value={fullName} onChange={e => { setFullName(e.target.value); setStatus('idle') }} placeholder="Your full name" className={inputClass} />
                 </Field>
-                <Field label="Phone">
+                <Field label="Phone" htmlFor="profile-phone">
                   <div className="relative">
                     <Phone size={15} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#9aa6b6]" />
-                    <input type="tel" value={phone} onChange={e => { setPhone(e.target.value); setStatus('idle') }} placeholder="+255 7XX XXX XXX" className={cn(inputClass, 'pl-11')} />
+                    <input id="profile-phone" type="tel" autoComplete="tel" value={phone} onChange={e => { setPhone(e.target.value); setStatus('idle') }} placeholder="+255 7XX XXX XXX" className={cn(inputClass, 'pl-11')} />
                   </div>
                 </Field>
               </div>
@@ -145,7 +148,10 @@ export default function ProfilePage() {
               <button type="button" onClick={handleSave} disabled={!dirty || saving} className={cn('mt-1 flex w-full items-center justify-center gap-2 rounded-[13px] bg-[#2456a6] py-[13px] font-sans text-[12px] font-extrabold text-white transition-all hover:bg-[#1e4b93] sm:w-auto sm:px-7', (!dirty || saving) && 'cursor-not-allowed opacity-40')}>
                 {status === 'saved' ? <><Check size={15} /> Saved</> : saving ? 'Saving…' : 'Save changes'}
               </button>
-              {status === 'error' && <p className="mt-3 font-sans text-[11px] font-semibold text-[#d85b4d]">Something went wrong. Try again.</p>}
+              <div aria-live="polite" aria-atomic="true">
+                {status === 'saved' && <p className="sr-only">Profile changes saved.</p>}
+                {status === 'error' && <p role="alert" className="mt-3 font-sans text-[11px] font-semibold text-[#d85b4d]">Something went wrong. Try again.</p>}
+              </div>
             </div>
 
             {registration && (
@@ -153,17 +159,18 @@ export default function ProfilePage() {
                 <div className="mb-4 flex items-center gap-2">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#edf3fb] text-[#2456a6]"><BookOpen size={15} /></div>
                   <div>
-                    <h3 className="font-sans text-[13px] font-extrabold text-[#101d35]">Why I participate</h3>
+                    <h3 className="font-sans text-[13px] font-extrabold text-[#101d35]">Why are you doing this?</h3>
                     <p className="font-sans text-[10px] text-[#8a96a7]">Your reason for racing — shown to donors and, if public, on tourdedar.co.tz/stories.</p>
                   </div>
                 </div>
 
                 <textarea
+                  id="profile-story"
                   rows={4}
                   value={storyText}
                   onChange={e => { setStoryText(e.target.value); setStoryStatus('idle') }}
                   placeholder="I race for my mother. She was treated at Ocean Road. She's still here. So am I."
-                  aria-label="Why I participate"
+                  aria-label="Why are you doing this?"
                   className="w-full resize-none rounded-[13px] border border-[#dfe5ed] bg-[#f9fafc] p-4 font-serif text-[14px] italic leading-[1.6] text-[#18263e] outline-none transition-colors placeholder:not-italic placeholder:text-[#aab3c0] focus:border-[#7da2d4] focus:bg-white focus:ring-2 focus:ring-[#2456a6]/10"
                 />
                 <div className="mt-1.5 flex justify-end">
@@ -198,6 +205,9 @@ export default function ProfilePage() {
                     />
                   </span>
                 </button>
+                <p className="mt-2 font-sans text-[10px] leading-5 text-[#8a96a7]">
+                  This setting controls the public story listing, including your name, category and story. A broader participant profile is not published because separate profile, photo, activity and bib consent controls are not yet available.
+                </p>
 
                 <button
                   type="button"
@@ -210,7 +220,10 @@ export default function ProfilePage() {
                 >
                   {storyStatus === 'saved' ? <><Check size={15} /> Saved</> : storySaving ? 'Saving…' : 'Save story'}
                 </button>
-                {storyStatus === 'error' && <p className="mt-3 font-sans text-[11px] font-semibold text-[#d85b4d]">Something went wrong. Try again.</p>}
+                <div aria-live="polite" aria-atomic="true">
+                  {storyStatus === 'saved' && <p className="sr-only">Story preference saved.</p>}
+                  {storyStatus === 'error' && <p role="alert" className="mt-3 font-sans text-[11px] font-semibold text-[#d85b4d]">Something went wrong. Try again.</p>}
+                </div>
               </div>
             )}
           </section>
@@ -225,6 +238,20 @@ export default function ProfilePage() {
               <InfoRow label="Discipline" value={registration?.discipline ?? 'All three'} capitalize />
               <InfoRow label="Bib number" value={bib ? `#${bib}` : 'Not assigned'} />
               <InfoRow label="Registration" value={registration ? 'Registered' : 'Not registered'} last />
+              <Link href="/ticket" className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-[13px] border border-[#dfe6f0] px-4 font-sans text-[10px] font-extrabold text-[#2456a6]">
+                View digital ticket and bib
+              </Link>
+              <Link href="/results" className="mt-2 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[13px] border border-[#dfe6f0] px-4 font-sans text-[10px] font-extrabold text-[#2456a6]">
+                <Medal size={14} /> Results and memories
+              </Link>
+            </section>
+
+            <section className="rounded-[24px] border border-[#e1e7f0] bg-white p-5 shadow-[0_12px_40px_rgba(16,29,53,.05)]">
+              <h3 className="font-sans text-[12px] font-extrabold text-[#101d35]">Privacy and data rights</h3>
+              <p className="mt-1 font-sans text-[10px] leading-5 text-[#8a96a7]">Review story and photo consent boundaries, communications, and access or deletion request entry points.</p>
+              <Link href="/privacy" className="mt-3 inline-flex min-h-11 items-center font-sans text-[10px] font-extrabold text-[#2456a6] underline underline-offset-4">
+                Open privacy notice
+              </Link>
             </section>
 
             <section className="rounded-[24px] border border-[#e1e7f0] bg-white p-5 shadow-[0_12px_40px_rgba(16,29,53,.05)]">
@@ -242,11 +269,28 @@ export default function ProfilePage() {
               </div>
             </section>
 
+            <section className="rounded-[24px] border border-[#e1e7f0] bg-white p-5 shadow-[0_12px_40px_rgba(16,29,53,.05)]">
+              <h3 className="font-sans text-[12px] font-extrabold text-[#101d35]">Community spaces</h3>
+              <p className="mt-1 font-sans text-[10px] leading-5 text-[#8a96a7]">Team membership and challenge completion require approved backend contracts. No activity is assumed.</p>
+              <div className="mt-4 grid gap-2">
+                <Link href="/teams" className="flex min-h-11 items-center justify-between rounded-[13px] border border-[#dfe6f0] px-4 font-sans text-[11px] font-bold text-[#26354d]">
+                  <span className="flex items-center gap-2"><Users size={14} className="text-[#2456a6]" /> Teams</span>
+                  <ChevronRight size={14} className="text-[#9aa6b6]" />
+                </Link>
+                <Link href="/challenges" className="flex min-h-11 items-center justify-between rounded-[13px] border border-[#dfe6f0] px-4 font-sans text-[11px] font-bold text-[#26354d]">
+                  <span className="flex items-center gap-2"><Target size={14} className="text-[#2456a6]" /> Challenges</span>
+                  <ChevronRight size={14} className="text-[#9aa6b6]" />
+                </Link>
+              </div>
+            </section>
+
             <button type="button" onClick={() => signOut()} className="flex w-full items-center justify-center gap-2 rounded-[15px] border border-[#ead8d5] bg-white py-[13px] font-sans text-[11px] font-extrabold text-[#c45c51] transition-colors hover:bg-[#fff7f6]">
               <LogOut size={14} /> Sign out
             </button>
           </aside>
         </div>
+
+        {user && <ParticipantActivity userId={user.id} />}
       </div>
     </div>
   )
@@ -254,8 +298,8 @@ export default function ProfilePage() {
 
 const inputClass = 'w-full rounded-[13px] border border-[#dfe5ed] bg-[#f9fafc] px-4 py-[13px] font-sans text-[13px] font-semibold text-[#18263e] outline-none transition-colors placeholder:text-[#aab3c0] focus:border-[#7da2d4] focus:bg-white focus:ring-2 focus:ring-[#2456a6]/10'
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><label className="mb-2 block font-sans text-[9px] font-extrabold uppercase tracking-[.12em] text-[#8995a6]">{label}</label>{children}</div>
+function Field({ label, htmlFor, children }: { label: string; htmlFor: string; children: React.ReactNode }) {
+  return <div><label htmlFor={htmlFor} className="mb-2 block font-sans text-[9px] font-extrabold uppercase tracking-[.12em] text-[#8995a6]">{label}</label>{children}</div>
 }
 
 function InfoRow({ label, value, capitalize, last }: { label: string; value: string; capitalize?: boolean; last?: boolean }) {
@@ -263,5 +307,5 @@ function InfoRow({ label, value, capitalize, last }: { label: string; value: str
 }
 
 function Spinner() {
-  return <div className="flex min-h-[50vh] items-center justify-center"><div className="h-5 w-5 animate-spin rounded-full border-2 border-[#2456a6] border-t-transparent" /></div>
+  return <div role="status" className="flex min-h-[50vh] items-center justify-center"><div className="h-5 w-5 animate-spin rounded-full border-2 border-[#2456a6] border-t-transparent" /><span className="sr-only">Loading profile</span></div>
 }

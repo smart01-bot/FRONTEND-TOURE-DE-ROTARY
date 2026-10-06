@@ -58,12 +58,14 @@ export default function RegistrationFlow() {
             </svg>
           </div>
 
-          <h2 className="font-serif text-[28px] font-bold italic text-[#0D1B3D] leading-[1.1] tracking-[-0.02em]">
-            Account created.
-          </h2>
-          <p className="font-sans text-[13px] text-[#0D1B3D]/42 leading-relaxed max-w-[260px]">
-            Check your email to verify your address, then sign in to your portal.
-          </p>
+          <div role="status" aria-live="polite">
+            <h2 className="font-serif text-[28px] font-bold italic text-[#0D1B3D] leading-[1.1] tracking-[-0.02em]">
+              Account created.
+            </h2>
+            <p className="mt-3 font-sans text-[13px] text-[#0D1B3D]/70 leading-relaxed max-w-[260px]">
+              Check your email to verify your address, then sign in to your portal.
+            </p>
+          </div>
 
           <Link
             href="/login"

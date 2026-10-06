@@ -1,0 +1,75 @@
+# Full event management — capability and permission matrix
+
+EVOLUTION-01 planning, 4 October 2026. **No live privileges, roles, schemas or operations added.** Only `profiles.role = hq_admin` currently authorizes the server admin shell. Browser writes additionally require deployed RLS; their existence does not certify it. Proposed duties below are not new role strings, account assignments or approved API names.
+
+| Area | Existing Tour capability / evidence | Target actors (proposal) | Protected resources, input and transition requirements | Required outcomes / failures / audit | Class and dependency |
+| --- | --- | --- | --- | --- | --- |
+| Participant approvals | `admin/athletes` search/filter, detail reads; payment confirm sets paid + confirmed via `lib/supabase/admin.ts` | Event administrator; delegated registrar | Registration ID, version, review decision and reason; agree pending → approved/rejected/corrections and resubmission semantics without changing existing status meanings | Authorized success; deny nonstaff/direct requests; stale record, invalid transition, repeat request and not-found errors; actor/reason/history | B preserve current presentation; D for review transitions/history and permitted edits |
+| Bibs and check-in | Bib queue, manual assignment, sequential auto-assignment; no scanner/check-in | Registrar / check-in operator | Registration ID, unique bib, version; durable check-in event and validation source; scope reassignment powers | Duplicate bib/check-in, unpaid/not eligible, stale conflict, retry; atomic assignment + real actor audit | B current bib UI; D uniqueness guarantees, durable validation and concurrent operations |
+| Event content | Source-controlled race-info/course-map/site config; no admin editor | Content editor; publisher distinct if backend supports it | Verified facts, source/review date, route geometry/version, logistics/FAQs; draft → reviewed → published → withdrawn | Invalid geometry, missing provenance, permission denied, stale version; publish history with before/after | D persistence, publication policy and server validation; config remains authority meanwhile |
+| Sponsors | No verified sponsor dataset, storage contract or management route | Sponsor editor / publisher | Real organization, approved tier/placement, asset rights/credit, publication status, version | Missing rights, invalid asset, duplicate record, denied/unpublish; attributable changes | D records, storage policy, permissions; no sample sponsors |
+| Moderation | Participant owner post edit/delete; reports honestly unavailable | Moderator within delegated scope | Report subject, reason, reporter privacy, review state, defined action and appeal/reversal rules | Denied/nonexistent subject, duplicate report/action, stale case; restricted action history | D reports/policies/enforcement; preserve owner paths and consent |
+| Teams/challenges | Typed unavailable homes only | Event admin / moderator as agreed | Approved definitions, membership/progress source, visibility/consent, documented transitions | Invalid membership/completion, forbidden publication, retry; auditable edits | D backend contracts; no locally simulated enrollment/progress |
+| Race operations/results/photos | Lifecycle config + unavailable results/photos; no operational control panel | Operations staff; designated publisher | Approved lifecycle transition, notice content, timing source, stable participant match, result state, DNF/DNS/DQ, photo consent/withdrawal | No publishing absent data/rights; deny direct calls, version conflict, idempotent publication; actor/time/reason/source | D operational service/publication policy; no GPS simulation or inferred finish |
+| Finance review | HQ estimate = paid count × current category price; confirm-payment write; campaign/donation reads | Finance reviewer; sensitive approvals separately delegated | Provider-reconciled transaction ID, amount/currency, registration/campaign mapping, review reason | Unknown payment outcome stays unresolved; duplicate callback/review safe; mismatch/denial explicit; tamper-resistant audit | B current views; D reconciliation, refunds, overrides, settlement/export authority. Existing estimate is not an accounting ledger |
+| Staff permissions | Single hq_admin shell guard; signup metadata requests participant | Owner/security administrator (identity unassigned) | Approved server capability mapping, staff identity, event scope, expiry/revocation, grant reason | Prevent self-elevation; deny privilege delegation outside grantor scope; revocation effective server-side; grant/revoke audit | D exact model and storage/API undecided; keep hq_admin boundary |
+| Audit/reporting | No durable admin action history or export contract in repo | Restricted auditor/read-only operator | Actor, action, subject, time, reason, request ID, allowed before/after fields; scoped export request | Redact secrets and unnecessary participant data; deny unauthorized reads/exports; retention + immutable history | D event emission, retention, query authorization and approved export columns |
+
+## Decisions and rollout boundary
+
+- Approved: all areas above are the full-event-management objective.
+- Retained now: existing `hq_admin` server guard, reads and current mutation contracts. No broadened access.
+- Proposed: use capability-based delegation mapped to the backend team's actual authorization model; duty labels above are planning vocabulary only.
+- Undecided: exact role names, grant authority, account assignments, event scoping, persistence/API schema, retention and approval separation. Resolve in a separate integration task with verified contracts, not by guessing role strings in UI.
+- Every enabled operation needs verified authorized AND denied direct-request tests, scoped data policies, actual actor audit, retry/concurrency handling where applicable, and clear loading/error/empty/forbidden/success states.
+- Roll out additively. Phase 4 may improve current screens and show explicit unavailable requirements, but must report visual completion separately from operational completion.
+- No backend table/RPC/bucket/endpoint names are proposed as if approved. Coordinate requirements first; do not send messages to staff without authorization.
+
+
+## EVOLUTION-02 landing content requirements
+
+The landing now consumes current source-controlled content without introducing backend names.
+
+| Surface | Current owner | Missing admin-managed capability / publication gate |
+| --- | --- | --- |
+| Hero event date/status | Reviewed `race-info` overview fact; `ACTIVE_LIFECYCLE` | Verified date/source/review and authorised publication. Browsing weekend views cannot change lifecycle. |
+| Discipline/course panels | Existing categories and course-map records | Approved geometry, marker/source review, versioned publish/withdraw. Distances remain explicitly registration configuration. |
+| Before / Race Day | Existing race-info registration/schedule facts | Confirmed logistics and running-order publication; null stays TBD. |
+| After | Existing race-day capability/data config and protected memory routes | Real timing/photo contracts and independent consent; no completion inference. |
+| Sponsors | Empty source-controlled presentation list in `SponsorsSection` | Real identity, approved tier, logo dimensions/path, rights/credit, source/review, draft/review/publish/withdraw, version conflict handling and audited editor/publisher authorization. `LandingSponsor` is a rendering shape only, not an API schema. |
+| Impact | SITE charity identity; totals unavailable | Reconciled totals with period/currency/method/source/review; approved beneficiary outcomes and attribution. No numeric placeholders. |
+| Stories/community | Existing consent-filtered story query and feed hook | Preserve current consent and RLS. Any editorial curation/moderation needs a verified separate contract; no synthetic featured participant. |
+| Photography | Existing illustrative sport/cause images | Provenance/rights review and authentic Dar/event photography with participant consent and withdrawal. Filename-derived photographer attribution still needs rights verification before launch. |
+
+No new permission string, table, bucket, endpoint, live staff grant or mutation is implied. Content editor/publisher/auditor are proposed duties, not enabled roles.
+
+
+## EVOLUTION-03 public publishing requirements
+
+| Public surface | Current authority | Required administration / publication capability |
+| --- | --- | --- |
+| Race topic/FAQ/guide | `config/race-info.ts`, canonical categories | Editor supplies verified fact/asset, source and review date; publisher reviews/version-publishes/withdraws; stale edits and missing provenance rejected; attributable history. No editor API exists. |
+| SWIM/BIKE/RUN/EVENT map | `config/course-map.ts` | Reviewed geometry/markers with stable IDs, source/review and discipline/transition relationships; validation, version conflict, publish/withdraw and audit. Optional visitor location stays local, never an admin tracker. |
+| Story collection | Existing `story_public=true` query | Any curation requires consent recheck, approved withdrawal/moderation and attribution rules. Name/category/discipline/story do not authorize a broader public profile or photo. |
+| Sponsor navigation | Existing `SponsorsSection` approved records, currently empty | Same Phase 2 tier/logo/rights gates; an anchor is not a CMS or new relationship. |
+| Public fundraiser | Existing campaign/profile/registration/paid-donation queries | Separate EV-003 server payment verification/reconciliation and EV-004 public field consent reviews remain required before launch. No refund, override, settlement, or consent contract invented. |
+| Community/privacy | Existing source-controlled guidance and SITE contact | Approved policy versions, rights-request/moderation intake, scoped staff visibility, review/response records; email links still require the visitor to send. |
+| Edition/archive | Existing lifecycle and race-day capability config | Authorized operational transition and versioned edition publishing; timing/photo/impact source and publication/withdrawal gates. No inferred history or completion. |
+
+All target editor/publisher duties remain proposals rather than enabled roles; preserve `hq_admin` until the backend team provides verified server enforcement. No endpoints, buckets, tables or permission strings are guessed.
+
+## EVOLUTION-04 delivery and integration acceptance
+
+`/admin/manage` is a protected availability workspace, not an operational console. It inherits the existing server `hq_admin` check. All eight expanded actions are native disabled buttons with visible, associated reasons. Existing athlete/payment/bib destinations remain connected. The published event mode is read-only; no staff grant, permission model, scanner, sponsor record, result or history is simulated.
+
+The matrix above remains the integration specification. Before enabling any action, provide an approved contract covering:
+
+1. **Identity and authorization:** authenticated actor, event/resource scope and server authorization on every read/write; exact role/capability names must be supplied by the backend design. Reject absent/expired sessions and unauthorized direct calls; never trust a client role field.
+2. **Inputs:** stable resource ID, allowed fields, expected version, action/reason, request idempotency identifier where a retry can duplicate work. Validate on the server, using approved transitions rather than inferred status names.
+3. **Outcomes:** authoritative saved resource/version and permitted next actions; explicit unavailable, forbidden, invalid, missing, stale-conflict and retry/unknown-outcome cases. Re-fetch must reflect persistence. Unknown payment outcomes stay unresolved.
+4. **History:** real actor, subject, action, timestamp, reason, request identity and permitted before/after values. Scope history reads/exports; exclude secrets and unnecessary private participant content.
+5. **Release evidence:** isolated authorized and unauthorized direct-request tests; concurrent bib/check-in uniqueness, duplicate-request safety, stale edits, revocation, publication/withdrawal and consent checks appropriate to the capability. Only then connect the associated button.
+
+Per-area prerequisites remain precise in the matrix: approved review transitions/reasons; reviewed content/geometry versions; sponsor rights/storage; report states and enforcement; timing/photo sources and consent; provider reconciliation; delegated staff scope/revocation; immutable scoped audit history. No endpoint, table, bucket, RPC or new role string is invented here.
+
+Operational limitations retained: current admin hooks discard read errors; payment confirmation and queue assignment do not consistently expose mutation errors; sequential bib allocation has no demonstrated atomic uniqueness; deployed RLS and durable audit are unverified. Existing fee totals are calculated estimates, now labelled accordingly. EVOLUTION-04 preserves these contracts and records the limitations; it does not certify operational launch readiness.

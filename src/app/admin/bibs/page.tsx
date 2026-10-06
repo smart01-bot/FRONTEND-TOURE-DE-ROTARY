@@ -50,7 +50,7 @@ export default function BibsPage() {
         title="Bib queue."
         subtitle={
           queue.length > 0
-            ? `${queue.length} confirmed athlete${queue.length !== 1 ? 's' : ''} need a bib. Assign numbers one by one or auto-assign the rest.`
+            ? `${queue.length} paid athlete${queue.length !== 1 ? 's' : ''} need a bib. Assign numbers one by one or auto-assign the rest.`
             : 'All paid athletes have bibs assigned.'
         }
         pill={{ icon: <Hash size={14} strokeWidth={2.5} />, label: 'Assigned', value: String(assigned.length) }}
@@ -85,7 +85,7 @@ export default function BibsPage() {
                   const value = inputs[row.id] ?? ''
                   const disabled = saving[row.id] || !value.trim()
                   return (
-                    <div key={row.id} className="flex items-center gap-3 border-b border-[#edf1f5] py-4 last:border-0">
+                    <div key={row.id} data-admin-row className="flex items-center gap-3 border-b border-[#edf1f5] py-4 last:border-0">
                       <Avatar name={name} />
                       <button
                         type="button"

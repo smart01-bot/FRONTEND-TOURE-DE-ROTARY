@@ -8,7 +8,7 @@
 
 **Working repository:** `smart01-bot/FRONTEND-TOURE-DE-ROTARY`
 
-**Current estimate:** Approximately 40% of the complete frontend vision and approximately 65% of the pre-race MVP.
+**Current implementation estimate after the Phase 7 frontend pass:** The verified frontend phase roadmap is complete within approved contracts. Public launch remains blocked by organiser content, backend capability, real-device/browser QA, deployment configuration and a framework security upgrade that requires a separately verified major-version migration.
 
 ---
 
@@ -65,14 +65,14 @@ This is more efficient than sending separate messages for every file.
 
 ### Mandatory phase repository law
 
-> **Every phase must begin by fetching the latest `main` branch from GitHub, and every phase must end by pushing its complete, verified work back to `main`. A phase is not complete until the push succeeds.**
+> **Every phase must begin by fetching the latest `development` branch from GitHub, and every phase must end by pushing its complete, verified work back to `development`. A phase is not complete until the push succeeds. The `main` branch is the protected stable pre-Phase-1 baseline until the user explicitly authorises a release or merge.**
 
 This law is strict and applies to every phase without exception.
 
 #### At the beginning of every phase
 
 1. Fetch `smart01-bot/FRONTEND-TOURE-DE-ROTARY` from GitHub.
-2. Use the latest `main` branch as the only code baseline.
+2. Use the latest `development` branch as the active code baseline.
 3. Read this roadmap, current repository context and latest phase handoff.
 4. Inspect the fetched code before proposing or applying changes.
 5. Confirm the current HEAD commit.
@@ -82,21 +82,23 @@ This law is strict and applies to every phase without exception.
 
 1. Make all phase changes against the fetched source.
 2. Preserve unrelated existing functionality.
-3. Keep environment files and secrets out of Git.
-4. Test related routes and shared systems after changes.
-5. Keep incomplete experimental work separate from the final phase delivery.
+3. Treat the existing committed UI as a protected baseline and make additive changes only.
+4. Keep environment files and secrets out of Git.
+5. Test related routes and shared systems after changes.
+6. Keep incomplete experimental work separate from the final phase delivery.
 
 #### At the end of every phase
 
 1. Complete the phase checklist.
-2. Run required type checking, linting and production build verification.
-3. Resolve known phase-blocking errors.
-4. Update the roadmap, repository context and phase handoff when applicable.
-5. Review the exact files that will be committed.
-6. Commit with a clear phase-specific message.
-7. Push the verified commit to GitHub `main`.
-8. Confirm that remote `main` contains the new commit.
-9. Record the final commit SHA and link in the phase handoff.
+2. Run required type checking and linting.
+3. Run `npm run build` successfully after the final change and before committing.
+4. Resolve known phase-blocking errors.
+5. Update the roadmap, repository context and phase handoff when applicable.
+6. Review the exact files that will be committed.
+7. Commit with a clear phase-specific message.
+8. Push the verified commit to GitHub `development`.
+9. Confirm that remote `development` contains the new commit.
+10. Record the final commit SHA and link in the phase handoff.
 
 #### Completion rule
 
@@ -107,9 +109,9 @@ A phase is **not complete** when:
 - Changes have not passed the required checks
 - Documentation claims work is complete before the code is committed
 - The final commit has not been pushed successfully
-- Remote `main` has not been verified
+- Remote `development` has not been verified
 
-Only code confirmed on GitHub `main` can become the baseline for the next phase.
+Only code confirmed on GitHub `development` can become the baseline for the next phase.
 
 #### Next-phase rule
 
@@ -139,7 +141,7 @@ Update this file only when the overall product direction, phase structure or per
 
 ### Layer 2 — Current repository context
 
-Maintain a separate current repository-context file. It should describe what is true in the latest `main` branch:
+Maintain a separate current repository-context file. It should describe what is true in the latest `development` branch:
 
 - Framework and dependency versions
 - Important folders and routes
@@ -183,7 +185,7 @@ The handoff should normally be one to three pages, not a transcript.
 
 When sources disagree, use this order:
 
-1. Latest committed code on GitHub `main`
+1. Latest committed code on GitHub `development`
 2. Latest phase handoff
 3. Current repository-context file
 4. This roadmap
@@ -377,6 +379,26 @@ People, places, movement and memories should carry the experience.
 
 ## 4. Design direction
 
+### Approved EVOLUTION program (4 October 2026)
+
+The five-phase [Visual Evolution Master Context](visual-evolution/MASTER-CONTEXT.md) is approved. Its named presentation scopes supersede historical UI-preservation restrictions within each phase. EVOLUTION-01 establishes shared foundations only; landing, public and participant/admin page evolution follow in phases 02–04, then phase 05 verifies cohesion. Authentication, authorization, Supabase, API/route contracts, privacy, lifecycle and existing capabilities remain protected. Full event management is approved as a capability objective; exact roles/contracts and live grants are not approved by this brief. Use [STATUS](visual-evolution/STATUS.md) and the latest EVOLUTION handoff for current progress. Historical phase completion is not evidence that evolution phases are complete.
+
+### Protected UI baseline
+
+The UI committed on the active GitHub `development` branch must be preserved during feature work, and `main` remains the protected pre-Phase-1 visual reference. The existing design must be followed religiously.
+
+- Build on the existing pages; do not replace or redesign them.
+- Preserve their layout, visual hierarchy, spacing, typography, palette, imagery, navigation, component language, and responsive behaviour.
+- Reuse existing components and tokens before creating new visual patterns.
+- Add the smallest visual surface required by a new feature.
+- Do not treat feature implementation, refactoring, accessibility work, or responsiveness work as permission to restyle the product.
+- Do not alter an existing screen merely because another design might appear cleaner or more modern.
+- Compare every affected screen against the committed baseline after implementation.
+- A redesign is allowed only when the user explicitly approves its exact page/component scope.
+- If a feature cannot fit without restructuring the UI, pause and request a decision.
+
+The rule is: **preserve first, extend second, redesign only with explicit approval.**
+
 ### Brand palette
 
 - Primary blue
@@ -523,6 +545,8 @@ Turn the existing frontend into an honest, fully connected and polished pre-race
 
 ## 6. Phase 2 — Race information system
 
+**Frontend status:** Implemented at `/race-info`. All required topics have configurable homes; the homepage race CTA opens this public route. Existing UI is preserved. Official operational content and the downloadable guide remain `TBD` pending verified organiser sources. See `docs/handoffs/PHASE-02-RACE-INFORMATION-HANDOFF.md` for verification and delivery status.
+
 ### Objective
 
 Create a mobile-first source of truth for everything an athlete needs before and during race day.
@@ -564,6 +588,8 @@ Use short mobile sections, sticky local navigation or accordions. Avoid one extr
 
 ## 7. Phase 3 — Course and Dar map experience
 
+**Frontend status:** Implemented at `/course-map`. SWIM, BIKE, RUN and EVENT have separate configurable views, mobile-first controls, route/marker rendering contracts, a legend, route details, transition sequence and honest loading/offline/unavailable states. No organiser-confirmed geometry or logistics locations were available, so no operational line or marker is displayed. See `docs/handoffs/PHASE-03-COURSE-DAR-MAP-HANDOFF.md` for verification and delivery status.
+
 ### Objective
 
 Represent the triathlon as three connected disciplines and make the city part of the experience.
@@ -603,6 +629,8 @@ Represent the triathlon as three connected disciplines and make the city part of
 ---
 
 ## 8. Phase 4 — Community, teams and challenges
+
+**Frontend status:** Implemented within the verified repository contracts. Existing comments now have complete loading/submission/retry/permission feedback, authenticated profiles show real personal post activity and connect to the digital bib, public community guidelines exist, and reporting no longer claims a local success. Protected Teams and Challenges homes plus typed challenge details are capability-gated and display honest unavailable states. Public participant profiles, media uploads, persistent reports, real teams and real challenge participation remain blocked by missing consent, storage, schema/API and RLS contracts. No database or storage change was made.
 
 ### Objective
 
@@ -649,9 +677,21 @@ Deliver the temporary digital community promised by the product vision.
 - Moderation controls exist before high-volume usage
 - No community feature relies on fake activity
 
+### Phase 4 verified frontend boundary
+
+- Real community posts, reactions and comment read/write remain connected to existing Supabase contracts.
+- Comment loading, empty, retry, error, submission and unauthenticated states are explicit; comment edit/delete remains unimplemented because its policy contract is unverified.
+- Participant activity shown on the authenticated profile is filtered to the signed-in user and is never reused as a public-profile query.
+- `story_public` governs the existing public story listing only; missing consent is treated as private.
+- Teams and challenges use protected routes, typed frontend domain contracts and visible backend/decision gates. No invented team, member, invitation, progress, completion, badge or count appears.
+- Public profiles require a public identifier plus separate consent for profile, photo, story, activity and bib presentation before publication.
+- Media uploads require approved buckets, file limits, consent rules and RLS. Persistent reporting requires approved reasons, states, moderator roles, enforcement and RLS.
+
 ---
 
 ## 9. Phase 5 — Race day, results and memory
+
+**Frontend status:** Implemented within verified repository contracts. Protected result, leaderboard, photo/Find Me and memory experiences provide complete pre-publication states. Private digital-bib and participant-story cards can be saved or shared from real signed-in participant data. Timing results, rankings, galleries, associations and completion-based cards remain capability-gated pending approved timing, photography, consent and backend contracts. No database or storage change was made.
 
 ### Objective
 
@@ -696,9 +736,20 @@ Keep the platform valuable during and after the physical event.
 - The platform remains useful after race day
 - Privacy and consent are respected
 
+### Phase 5 verified frontend boundary
+
+- `/results` and its leaderboard, photos and memories children are protected participant routes.
+- Registration and bib assignment are never treated as proof of starting or finishing.
+- Result fields, rankings, photo albums and associations remain empty until approved sources exist.
+- The digital-bib and story cards use only the signed-in participant's existing profile/registration data and are generated locally in the browser.
+- Completion, result, team and challenge cards remain disabled until their real records exist.
+- `src/types/race-day.ts` defines frontend shapes only and does not authorise tables, APIs, buckets, timing providers or policies.
+
 ---
 
 ## 10. Phase 6 — Event lifecycle and archive
+
+**Frontend status:** Implemented through a central typed lifecycle configuration covering pre-event, race-day, memory and archive presentation. The current approved mode remains pre-event. Registration, community composition, public/participant CTAs and navigation priorities adapt without enabling unavailable backend capabilities. `/archive` provides a truthful edition home; invalid lifecycle values fall back to a read-only unavailable state.
 
 ### Objective
 
@@ -749,9 +800,18 @@ Make the temporary nature of the community an explicit product capability.
 - Past editions remain coherent and accessible
 - The application never looks broken simply because an event has ended
 
+### Phase 6 verified frontend boundary
+
+- `src/config/lifecycle.ts` is the only event-lifecycle switch. `NEXT_PUBLIC_EVENT_LIFECYCLE` accepts the four typed modes; invalid values resolve to a conservative read-only fallback.
+- No mode transition is inferred from an unverified date. The default remains `pre_event` until an organiser-approved operational decision changes it.
+- Lifecycle state changes navigation, CTA wording, registration access and community composition only; it never publishes timing, photography, teams, challenges, alerts, editions or impact data.
+- Archived stories retain their existing consent boundary. Results and photos retain their protected routes and Phase 5 capability gates.
+
 ---
 
 ## 11. Phase 7 — Final storytelling, accessibility and launch hardening
+
+**Frontend status:** Implemented within verified repository contracts. Accessibility and privacy surfaces, metadata, route indexing controls, security headers, truth-state corrections and same-major dependency patches are complete. Licensed Old Dar material, automated privacy workflows, backend-dependent capabilities, real-device/browser QA, production deployment validation and a fully remediated Next.js major upgrade remain blockers. See `docs/handoffs/PHASE-07-FINAL-STORYTELLING-ACCESSIBILITY-LAUNCH-HARDENING-HANDOFF.md`.
 
 ### Objective
 
@@ -802,6 +862,15 @@ Make the product unmistakably Tour de Dar and safe to launch publicly.
 - Analytics and error monitoring
 - Final content review
 - Final build and deployment check
+
+### Phase 7 verified frontend boundary
+
+- The clean existing interface remains the visual baseline; Phase 7 adds only existing-style privacy, status and navigation surfaces.
+- `/privacy` explains operational data, public-story, photo, research and communication boundaries. Email links are request entry points only and never claim submission.
+- Browser zoom, skip navigation, reduced motion, form relationships/error announcements, expandable appearance controls and minimum navigation targets are hardened.
+- Historical storytelling remains an honest unavailable state until source, rights and attribution records are approved.
+- Next.js and its lint config are patched to the latest compatible 14.2 release. A clean audit requires a breaking framework major upgrade and remains a launch blocker.
+- No database, storage, policy, schema, backend or lifecycle-mode change was made. The active/default lifecycle remains `pre_event`.
 
 ---
 
@@ -855,8 +924,9 @@ Every feature must include:
 - Accessible labels
 - Working navigation
 - Real data or an honest unavailable state
+- Preservation of the existing UI outside explicitly approved visual changes
 - Type checking
-- Production build verification
+- A successful final `npm run build` executed after all changes and before commit
 
 ---
 
@@ -886,7 +956,7 @@ Copy this into a new phase chat:
 ```text
 PROJECT: Tour de Dar frontend
 REPOSITORY: smart01-bot/FRONTEND-TOURE-DE-ROTARY
-BRANCH: main
+BRANCH: development
 CURRENT PHASE: [phase name]
 
 PRODUCT DEFINITION:

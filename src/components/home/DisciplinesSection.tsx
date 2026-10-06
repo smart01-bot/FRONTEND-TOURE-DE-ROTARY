@@ -1,75 +1,65 @@
-import { DISCIPLINES } from '@/config/site'
+'use client'
+
+import { useState } from 'react'
+import Image from 'next/image'
+import { DISCIPLINES } from '@/config/categories'
+import { COURSE_MAP_MARKERS, COURSE_ROUTES, COURSE_SEQUENCE, getCourseMapLayer } from '@/config/course-map'
+import { DisciplineLabel, RoutePanel, SectionHeading, StatusIndicator, VisualLink } from '@/components/visual-system'
 import type { DisciplineSlug } from '@/types'
-
-const INITIALS: Record<DisciplineSlug, string> = {
-  swim: 'S',
-  bike: 'B',
-  run:  'R',
-}
-
-// Run uses white text on coral; swim and bike use navy on their colours
-const INITIAL_TEXT: Record<DisciplineSlug, string> = {
-  swim: 'text-navy',
-  bike: 'text-navy',
-  run:  'text-white',
-}
-
-const PILL_TEXT: Record<DisciplineSlug, string> = {
-  swim: 'text-navy',
-  bike: 'text-navy',
-  run:  'text-white',
-}
+import { LANDING_MEDIA } from './landing-media'
+import styles from './landing.module.css'
 
 export default function DisciplinesSection() {
-  return (
-    <section className="bg-sand px-5 pt-11 pb-9">
-
-      <h2 className="font-serif text-section font-bold text-navy leading-[1.15] tracking-tight mb-2">
-        One race.<br />Three disciplines.
-      </h2>
-      <p className="font-sans text-body-sm text-ink-subtle leading-relaxed mb-7">
-        Sprint or Olympic distance. Solo or relay. One city.
-      </p>
-
-      <div className="flex flex-col gap-3">
-        {DISCIPLINES.map(d => (
-          <div
-            key={d.slug}
-            className="bg-white shadow-card flex gap-3.5 items-start p-4"
-            style={{ borderLeft: `4px solid ${d.hex}`, borderRadius: '0 16px 16px 0' }}
-          >
-            {/* Discipline initial circle */}
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-              style={{ background: d.hex }}
-            >
-              <span className={`font-num text-[15px] font-black ${INITIAL_TEXT[d.slug]}`}>
-                {INITIALS[d.slug]}
-              </span>
-            </div>
-
-            <div className="flex-1 min-w-0">
-              {/* Name + distance pill */}
-              <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                <span className="font-serif text-[17px] font-bold text-navy leading-none">
-                  {d.name}
-                </span>
-                <span
-                  className={`font-sans text-[10px] font-bold px-2 py-0.5 rounded-pill ${PILL_TEXT[d.slug]}`}
-                  style={{ background: d.hex }}
-                >
-                  {d.distances.sprint} · {d.distances.olympic}
-                </span>
-              </div>
-              {/* Description */}
-              <p className="font-sans text-[12px] text-ink-muted leading-[1.55]">
-                {d.description}
-              </p>
-            </div>
-          </div>
-        ))}
+  const [selected, setSelected] = useState<DisciplineSlug>('swim')
+  const [preview, setPreview] = useState<DisciplineSlug | null>(null)
+  const active = preview ?? selected
+  const discipline = DISCIPLINES.find(item => item.slug === active)!
+  const layer = getCourseMapLayer(active)
+  const routes = COURSE_ROUTES.filter(route => route.views.includes(active))
+  const markers = COURSE_MAP_MARKERS.filter(marker => marker.views.includes(active))
+  const hasMapData = routes.length > 0 || markers.length > 0
+  return <section id="race" className={styles.section} aria-labelledby="disciplines-title">
+    <SectionHeading id="disciplines-title" eyebrow="01 / Find your rhythm" title="One race. Three disciplines.">
+      <p>Explore SWIM, BIKE and RUN. Select a discipline to see its configured distances and course information.</p>
+    </SectionHeading>
+    <div className={styles.disciplineGrid} onPointerLeave={() => setPreview(null)} role="group" aria-label="Explore a discipline">
+      {DISCIPLINES.map((item, index) => <button
+        key={item.slug} type="button" data-discipline={item.slug} data-active={active === item.slug}
+        aria-pressed={selected === item.slug} aria-controls="discipline-detail"
+        className={styles.disciplineCard}
+        onClick={() => { setSelected(item.slug); setPreview(null) }}
+        onFocus={() => { setSelected(item.slug); setPreview(null) }}
+        onPointerEnter={event => { if (event.pointerType === 'mouse') setPreview(item.slug) }}
+      >
+        <Image src={LANDING_MEDIA[item.slug].src} alt="" fill sizes="(min-width: 1280px) 400px, 33vw" className={styles.photo} />
+        <span className={styles.cardShade} aria-hidden />
+        <span className={styles.cardIndex} aria-hidden>0{index + 1}</span>
+        <span className={styles.disciplineTitle}>{item.name}</span>
+        <span className={styles.cardAction}>Explore <span aria-hidden>↗</span></span>
+      </button>)}
+    </div>
+    <p className={styles.credit}>Illustrative sport photography · Jim De Ramos, Daejeung &amp; Olly / Pexels. These images do not depict the official course.</p>
+    <div id="discipline-detail" className={styles.courseGrid}>
+      <div className={styles.distancePanel}>
+        <DisciplineLabel discipline={active} />
+        <h3 className={styles.editorialTitle}>Find your distance.</h3>
+        <dl className={styles.distances}>
+          <div><dt>Sprint</dt><dd>{discipline.distances.sprint}</dd></div>
+          <div><dt>Olympic</dt><dd>{discipline.distances.olympic}</dd></div>
+        </dl>
+        <p className={styles.small}>Registration configuration. Official course distances and instructions await organiser confirmation.</p>
+        <VisualLink href={`/race-info#${active}`} variant="quiet">{discipline.name} race information</VisualLink>
       </div>
-
-    </section>
-  )
+      <RoutePanel title={`${layer.label} course`} status={<StatusIndicator>{hasMapData ? 'Published course records' : 'Awaiting publication'}</StatusIndicator>}>
+        <p>{layer.description}</p>
+        {hasMapData ? <ul className={styles.recordList}>
+          {routes.map(route => <li key={route.id}><strong>{route.name}</strong> — {route.description}<small>Source: {route.source} · reviewed {route.reviewedOn}</small></li>)}
+          {markers.map(marker => <li key={marker.id}><strong>{marker.name}</strong> — {marker.description}<small>Source: {marker.source} · reviewed {marker.reviewedOn}</small></li>)}
+        </ul> : <p className={styles.notice}>{layer.unavailableReason}</p>}
+        <p className={styles.small}>{layer.relatedTransitions.join(' · ')}</p>
+        <div className={styles.actions}><VisualLink href="/course-map">Open course map <span aria-hidden>↗</span></VisualLink></div>
+      </RoutePanel>
+    </div>
+    <ol className={styles.sequence} aria-label="Discipline and transition sequence">{COURSE_SEQUENCE.map(step => <li key={step.label}>{step.label}</li>)}</ol>
+  </section>
 }

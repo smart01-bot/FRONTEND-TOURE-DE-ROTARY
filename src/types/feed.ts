@@ -34,3 +34,12 @@ export interface CreatePostPayload {
   post_type:  PostType
   discipline: FeedDiscipline | null
 }
+
+export interface PostComment {
+  id: string
+  post_id: string
+  user_id: string
+  content: string
+  created_at: string
+  full_name: string
+}

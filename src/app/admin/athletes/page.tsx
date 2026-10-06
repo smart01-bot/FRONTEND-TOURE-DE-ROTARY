@@ -127,7 +127,7 @@ function AthleteRow({ row, onClick }: { row: RegistrationRow; onClick: () => voi
     >
       <Avatar name={name} />
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[13px] font-semibold text-[#334155]">{name}</p>
+        <p data-row-name className="text-[13px] font-semibold text-[#334155]">{name}</p>
         <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
           <CategoryChip category={row.category} />
           {row.profiles?.phone && (

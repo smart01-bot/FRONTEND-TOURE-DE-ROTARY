@@ -25,7 +25,8 @@ export async function getPublicStories(): Promise<PublicStory[]> {
     .order('created_at', { ascending: false })
     .limit(100)
 
-  if (error || !regs || regs.length === 0) return []
+  if (error) throw error
+  if (!regs || regs.length === 0) return []
 
   const userIds = [...new Set(regs.map(r => r.user_id))]
 

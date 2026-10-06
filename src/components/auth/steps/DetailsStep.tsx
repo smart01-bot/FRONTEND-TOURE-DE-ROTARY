@@ -33,14 +33,14 @@ interface Errors {
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 const inp = [
-  'w-full bg-white border-[1.5px] border-[#0D1B3D]/[.12] rounded-[12px]',
+  'w-full bg-white border-[1.5px] border-[#0D1B3D]/50 rounded-[12px]',
   'px-4 py-[15px] font-sans text-body text-[#0D1B3D]',
-  'placeholder:text-[#0D1B3D]/30',
+  'placeholder:text-[#0D1B3D]/70',
   'focus:outline-none focus:border-[#9F2B68] focus:ring-4 focus:ring-[#9F2B68]/10',
   'transition-all duration-200',
 ].join(' ')
 
-const lbl = 'block font-num font-extrabold text-[10px] text-[#0D1B3D]/55 uppercase tracking-[.08em] mb-[9px]'
+const lbl = 'block font-num font-extrabold text-[10px] text-[#0D1B3D]/70 uppercase tracking-[.08em] mb-[9px]'
 
 export default function DetailsStep({
   data,
@@ -87,14 +87,15 @@ export default function DetailsStep({
       <h2 className="font-serif text-[32px] font-bold italic text-[#0D1B3D] leading-[1.08] tracking-[-0.02em] mb-[6px]">
         Your details.
       </h2>
-      <p className="font-sans text-[13px] text-[#0D1B3D]/55 mb-[26px] leading-relaxed">
+      <p className="font-sans text-[13px] text-[#0D1B3D]/70 mb-[26px] leading-relaxed">
         Create your Tour de Dar account. It&apos;s free.
       </p>
 
       {/* Full name */}
       <div className="mb-5">
-        <label className={lbl}>Full name</label>
+        <label htmlFor="register-full-name" className={lbl}>Full name</label>
         <input
+          id="register-full-name"
           type="text"
           autoComplete="name"
           placeholder="Amina Rashid"
@@ -102,14 +103,17 @@ export default function DetailsStep({
           onChange={e => onChange({ fullName: e.target.value })}
           className={inp}
           disabled={loading}
+          aria-invalid={Boolean(errors.fullName)}
+          aria-describedby={errors.fullName ? 'register-full-name-error' : undefined}
         />
-        {errors.fullName && <p className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.fullName}</p>}
+        {errors.fullName && <p id="register-full-name-error" role="alert" className="mt-[6px] font-sans text-[11.5px] text-[#9F2B68]">{errors.fullName}</p>}
       </div>
 
       {/* Email */}
       <div className="mb-5">
-        <label className={lbl}>Email</label>
+        <label htmlFor="register-email" className={lbl}>Email</label>
         <input
+          id="register-email"
           type="email"
           autoComplete="email"
           placeholder="you@example.com"
@@ -117,22 +121,25 @@ export default function DetailsStep({
           onChange={e => onChange({ email: e.target.value })}
           className={inp}
           disabled={loading}
+          aria-invalid={Boolean(errors.email)}
+          aria-describedby={errors.email ? 'register-email-error' : undefined}
         />
-        {errors.email && <p className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.email}</p>}
+        {errors.email && <p id="register-email-error" role="alert" className="mt-[6px] font-sans text-[11.5px] text-[#9F2B68]">{errors.email}</p>}
       </div>
 
       {/* Phone */}
       <div className="mb-5">
-        <label className={lbl}>Phone number</label>
+        <label htmlFor="register-phone" className={lbl}>Phone number</label>
         <div className="flex gap-2">
           <div className={cn(
             'flex items-center px-[14px] rounded-[12px] flex-shrink-0',
             'bg-[#3F78B5]/[.07] border-[1.5px] border-[#3F78B5]/[.14]',
-            'font-sans text-body text-[#0D1B3D]/55 select-none',
+            'font-sans text-body text-[#0D1B3D]/70 select-none',
           )}>
             +255
           </div>
           <input
+            id="register-phone"
             type="tel"
             inputMode="numeric"
             autoComplete="tel-local"
@@ -141,16 +148,19 @@ export default function DetailsStep({
             onChange={handlePhone}
             className={cn(inp, 'flex-1')}
             disabled={loading}
+            aria-invalid={Boolean(errors.phone)}
+            aria-describedby={errors.phone ? 'register-phone-error' : undefined}
           />
         </div>
-        {errors.phone && <p className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.phone}</p>}
+        {errors.phone && <p id="register-phone-error" role="alert" className="mt-[6px] font-sans text-[11.5px] text-[#9F2B68]">{errors.phone}</p>}
       </div>
 
       {/* Password */}
       <div className="mb-0">
-        <label className={lbl}>Password</label>
+        <label htmlFor="register-password" className={lbl}>Password</label>
         <div className="relative">
           <input
+            id="register-password"
             type={showPass ? 'text' : 'password'}
             autoComplete="new-password"
             placeholder="Min. 8 characters"
@@ -158,24 +168,28 @@ export default function DetailsStep({
             onChange={e => onChange({ password: e.target.value })}
             className={cn(inp, 'pr-[54px]')}
             disabled={loading}
+            aria-invalid={Boolean(errors.password)}
+            aria-describedby={errors.password ? 'register-password-error' : undefined}
           />
           <button
             type="button"
             onClick={() => setShowPass(p => !p)}
+            aria-label={showPass ? 'Hide password' : 'Show password'}
+            aria-pressed={showPass}
             className="absolute right-4 top-1/2 -translate-y-1/2
-                       font-num font-bold text-[11px] text-[#3F78B5]/70
+                       font-num font-bold text-[11px] text-[#3F78B5]
                        hover:text-[#0D1B3D] transition-colors duration-200
                        focus:outline-none tracking-[.05em]"
           >
             {showPass ? 'HIDE' : 'SHOW'}
           </button>
         </div>
-        {errors.password && <p className="mt-[6px] font-sans text-[11.5px] text-coral">{errors.password}</p>}
+        {errors.password && <p id="register-password-error" role="alert" className="mt-[6px] font-sans text-[11.5px] text-[#9F2B68]">{errors.password}</p>}
       </div>
 
       {/* Server-side error (e.g. email already in use) */}
       {serverError && (
-        <p className="mt-4 font-sans text-[12px] text-coral leading-snug">
+        <p role="alert" className="mt-4 font-sans text-[12px] text-[#9F2B68] leading-snug">
           {serverError}
         </p>
       )}
@@ -184,6 +198,7 @@ export default function DetailsStep({
         type="button"
         onClick={handleNext}
         disabled={loading}
+        aria-busy={loading}
         className={cn(
           'mt-6 w-full bg-[#FFC62E] text-[#0D1B3D] font-sans text-[14px] font-extrabold',
           'rounded-[12px] py-4 transition-all duration-200 focus:outline-none',

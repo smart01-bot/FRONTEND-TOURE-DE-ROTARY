@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { ACTIVE_LIFECYCLE } from '@/config/lifecycle'
 
 function StandardAuthLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -28,7 +29,7 @@ function StandardAuthLayout({ children }: { children: React.ReactNode }) {
             <span className="h-32 w-5 rotate-[24deg] bg-[#9F2B68]" />
             <span className="h-24 w-4 rotate-[24deg] bg-[#FFC62E]" />
           </div>
-          <main className="relative z-20 flex min-h-[calc(100dvh-300px)] lg:min-h-dvh items-center justify-center px-5 py-8 lg:px-0 lg:py-10">
+          <main id="main-content" tabIndex={-1} className="relative z-20 flex min-h-[calc(100dvh-300px)] lg:min-h-dvh items-center justify-center px-5 py-8 lg:px-0 lg:py-10">
             <div className="w-full max-w-[470px] lg:-ml-[33%]">
               <div className="overflow-hidden rounded-[22px] bg-white shadow-[0_22px_70px_rgba(13,27,61,.18)] ring-1 ring-[#0D1B3D]/[.08]">
                 <div className="flex h-[7px] w-full">
@@ -39,8 +40,8 @@ function StandardAuthLayout({ children }: { children: React.ReactNode }) {
                 <div className="px-7 pb-8 pt-7 sm:px-9 sm:pb-9 sm:pt-8">
                   {!isReset && (
                     <div className="mb-7 flex items-center rounded-full bg-[#3F78B5]/[.07] p-1">
-                      <Link href="/login" className={`flex-1 rounded-full py-2.5 text-center font-sans text-[12px] font-extrabold transition-all ${!isRegister ? 'bg-[#3F78B5] text-white shadow-sm' : 'text-[#3F78B5]/60 hover:text-[#3F78B5]'}`}>Sign in</Link>
-                      <Link href="/register" className={`flex-1 rounded-full py-2.5 text-center font-sans text-[12px] font-extrabold transition-all ${isRegister ? 'bg-[#9F2B68] text-white shadow-sm' : 'text-[#9F2B68]/65 hover:text-[#9F2B68]'}`}>Register</Link>
+                      <Link href="/login" className={`flex-1 rounded-full py-2.5 text-center font-sans text-[12px] font-extrabold transition-all ${!isRegister ? 'bg-[#3F78B5] text-white shadow-sm' : 'text-[#3F78B5] hover:brightness-90'}`}>Sign in</Link>
+                      <Link href="/register" className={`flex-1 rounded-full py-2.5 text-center font-sans text-[12px] font-extrabold transition-all ${isRegister ? 'bg-[#9F2B68] text-white shadow-sm' : 'text-[#9F2B68] hover:brightness-90'}`}>{ACTIVE_LIFECYCLE.registration.state === 'open' ? 'Register' : 'Registration closed'}</Link>
                     </div>
                   )}
                   {children}

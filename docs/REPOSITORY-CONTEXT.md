@@ -1,15 +1,17 @@
 # Tour de Dar — Repository Context
 
 **Repository:** `smart01-bot/FRONTEND-TOURE-DE-ROTARY`  
-**Branch:** `main`  
-**Baseline reviewed:** `324a013c268027a3ded4364cb909193f1fccedd4`  
-**Reviewed:** 19 September 2026
+**Active branch:** `development`
+
+**Protected stable branch:** `main` at pre-Phase-1 state
+**Phase 7 starting baseline:** `313cb684a479cc501c8bbbdbdc416e30591dff08`
+**Reviewed:** 4 October 2026 (EVOLUTION-02)
 
 This file describes the committed implementation. Source code remains authoritative for exact behaviour.
 
 ## Stack
 
-- Next.js 14.2.18 with App Router
+- Next.js 14.2.35 with App Router
 - React 18.3
 - TypeScript 5.6
 - Tailwind CSS 3.4
@@ -23,16 +25,28 @@ This file describes the committed implementation. Source code remains authoritat
 | --- | --- | --- |
 | `/` | Public | Event landing page |
 | `/stories` | Public | Participant stories |
+| `/race-info` | Public | Configurable race information with native expandable sections and explicit TBD states |
+| `/course-map` | Public | SWIM, BIKE, RUN and EVENT map views with configurable verified geometry and honest unavailable states |
 | `/fundraise/[slug]` | Public | Public fundraising campaign |
 | `/login` | Guest | Participant sign-in |
-| `/register` | Guest | Multi-step registration |
+| `/register` | Guest | Account creation through DetailsStep; race-registration steps are not connected |
 | `/reset-password` | Guest | Password recovery |
 | `/dashboard` | Participant | Participant overview |
 | `/ticket` | Participant | Digital ticket and bib presentation |
 | `/training` | Participant | Training resources |
 | `/feed` | Participant | Community feed |
+| `/teams` | Participant | Capability-gated team experience; unavailable until backend approval |
+| `/challenges` | Participant | Capability-gated challenge catalogue; currently no approved challenges |
+| `/challenges/[slug]` | Participant | Typed challenge detail or honest unpublished state |
+| `/results` | Participant | Personal result status and timing-contract boundary |
+| `/results/leaderboards` | Participant | Performance/community ranking availability |
+| `/results/photos` | Participant | Event gallery and Find Me availability |
+| `/results/memories` | Participant | Private verified-data memory-card creation |
 | `/fundraise` | Participant | Fundraising dashboard |
 | `/profile` | Participant | Account and participant story |
+| `/community-guidelines` | Public | Community conduct, privacy, photo-consent and reporting guidance |
+| `/archive` | Public | Lifecycle-aware historical-edition home with truthful capability states |
+| `/privacy` | Public | Privacy, consent-boundary and data-rights notice with honest request entry points |
 | `/admin/overview` | HQ admin | Administrative overview |
 | `/admin/athletes` | HQ admin | Athlete management |
 | `/admin/athletes/[id]` | HQ admin | Athlete record |
@@ -45,34 +59,58 @@ This file describes the committed implementation. Source code remains authoritat
 - `src/components/auth/` contains authentication and registration UI.
 - `src/components/participant/` contains participant navigation.
 - `src/components/feed/` contains post composition and cards.
+- `src/components/community/` contains authenticated activity and capability-state presentation.
+- `src/components/race-day/` contains Phase 5 navigation, capability states and local memory-card rendering.
 - `src/components/admin/` contains shared administration UI.
 - `src/config/site.ts` holds general event metadata.
 - `src/config/categories.ts` holds categories, disciplines, prices, and distances.
+- `src/config/race-info.ts` holds race-information sections, sourced facts, pending operational fields, FAQs, and guide availability. It imports registration options and fees from the existing category configuration.
+- `src/config/course-map.ts` is the only operational course-map data contract. It defines separate view metadata, route polylines, marker/location types, transition relationships, legend entries, required source/review metadata, and the currently empty verified datasets.
+- `src/config/community.ts` contains community guidelines and typed frontend capability states. Its challenge catalogue is intentionally empty until organiser-approved definitions exist.
+- `src/config/race-day.ts` contains result, leaderboard, photography and memory-card capability states. Published result, ranking and album datasets are intentionally empty.
+- `src/config/lifecycle.ts` is the central typed contract for pre-event, race-day, memory and archive presentation, registration/community permissions, navigation priority, edition identity and safe fallback behaviour.
+- `src/app/robots.ts` and `src/app/sitemap.ts` publish public-route indexing guidance while excluding participant and administration routes.
+- `src/components/lifecycle/` contains the compact participant state notice and closed-action explanation.
+- `src/app/race-info/page.tsx` renders static public content using existing homepage components and design tokens. Native `details`/`summary` controls work without client-side data fetching. The route is explicitly public in middleware.
+- `src/app/course-map/page.tsx` renders the public map page. `src/components/course-map/CourseMapExperience.tsx` owns its client-side switcher, connectivity state, optional user-location request, SVG geometry renderer, zoom/fit controls, mobile detail sheet, legend and accessible text alternative. The route is explicitly public in middleware.
 - `src/context/UserContext.tsx` supplies authenticated-user context.
 - `src/context/ParticipantThemeContext.tsx` supplies participant theme state.
 - `src/hooks/` connects screens to participant, story, feed, fundraising, and admin data.
 - `src/lib/supabase/` contains browser/server clients and feature data services.
-- `middleware.ts` protects authenticated and administrative routes.
+- `src/middleware.ts` protects authenticated and administrative routes. It must remain beside `src/app`; placing it at repository root prevents Next.js from bundling it.
 
 ## Current connected flows
 
 - Supabase authentication and password recovery
-- Multi-step participant registration
+- Account creation (DetailsStep → signUp); category/discipline/story/payment step files are not connected to the current entry journey
 - Participant record to dashboard, ticket, training, fundraising, story, profile, and feed
 - Public fundraising campaigns and supporter activity
 - Public participant stories
-- Community text posts, reactions, realtime updates, and comment counts
+- Community text posts, reactions, realtime updates, comment reading/writing, and owner edit/delete
+- Comment submission progress, validation, retry, permission feedback and count refresh
+- Authenticated participants can see their own real post activity on their private profile
+- Public community guidelines and truthful reporting-unavailable guidance
+- Real homepage community previews with honest loading, empty, and error states
+- Digital-ticket QR generation with readiness gates, save, share, and print actions
+- Private digital-bib and participant-story memory cards generated locally from the signed-in participant's verified existing data
+- Lifecycle-aware registration, community composition, public CTAs and participant navigation, plus a truthful public edition archive
+- Public privacy/consent boundaries plus email-based access and deletion request entry points that do not claim backend submission
 - HQ role checks, athlete records, payment confirmation, and bib assignment
 
 ## Current incomplete product areas
 
-- Homepage activity and statistics include static presentation that must be replaced with real data or honest empty states.
-- Several homepage and training controls require working destinations or honest disabled states.
-- Feed comments are counted but do not have a complete reading/writing interface.
-- Digital-ticket QR presentation is not yet a complete save/share/identity flow.
+- Post reporting no longer claims local success. The UI states truthfully that no report was submitted; backend moderation persistence and enforcement remain outstanding.
+- Training resources remain honestly disabled until verified content and course information are published.
+- Digital-ticket identity links currently lead to the authenticated profile; public participant profiles remain blocked by missing profile/photo/activity/bib consent and public-identifier contracts.
+- Profile-photo uploads and feed media attachments await an approved storage and RLS contract.
 - Participant profiles do not yet function as public digital homes.
-- Teams, challenges, complete race information, discipline maps, leaderboards, results, photo discovery, lifecycle modes, and archival experience are not implemented.
-- Product naming and the primary participant-story prompt require a final project-wide decision.
+- Race-information frontend is implemented; official dates/venues, courses, waves, policies, logistics and guide publication remain unverified/TBD. Existing homepage/registration date and course copy have no recorded organiser provenance; do not treat them as operational confirmation.
+- Teams and challenges have protected, typed, capability-gated frontend homes with honest unavailable states. Create/join/search/invitation/membership/roles/relay/statistics/activity and challenge enrolment/progress/completion/history/badges/sharing remain backend- or decision-blocked.
+- The course-map frontend is implemented, but all route polylines and operational markers remain unpublished because no reviewed organiser geometry or logistics source exists. Do not convert legacy homepage, registration, README or ticket copy into map records.
+- Phase 5 result, leaderboard, photo/Find Me and memory routes are implemented. Live times, rankings, albums, associations and completion-based cards remain blocked by missing timing, photography, consent and backend contracts.
+- Licensed Old Dar/Modern Dar archival material is unavailable. The archive states this explicitly instead of presenting unsourced history or imagery.
+- Automated privacy requests and communication/research consent persistence are unavailable. `/privacy` provides truthful boundaries and organiser email entry points only.
+- Naming and story prompt were settled in Phase 1: `Tour de Dar` and `Why are you doing this?`.
 
 ## Expected Supabase entities
 
@@ -86,6 +124,12 @@ The current frontend expects or references:
 - `post_reactions`
 - `post_comments`
 
+The frontend assumes `post_comments` contains `id`, `post_id`, `user_id`, `content`, and `created_at` and that authenticated participants have the required RLS permissions.
+
+No repository contract exists for public-profile consent/slugs, reports, moderation actions, teams, memberships, invitations, challenges, progress or completion. `src/types/community.ts` defines frontend domain shapes only; it does not declare Supabase tables or policies.
+
+No repository contract exists for timing results, splits, transitions, rankings, photo albums, participant-photo associations, photographer records or photo consent. `src/types/race-day.ts` is a frontend domain contract only.
+
 Administration access expects the profile role `hq_admin`. Row Level Security and backend migrations are shared/backend responsibilities and must be verified separately.
 
 ## Environment-variable names
@@ -94,6 +138,7 @@ Administration access expects the profile role `hq_admin`. Row Level Security an
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `NEXT_PUBLIC_SITE_URL`
 - `NEXT_PUBLIC_API_BASE_URL`
+- `NEXT_PUBLIC_EVENT_LIFECYCLE` (optional: `pre_event`, `race_day`, `memory`, or `archive`; invalid values fail closed)
 
 Never record their values in Git. `.env` and `.env.*` must remain ignored.
 
@@ -110,12 +155,101 @@ If a command is unavailable or blocked by missing external configuration, record
 
 ## Preservation warnings
 
+- The UI on active GitHub `development` must be preserved during feature work; GitHub `main` remains the protected pre-Phase-1 visual reference. Future work must extend the existing design without unsolicited redesign, restyling, restructuring, or visual-system replacement.
+- Preserve existing layouts, spacing, typography, colours, imagery, navigation patterns, component shapes, and responsive behaviour unless the user explicitly approves a precisely scoped visual change.
+- Inspect affected screens before editing and compare them with the baseline afterward at phone, tablet, and desktop sizes.
+- Feature requests grant permission to add the feature, not permission to redesign the page containing it.
 - Keep `UserProvider` mounted above every consumer of `useUser`; otherwise the application throws `useUser must be used within a UserProvider`.
 - Keep the participant theme provider available to participant-theme consumers.
 - Do not commit `.env.local` or expose Supabase/service credentials.
 - Update asset references in the same commit as any asset rename.
+- Keep generated `*.tsbuildinfo` out of Git.
+- Ticket QR payloads contain only a site/profile URL and registration identifier; do not encode private participant fields.
 - Preserve server-side authentication verification and HQ role checks while editing layouts.
+- Keep middleware at `src/middleware.ts`. The root-level location is not active in this `src/app` project and previously left participant routes unguarded at the request boundary.
+- Run `npm run build` after the final intended change and require it to pass before committing. If any file changes afterward, rerun the build.
+- Keep browser zoom enabled, the global skip link functional, reduced-motion overrides intact and async form errors announced.
+- Keep security headers in `next.config.mjs`; the unused Supabase wildcard image-optimizer rule was removed to reduce attack surface.
+- The remaining Next.js audit finding cannot be cleared within the compatible 14.2 line. Treat a fully verified major-version framework migration as a launch blocker, not an automatic force-upgrade.
+- Populate `COURSE_ROUTES` and `COURSE_MAP_MARKERS` only from reviewed organiser sources. Every record must retain its source and review date; coordinates, venues and operational points must never be estimated.
+- `/course-map` must not request location permission on load. The user-location action stays optional and is disabled while no verified map data exists.
+- Treat `story_public = null` as private in the profile UI. Existing story consent does not authorise a public participant home, photo, activity, team, challenge or bib disclosure.
+- Do not connect public profiles, reports, uploads, teams or challenges by guessing table, bucket, RPC, API or RLS names. Their current unavailable states are intentional.
+- Do not treat registration or bib assignment as completion. Do not connect results, rankings or photographs by guessing timing tables, provider fields, photo buckets, associations, APIs or RLS.
+- Change lifecycle mode only after an organiser-approved operational decision. Do not infer a transition from existing unsourced event copy or dates. Invalid values must retain the read-only fallback.
+
+## Operating Phase 6 lifecycle modes
+
+- The repository default is `pre_event`. A valid `NEXT_PUBLIC_EVENT_LIFECYCLE` value may select `race_day`, `memory` or `archive` for a deployment.
+- `race_day` prioritises ticket, course and result destinations but does not create alerts, live data or provisional results.
+- `memory` and `archive` make community composition read-only while keeping already-authorised stories/posts readable.
+- `/archive` identifies only the configured edition and shows honest unavailable states for unpublished results, photographs and impact.
+- Results, photos, teams and challenges retain their own backend/capability gates in every lifecycle mode.
+
+## Connecting Phase 5 backend capabilities
+
+- Keep Phase 5 routes protected until public-result and public-photo privacy rules are explicitly approved.
+- A result integration requires an approved timing source, stable participant match, publication states and DNF/DNS/disqualification rules.
+- Category, gender and age-group filters appear only when verified fields exist and their publication is approved.
+- Photography requires approved storage, albums, credits, bib associations, consent, withdrawal and download rules.
+- Digital-bib and story cards remain private browser-generated artifacts. Completion/result/team/challenge claims require their real source records.
 
 ## Documentation update trigger
 
 Update this file whenever a phase changes routes, providers, shared layouts, data integrations, dependencies, environment requirements, or the status of a major product area.
+
+## Publishing race information
+
+- Keep unknown facts `null`; the page renders `TBD`. Every non-null operational fact requires a source and review date in its typed record.
+- Current registration options/fees are labelled as registration configuration, not official course approval. Update their canonical category config rather than copying numbers into the page.
+- Replace `RACE_GUIDE.file: null` only with a real approved PDF path, its official source, and review date. Add the file to the asset register and verify the download.
+- The homepage race CTA plus one section expansion reaches every topic in at most two taps (scrolling may be needed). Interactive maps remain Phase 3.
+- No new Supabase entities, environment variables, dependencies, global styles or participant UI changes were introduced by Phase 2.
+
+## Publishing course-map data
+
+- Keep unverified route and marker arrays empty in `src/config/course-map.ts`; the page renders a per-view unavailable explanation.
+- A route needs a stable ID, applicable view(s), description, coordinate sequence, official source and review date.
+- A location needs a stable ID, marker kind, applicable view(s), description, coordinate, official source and review date.
+- Supported marker kinds cover start, finish, transitions, safety, aid, hydration, medical, parking, transport, spectators, check-in and landmarks.
+- The current renderer is dependency-free and bundles any future verified data with the page. No map-tile provider or organiser geometry has been assumed.
+- No new Supabase entities, environment variables, packages, global styles or assets were introduced by Phase 3.
+
+## Connecting Phase 4 backend capabilities
+
+- Keep `/teams`, `/challenges` and `/challenges/[slug]` protected. Their current routes render typed unavailable states without querying invented entities.
+- Approved challenge definitions may be added to `CHALLENGES` only with verified title, description, start/end dates, target, unit and progress mechanism. An empty catalogue is the correct current state.
+- Public participant profiles require a public identifier plus separate consent decisions for profile, photo, story, activity and bib presentation. `story_public` alone is insufficient.
+- Persistent reports require approved reasons, statuses, moderator roles, enforcement behaviour and RLS. Until then, the feed must say that no report was submitted.
+- Profile photos and post media remain disabled until approved storage buckets, file constraints and RLS exist.
+- No database migration, storage change, dependency, environment-variable name or asset was introduced by Phase 4.
+
+## EVOLUTION-01 shared foundation
+
+Approved scope: [MASTER-CONTEXT](visual-evolution/MASTER-CONTEXT.md). Opt-in `src/components/visual-system` uses a scoped CSS module and existing fonts; public/participant/admin modes do not replace legacy globals or page layouts. Shared `BrandName` delegates to SITE.name; shared participant/admin logo alt text also uses SITE.name. No routes, providers, dependencies, environment names, data helpers, permissions or lifecycle settings changed.
+
+Use [INVENTORY](visual-evolution/INVENTORY.md) for actual journeys, sensitive-file consumers and inherited defects; [ADMIN-CAPABILITIES](visual-evolution/ADMIN-CAPABILITIES.md) separates current hq_admin functions from expanded backend requirements. Read [STATUS](visual-evolution/STATUS.md) before choosing the next phase. Run `node scripts/check-evolution-boundaries.mjs` alongside existing checks. Historical UI-preservation rules still apply outside the approved phase scope.
+
+
+## EVOLUTION-02 landing adoption
+
+`/` now adopts Phase 1 VisualSurface and landing-scoped CSS; other routes keep their presentation. Hero/discipline/impact images use next/image with sizes and reserved geometry, one priority hero and lazy supporting images. Automatic rotation/countdown is absent from the landing; CountdownTimer remains unchanged for other consumers. Hero's confirmed date comes from the reviewed race-info fact, currently TBD, rather than legacy SITE.event.date.
+
+`DisciplinesSection` adds local pointer/keyboard/touch selection around canonical distances and course-map records. `EventWeekend` adds browsing-only Before/Race Day/After views from existing configs. `SponsorsSection` supports three tiers with an intentionally empty approved-record list. No CMS, sponsor source or backend API has been invented. Story/feed helpers and lifecycle action conditions are unchanged; no provider, route, dependency or environment contract changes. See latest [landing handoff](handoffs/EVOLUTION-02-LANDING-HANDOFF.md).
+
+
+## EVOLUTION-03 public experience
+
+Public race-info, course-map, stories, archive, privacy, community-guidelines and donor campaign pages now adopt `components/public/PublicPage.tsx` with scoped public/donor CSS. It composes the unchanged HomeNav/HomeFooter, existing lifecycle label/edition, active public navigation and utility links. `/` retains its Phase 2 composition; its sponsor section only gains a stable `#sponsors` target. There is no new route or API.
+
+Race topics retain their IDs/native details and canonical config. CourseMapExperience retains its engine and adds presentation/accessibility attributes; its protected hash change is explicitly reviewed in CHANGE-REGISTER, not rebaselined. StoryCard expands long already-public stories using native details; useStories and consent queries are unchanged. DonorClient retains its server props and donation behavior; thank-you presentation uses a native modal dialog, and inputs are labelled. Original EV-003/004 payment/consent risks remain.
+
+Current gate/evidence and exact next task are in [EVOLUTION-03 handoff](handoffs/EVOLUTION-03-PUBLIC-EXPERIENCE-HANDOFF.md). No new dependencies, assets, environment names, backend contract or lifecycle mode.
+
+## EVOLUTION-04 participant/admin adoption
+
+Participant layout now wraps its existing children/navigation/lifecycle notice in `PortalSurface`, inside the unchanged theme provider. It adopts the shared visual-system tokens through scoped portal/dashboard CSS. Ticket/profile use calmer typography. Feed, training, fundraising, teams/challenges and race-day headers share athletic hierarchy; existing handlers, hooks and private-data boundaries remain authoritative.
+
+Dashboard status comes from existing registration/payment/bib fields and campaign data; unverified progress/countdown defaults were removed. Dashboard/feed/training/ticket now display the reviewed race-info date (TBD); ticket venue also uses the reviewed fact. Memory-card caption no longer embeds an unverified date. Ticket QR/readiness/actions are unchanged, and a decorative unrelated-number bib raster is no longer displayed.
+
+New `/admin/manage` inherits the unchanged `hq_admin` server layout and contains only gated expanded management controls. Existing athlete/payment/bib actions retain their contracts. Admin fee estimate is not reconciled revenue. Five protected-source flags and one additive route flag are reviewed in CHANGE-REGISTER, not rebaselined. No dependencies, assets, API, auth/config/provider or database changes. See the EVOLUTION-04 handoff for evidence and operational limitations.

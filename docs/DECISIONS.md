@@ -4,16 +4,70 @@ Only settled, project-wide choices belong here. Newer entries replace older entr
 
 | Date | Status | Decision | Reason / impact |
 | --- | --- | --- | --- |
-| 2026-09-19 | Active | GitHub `main` is the code source of truth. | Every phase starts from a fresh fetch and ends only after a verified push. |
+| 2026-09-19 | Superseded | GitHub `main` is the code source of truth. | Superseded by the branch-separation decision below. |
+| 2026-09-19 | Active | GitHub `development` is the active code and phase-work source of truth; `main` is the protected stable pre-Phase-1 baseline. | Every phase starts from and pushes to `development`. Nothing moves to `main` without explicit user authorisation for a release or merge. |
 | 2026-09-19 | Active | The Project Bible is the product and workflow source of truth. | Future chats must read it before implementation. |
 | 2026-09-19 | Active | Use one principal chat per phase. | Keeps relevant context together without rebuilding context for each small task. |
 | 2026-09-19 | Active | Build mobile first, then verify tablet and desktop. | The core participant experience will mainly be used on phones. |
 | 2026-09-19 | Active | Never present invented activity as live data. | Empty states are preferable to misleading registrations, posts, donations, or statistics. |
 | 2026-09-19 | Active | The visual system uses blue, magenta (`#9F2B68`), yellow, white, and deep navy. | Maintains the approved event identity while allowing disciplined emphasis. |
 | 2026-09-19 | Active | Preserve the clean modern UI while adding Old Dar × Modern Dar through storytelling layers. | Historical atmosphere must not harm usability. |
-| 2026-09-19 | Pending | Final public naming: `Tour de Dar` versus `Tour de Rotary Dar es Salaam`. | Must be settled during Phase 1 and applied consistently. |
-| 2026-09-19 | Pending | Final primary story label: `Why I Participate` versus `Why are you doing this?`. | Must be settled during Phase 1 before global copy changes. |
+| 2026-09-19 | Active | The final public product name is `Tour de Dar`. | Matches the Project Bible, site configuration, metadata, and concise public identity; supersedes mixed `Tour de Rotary` UI copy. |
+| 2026-09-19 | Active | The primary participant-story prompt is `Why are you doing this?`. | Uses one direct, human prompt across registration and profile editing; supersedes mixed `Why I race` / `Why I participate` prompts. |
+| 2026-09-19 | Active | Unpublished training resources and event schedule details remain visibly unavailable or `TBD`. | Prevents dead controls and invented operational information. |
+| 2026-09-19 | Active | Existing UI must be preserved on `development`, with `main` retained as the pre-Phase-1 visual reference. | Every agent must build additively and may not redesign, restyle, restructure, or replace the UI without explicit user approval for the exact visual scope. |
+| 2026-09-19 | Active | A successful final `npm run build` is mandatory before every commit. | The build must run after all intended changes; work cannot be committed, pushed, or declared complete if it fails. |
+
+| 2026-09-19 | Active | Race information lives at public `/race-info`, with content in `src/config/race-info.ts` and native expandable sections. | Keeps all topics within two taps from the homepage, reuses existing visual tokens, and requires no new backend. |
+| 2026-09-19 | Active | Existing registration configuration is labelled as such; it does not verify official operational information. Unknown facts render `TBD`, and confirmed fact records require a source and review date. | Avoids inventing event details from unsourced legacy copy. Official guide remains disabled until a reviewed PDF exists. |
+| 2026-09-20 | Active | Course maps live at public `/course-map`, with operational geometry and markers centralised in `src/config/course-map.ts`. | Keeps SWIM, BIKE, RUN and EVENT separate, makes future route publication configurable, and gives `/race-info` one additive entry point without restructuring its established sections. |
+| 2026-09-20 | Active | Course polylines and operational markers stay absent until reviewed organiser data supplies coordinates, a source and a review date. | A complete honest unavailable map experience is preferable to estimated routes, venues, transitions or logistics. Location permission is optional and never requested on page load. |
+| 2026-09-20 | Active | Phase 4 uses protected `/teams`, `/challenges` and `/challenges/[slug]` homes plus public `/community-guidelines`; unavailable capabilities are typed and visibly gated instead of being simulated. | The repository has no approved teams, challenges, reports, public-profile or media backend contracts. Frontend domain types do not authorise tables, APIs, buckets or policies. |
+| 2026-09-20 | Active | `story_public` controls the public story listing only and a missing value is treated as private. | Story consent does not authorise a public participant profile, photo, activity, team, challenge history or bib disclosure. |
+| 2026-09-20 | Active | Reporting must never claim success until a persistent moderation contract and enforcement workflow exist. | The former local-only “Reported” acknowledgement was misleading; the feed now states that no report was submitted and provides guidelines plus urgent-contact information. |
+| 2026-09-20 | Active | Phase 5 lives under protected `/results` with leaderboard, photos and memories children; timing and photography datasets remain empty until approved contracts exist. | Prevents publication of invented results, rankings, photos or consent while providing intentional pre-race states. |
+| 2026-09-20 | Active | Only private digital-bib and participant-story cards may be generated from existing signed-in participant data. | Registration does not prove completion; result, finisher, team and challenge cards require real source records. |
+| 2026-09-20 | Active | Event lifecycle is controlled only by typed `src/config/lifecycle.ts`; the approved default is `pre_event`, and no date automatically changes it. | Prevents unverified operational transitions. Invalid configured values fail closed to read-only presentation, while every mode preserves backend capability and privacy gates. |
+| 2026-09-20 | Active | `/archive` is the public home for one configured historical edition; it does not imply that multiple past editions or unpublished results, photos or impact records exist. | Keeps ended events coherent without fabricating archive data. |
+| 2026-09-20 | Active | `/privacy` is the public source for consent boundaries and data-rights entry points; email links open a request channel but never represent a submitted or completed request. | The repository has no approved preference centre, request tracker, research-consent service or deletion API. |
+| 2026-09-20 | Active | Historical Old Dar × Modern Dar content stays unpublished until provenance, usage rights, attribution and factual review are recorded. | The approved narrative direction does not authorise fabricated history or unlicensed material. |
+| 2026-09-20 | Active | Patch Next.js only within the compatible 14.2 line during Phase 7; treat the remaining audit remediation as a separately tested major migration. | `npm audit` requires a breaking upgrade, so force-upgrading during launch hardening would violate safe compatibility verification. |
 
 ## Entry format
 
 When adding a decision, include the date, status (`Active`, `Pending`, `Superseded`), exact decision, reason, affected areas, and the decision it replaces when applicable.
+
+## Visual evolution decisions — 4 October 2026
+
+| Status | Decision | Scope / supersession |
+| --- | --- | --- |
+| Active — user approved | Five-phase visual evolution; Tour development supplies functional truth, Augment read-only inspiration | Supersedes blanket UI-preservation restrictions only within each named EVOLUTION scope; main stays protected |
+| Active | EVOLUTION-01 components are opt-in CSS-module foundations with public/participant/admin modes, existing fonts and stable discipline colors | No independent page redesign or global-token replacement |
+| Active — user approved | Product name Tour de Dar; retain Rotary attribution and technical identifiers | Shared branding first, page/artwork/export sweep later |
+| Active — scope only | Full event management targets participant approvals, content, sponsors, moderation, race operations, staff permissions and audit | Exact role strings, account grants and persistence contracts remain undecided; retain hq_admin guard |
+| Active | Repository master brief is the phase entry point; STATUS and newest EVOLUTION handoff govern progress | Separate evolution numbering from historical phases 0–7; one chat per phase |
+
+
+## EVOLUTION-02 — 4 October 2026
+
+- Active, approved scope: landing-only visual transformation using existing visual-system tokens. HomeNav/HomeFooter source and non-homepage presentation stay intact.
+- Active: hero shows the reviewed confirmed-date fact (TBD now); no countdown or lifecycle inference from the unsourced legacy date. Protected configuration remains unchanged.
+- Active: discipline selection and Before/Race Day/After are local browsing state, independent of operational lifecycle and registration permission.
+- Active: existing photographs are illustrative; they are never participant identities, official course evidence or treatment/impact records. Authentic organiser imagery/rights remain a publication dependency.
+- Active: sponsor tiers render only explicitly approved records; the production dataset is empty. A frontend rendering type does not establish a persistence API or new permission.
+
+
+## EVOLUTION-03 — 4 October 2026
+
+- Active, approved public scope: shared public frame, athletic type, navigable race topics, map framing, editorial stories and participant-led fundraising; calm readable privacy/community cards.
+- Active: sponsors remain the existing Phase 2 tiered section at `/#sponsors`; add its anchor and public navigation instead of introducing another source or an unneeded route.
+- Active: full-story expansion displays only the same consent-filtered record. No broader public participant identity inferred.
+- Active: map data/engine and donor payment business code remain unchanged. Review the single protected map presentation diff explicitly; do not reset its baseline hash.
+- Active: no imagery is newly adopted while source/rights approval is unresolved. No decorative line is presented as route geometry.
+
+## EVOLUTION-04 — 4 October 2026
+
+- Approved scoped participant/admin visual adoption retains all existing hooks, action contracts, theme/lifecycle/auth boundaries and public pages.
+- `/admin/manage` is an additive protected availability workspace. Eight expanded actions remain disabled; no new role, account power, API or persisted operation.
+- Display actual registration/payment/bib statuses; remove fixed progress/clock values and unverified date/venue presentation. Reviewed race-info facts remain authority. Fee estimates are not accounting revenue.
+- Retain and explicitly document inherited error/RLS/concurrency/audit limitations rather than claiming a visual redesign resolves them.

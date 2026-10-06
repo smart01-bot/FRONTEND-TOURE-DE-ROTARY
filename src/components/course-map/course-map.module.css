@@ -1,0 +1,26 @@
+.experience { padding: 2rem clamp(1rem,3vw,2.5rem) 4rem; max-width: 1360px; margin: auto; }
+.tabs { background: white; border: 1px solid #cbd5e1; padding: .5rem; border-radius: 1rem; }
+.tabs button { min-height: 80px; font-family: var(--font-jakarta),sans-serif; font-weight: 800; font-size: clamp(.8rem,2vw,1.5rem); border-radius: .65rem; color: #475569; }
+.tabs button[aria-selected='true'] { background: #0d1b3d; color: white; }
+.tabs button span { width: 36px; height: 4px; }
+.sequence { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-block: 1.25rem; }
+.sequence button { font-size: .75rem; }
+.panel { margin-top: 1.5rem; border: 1px solid #cbd5e1; border-radius: 1.5rem; overflow: hidden; background: white; }
+.canvasFrame { min-width: 0; padding: 1.25rem; background: #0d1b3d; color: white; }
+.canvasFrame p { color: #e2e8f0; }
+.canvasFrame :is(button,a):focus-visible { outline-color: #ffc62e; }
+.canvasFrame button:disabled { opacity: .65; }
+.canvasFrame > div:first-child > div:first-child > p:last-child { font-family: var(--font-jakarta),sans-serif; font-size: 2rem; font-weight: 800; }
+.details { padding: 1.5rem; color: #475569; font-size: .875rem; }
+.details > p:first-child { font-family: var(--font-jakarta),sans-serif; font-size: 1.5rem; font-weight: 800; }
+.details dl > div { background: #f1f5f9; border-radius: .75rem; }
+.supplement { display: grid; gap: 1.25rem; margin-top: 1.25rem; }
+.supplement > section { border: 1px solid #cbd5e1; border-radius: 1rem; box-shadow: none; padding: 1.5rem; }
+.supplement h3 { font-family: var(--font-jakarta),sans-serif; font-size: 1.2rem; }
+.supplement li > span:last-child { white-space: normal; overflow: visible; }
+.canvas { position: relative; min-height: 440px; overflow: hidden; border: 1px solid #64748b; border-radius: 1rem; background: #0a1630; }
+.canvas > p:last-child { max-width: calc(100% - 80px); border-radius: .5rem; }
+.canvas > div:nth-last-child(3) { padding-bottom: 7rem; }
+@media(min-width:1024px) { .panel { display: grid; grid-template-columns: minmax(0,1.8fr) minmax(280px,.8fr); } .supplement { grid-template-columns: repeat(2,minmax(0,1fr)); } .canvas { min-height: 520px; } .details { border-left: 1px solid #cbd5e1; } }
+@media(forced-colors:active) { .tabs button[aria-selected='true'] { border: 3px solid Highlight; } }
+.experience [class*='text-ink-subtle'] { color: #475569; }
